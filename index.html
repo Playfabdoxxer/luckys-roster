@@ -49,9 +49,23 @@
             position: relative;
             z-index: 1;
             max-height: 90vh;
-            overflow-y: auto; /* Scroll if roster gets too long */
+            overflow-y: auto;
         }
         
+        /* --- SCROLLBAR STYLING (Far Right) --- */
+        .roster-card::-webkit-scrollbar {
+            width: 6px;
+        }
+        .roster-card::-webkit-scrollbar-track {
+            background: transparent;
+            margin: 2rem 0;
+        }
+        .roster-card::-webkit-scrollbar-thumb {
+            background: rgba(255,50,100,0.3);
+            border-radius: 10px;
+        }
+        /* ------------------------------------ */
+
         .roster-header {
             display: flex;
             justify-content: space-between;
@@ -112,6 +126,8 @@
         .nav-tabs {
             display: flex;
             gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
         .tab-btn {
             background: rgba(255,255,255,0.03);
@@ -167,7 +183,7 @@
             margin-right: 0.3rem;
         }
 
-        /* --- ROLE HEADERS WITH GRADIENT BUBBLE (Like Screenshot) --- */
+        /* --- ROLE HEADERS --- */
         .role-group {
             margin-bottom: 1.5rem;
         }
@@ -196,7 +212,7 @@
 
         .member {
             display: flex;
-            align-items: center; /* Centered so name aligns with avatar */
+            align-items: flex-start;
             gap: 1rem;
             padding: 0.6rem 0.4rem;
             margin-bottom: 0.1rem;
@@ -224,6 +240,7 @@
             border: 1px solid rgba(255,50,100,0.06);
             box-shadow: 0 2px 8px rgba(0,0,0,0.5);
             text-transform: uppercase;
+            margin-top: 4px;
         }
 
         .member-info {
@@ -240,10 +257,11 @@
             margin-bottom: 0.1rem;
         }
         .member-name h3 {
-            font-size: 1.1rem; /* Slightly bigger for emphasis */
+            font-size: 1.1rem;
             font-weight: 600;
             letter-spacing: -0.2px;
             -webkit-text-fill-color: transparent;
+            margin-right: 0.1rem;
         }
 
         /* --- ROLE TAG WITH GRADIENT --- */
@@ -263,28 +281,36 @@
         }
         /* ---------------------------------- */
 
-        .member-bio {
-            font-size: 0.85rem;
-            color: #a8b2c9;
+        /* --- FIXED BIO AND ICON LAYOUT --- */
+        .member-bio-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
             margin-top: 0.15rem;
-            line-height: 1.4;
             transition: all 0.3s ease;
-            max-height: 50px;
-            overflow: hidden;
         }
-        .member-bio.hidden {
+        .member-bio-wrapper.hidden {
             opacity: 0;
             max-height: 0;
             margin: 0;
             padding: 0;
             pointer-events: none;
+            overflow: hidden;
         }
-        .member-bio i {
+        .bio-icon {
             color: #ff6b6b;
-            opacity: 0.35;
-            margin-right: 0.3rem;
-            width: 1rem;
+            opacity: 0.6;
+            font-size: 0.7rem;
+            background: rgba(255,50,100,0.08);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
         }
+        .member-bio {
+            font-size: 0.85rem;
+            color: #a8b2c9;
+            line-height: 1.4;
+        }
+        /* ---------------------------------- */
 
         /* --- SOCIAL LINKS & DISCORD TAGS --- */
         .member-social, .member-discord {
@@ -322,14 +348,14 @@
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            background: rgba(88, 101, 242, 0.08); /* Discord blue hint */
+            background: rgba(88, 101, 242, 0.08);
             padding: 0.2rem 0.8rem;
             border-radius: 20px;
             border: 1px solid rgba(88, 101, 242, 0.05);
             font-weight: 500;
         }
         .member-discord span i {
-            color: #5865F2; /* Discord Brand Color */
+            color: #5865F2;
             font-size: 0.8rem;
         }
 
@@ -341,6 +367,38 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        /* ---------------------------------- */
+
+        /* --- "EVERYTHING ABOUT HYBRID" BOX --- */
+        .about-container {
+            display: none;
+            padding: 1rem 0;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .about-container.visible {
+            display: block;
+        }
+        .about-box {
+            background: rgba(255, 50, 100, 0.04);
+            border: 1px solid rgba(255,50,100,0.10);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            color: #d1d5e0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            box-shadow: inset 0 0 20px rgba(255,50,100,0.02);
+        }
+        .about-box a {
+            color: #ff6b6b;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,50,100,0.2);
+            transition: 0.2s;
+        }
+        .about-box a:hover {
+            border-bottom-color: #ff6b6b;
         }
         /* ---------------------------------- */
 
@@ -363,23 +421,13 @@
             opacity: 0.6;
         }
         
-        /* --- SCROLLBAR STYLING --- */
-        .roster-card::-webkit-scrollbar {
-            width: 4px;
-        }
-        .roster-card::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .roster-card::-webkit-scrollbar-thumb {
-            background: rgba(255,50,100,0.3);
-            border-radius: 10px;
-        }
 
         @media (max-width: 500px) {
             .roster-card { padding: 1.5rem 1.2rem; }
             .member { padding: 0.5rem 0.2rem; }
             .title-text { font-size: 1.5rem; }
             .role-header { font-size: 1rem; }
+            .tab-btn { font-size: 0.65rem; padding: 0.3rem 0.8rem; }
         }
     </style>
 </head>
@@ -399,6 +447,8 @@
                 <h1 id="socialTitle" class="title-text hidden">✦ socials</h1>
                 <!-- Discords Tab Title -->
                 <h1 id="discordTitle" class="title-text hidden">✦ discords</h1>
+                <!-- About Tab Title -->
+                <h1 id="aboutTitle" class="title-text hidden">✦ about</h1>
             </div>
             
             <div class="header-right">
@@ -407,19 +457,27 @@
                     <button class="tab-btn active" id="tabRoster" onclick="switchTab('roster')">Roster</button>
                     <button class="tab-btn" id="tabSocial" onclick="switchTab('social')">Socials</button>
                     <button class="tab-btn" id="tabDiscord" onclick="switchTab('discord')">Discords</button>
+                    <button class="tab-btn" id="tabAbout" onclick="switchTab('about')">About</button>
                 </div>
             </div>
         </div>
 
-        <!-- UPDATED TAGLINE -->
+        <!-- TOP TAGLINE UPDATED -->
         <div class="tagline">
             <span><i class="fas fa-shield-alt"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
-            <span><i class="fas fa-skull"></i>HybridModdingHub</span>
+            <span><i class="fas fa-shield-alt"></i>@HybridModdingHub</span>
         </div>
 
         <!-- WRAPPER FOR SMOOTH FADING -->
         <div id="contentWrapper" class="content-container">
             
+            <!-- ====== ABOUT TAB CONTENT ====== -->
+            <div id="aboutContainer" class="about-container">
+                <div class="about-box">
+                    This modding hub is a vr modding place if you want a vr game to be modded like a fangame of gorilla tag or a gtag copy join hybird we mod active games and etc so join now at <a href="https://discord.gg/Vq6DKkZaq9" target="_blank">discord.gg/Vq6DKkZaq9</a> we will se you there!!
+                </div>
+            </div>
+
             <!-- ====== FOUNDER GROUP ====== -->
             <div class="role-group" data-role="founder">
                 <div class="role-header-wrapper">
@@ -433,13 +491,14 @@
                             <h3>Lucky</h3>
                             <span class="member-role-tag">founder</span>
                         </div>
-                        <div class="member-bio"><i class="fas fa-code"></i>gtag comboss &amp; egotistical skid</div>
+                        <div class="member-bio-wrapper">
+                            <span class="bio-icon"><i class="fas fa-code"></i></span>
+                            <span class="member-bio">gtag comboss &amp; egotistical skid</span>
+                        </div>
                         
-                        <!-- LUCKY'S SOCIAL (Short Display) -->
                         <div class="member-social">
                             <a href="https://guns.lol/apktoolkit" target="_blank"><i class="fas fa-link"></i> guns.lol</a>
                         </div>
-                        <!-- LUCKY'S DISCORD -->
                         <div class="member-discord">
                             <span><i class="fab fa-discord"></i> @apktoolkit.exe</span>
                         </div>
@@ -453,15 +512,16 @@
                             <h3>Vexy</h3>
                             <span class="member-role-tag">founder</span>
                         </div>
-                        <div class="member-bio"><i class="fas fa-code"></i>gtag comboss &amp; egotistical skid</div>
+                        <div class="member-bio-wrapper">
+                            <span class="bio-icon"><i class="fas fa-code"></i></span>
+                            <span class="member-bio">gtag comboss &amp; egotistical skid</span>
+                        </div>
                         
-                        <!-- ADD VEXY'S SOCIAL HERE -->
                         <div class="member-social">
                             <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
                         </div>
-                        <!-- ADD VEXY'S DISCORD HERE -->
                         <div class="member-discord">
-                            <span><i class="fab fa-discord"></i> @discorduser</span>
+                            <span><i class="fab fa-discord"></i> @vexydiscord</span>
                         </div>
                     </div>
                 </div>
@@ -480,15 +540,16 @@
                             <h3>Catlover</h3>
                             <span class="member-role-tag">co-owner</span>
                         </div>
-                        <div class="member-bio"><i class="fas fa-code"></i>extremely advanced claude skid &amp; gtag horror stealing god</div>
+                        <div class="member-bio-wrapper">
+                            <span class="bio-icon"><i class="fas fa-code"></i></span>
+                            <span class="member-bio">extremely advanced claude skid &amp; gtag horror stealing god</span>
+                        </div>
                         
-                        <!-- ADD CATLOVER'S SOCIAL HERE -->
                         <div class="member-social">
                             <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
                         </div>
-                        <!-- ADD CATLOVER'S DISCORD HERE -->
                         <div class="member-discord">
-                            <span><i class="fab fa-discord"></i> @discorduser</span>
+                            <span><i class="fab fa-discord"></i> @catloverdiscord</span>
                         </div>
                     </div>
                 </div>
@@ -500,15 +561,16 @@
                             <h3>Static</h3>
                             <span class="member-role-tag">co-owner</span>
                         </div>
-                        <div class="member-bio"><i class="fas fa-code"></i>Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</div>
+                        <div class="member-bio-wrapper">
+                            <span class="bio-icon"><i class="fas fa-code"></i></span>
+                            <span class="member-bio">Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</span>
+                        </div>
                         
-                        <!-- ADD STATIC'S SOCIAL HERE -->
                         <div class="member-social">
                             <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
                         </div>
-                        <!-- ADD STATIC'S DISCORD HERE -->
                         <div class="member-discord">
-                            <span><i class="fab fa-discord"></i> @discorduser</span>
+                            <span><i class="fab fa-discord"></i> @staticdiscord</span>
                         </div>
                     </div>
                 </div>
@@ -520,15 +582,16 @@
                             <h3>Zyko</h3>
                             <span class="member-role-tag">co-owner</span>
                         </div>
-                        <div class="member-bio"><i class="fas fa-code"></i>Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</div>
+                        <div class="member-bio-wrapper">
+                            <span class="bio-icon"><i class="fas fa-code"></i></span>
+                            <span class="member-bio">Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</span>
+                        </div>
                         
-                        <!-- ADD ZYKO'S SOCIAL HERE -->
                         <div class="member-social">
                             <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
                         </div>
-                        <!-- ADD ZYKO'S DISCORD HERE -->
                         <div class="member-discord">
-                            <span><i class="fab fa-discord"></i> @discorduser</span>
+                            <span><i class="fab fa-discord"></i> @zykodiscord</span>
                         </div>
                     </div>
                 </div>
@@ -536,10 +599,10 @@
 
         </div> <!-- End Content Wrapper -->
 
-        <!-- UPDATED FOOTER -->
+        <!-- FOOTER UPDATED -->
         <div class="footer-note">
             <span><i class="fas fa-shield-alt"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
-            <span class="highlight">HybridModdingHub</span>
+            <span class="highlight">@HybridModdingHub</span>
         </div>
     </div>
 
@@ -562,14 +625,14 @@
                 const names = group.querySelectorAll('.member-name h3');
 
                 if (roleColors[role]) {
-                    // Header Gradient (Left to Right)
+                    // Header Gradient
                     if(header) {
                         header.style.background = `linear-gradient(90deg, ${roleColors[role].light}, ${roleColors[role].dark}, ${roleColors[role].light})`;
                         header.style.backgroundSize = '200% auto';
                         header.style.animation = 'leftRightShimmer 3s linear infinite';
                     }
                     
-                    // Tags Gradient (Left to Right)
+                    // Tags Gradient
                     tags.forEach(tag => {
                         tag.style.background = `linear-gradient(90deg, ${roleColors[role].light}, ${roleColors[role].dark}, ${roleColors[role].light})`;
                         tag.style.backgroundSize = '200% auto';
@@ -590,34 +653,34 @@
             const mainTitle = document.getElementById('mainTitle');
             const socialTitle = document.getElementById('socialTitle');
             const discordTitle = document.getElementById('discordTitle');
+            const aboutTitle = document.getElementById('aboutTitle');
             
             const tabRoster = document.getElementById('tabRoster');
             const tabSocial = document.getElementById('tabSocial');
             const tabDiscord = document.getElementById('tabDiscord');
+            const tabAbout = document.getElementById('tabAbout');
             
             const contentWrapper = document.getElementById('contentWrapper');
-            const bios = document.querySelectorAll('.member-bio');
+            const bios = document.querySelectorAll('.member-bio-wrapper');
             const socials = document.querySelectorAll('.member-social');
             const discords = document.querySelectorAll('.member-discord');
+            const aboutContainer = document.getElementById('aboutContainer');
 
             // 1. Trigger Fade Out
             contentWrapper.classList.add('fading');
 
             setTimeout(() => {
                 // Reset all titles
-                mainTitle.classList.remove('active');
-                mainTitle.classList.add('hidden');
-                socialTitle.classList.remove('active');
-                socialTitle.classList.add('hidden');
-                discordTitle.classList.remove('active');
-                discordTitle.classList.add('hidden');
-
+                [mainTitle, socialTitle, discordTitle, aboutTitle].forEach(el => {
+                    el.classList.remove('active');
+                    el.classList.add('hidden');
+                });
                 // Reset all buttons
-                tabRoster.classList.remove('active');
-                tabSocial.classList.remove('active');
-                tabDiscord.classList.remove('active');
-
+                [tabRoster, tabSocial, tabDiscord, tabAbout].forEach(el => {
+                    el.classList.remove('active');
+                });
                 // Reset all data
+                aboutContainer.classList.remove('visible');
                 bios.forEach(b => b.classList.remove('hidden'));
                 socials.forEach(s => s.classList.remove('visible'));
                 discords.forEach(d => d.classList.remove('visible'));
@@ -642,11 +705,19 @@
                     
                     bios.forEach(b => b.classList.add('hidden'));
                     discords.forEach(d => d.classList.add('visible'));
+
+                } else if (tab === 'about') {
+                    aboutTitle.classList.remove('hidden');
+                    aboutTitle.classList.add('active');
+                    tabAbout.classList.add('active');
+                    
+                    bios.forEach(b => b.classList.add('hidden')); // Hide all bios
+                    aboutContainer.classList.add('visible');
                 }
                 
                 // 2. Trigger Fade In
                 contentWrapper.classList.remove('fading');
-            }, 300); // Matches CSS transition time
+            }, 300); 
         }
 
         // --- PINK PARTICLE NETWORK ANIMATION ---
