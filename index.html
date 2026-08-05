@@ -736,22 +736,61 @@
         });
 
         // ==========================================
-        // LIKE SYSTEM (Local Storage)
+        // 1-LIKE PER PERSON ENGINE
         // ==========================================
         function handleLike(element) {
             const id = element.getAttribute('data-id');
             const countSpan = element.querySelector('.like-count');
-            let likes = JSON.parse(localStorage.getItem('hybridRosterLikes')) || {};
+            
+            // Get current liked person (null if none)
+            let likedByUser = localStorage.getItem('hybridUserLike') || null;
 
-            if (!likes[id]) {
-                likes[id] = 0;
+            // If they already like this person -> UNLIKE
+            if (likedByUser === id) {
+                // Remove their like from the storage
+                let likes = JSON.parse(localStorage.getItem('hybridRosterLikes')) || {};
+                if (likes[id] && likes[id] > 0) {
+                    likes[id] -= 1;
+                    localStorage.setItem('hybridRosterLikes', JSON.stringify(likes));
+                }
+                // Remove their user preference
+                localStorage.removeItem('hybridUserLike');
+                
+                // Update UI
+                element.classList.remove('liked');
+                countSpan.innerText = likes[id] || 0;
+                
+                updateCrowns();
+                return; // Stop here (they unliked)
             }
 
-            // Toggle like (increment by 1, simple interaction)
+            // --- If they liked someone else, remove the old one first ---
+            if (likedByUser !== null && likedByUser !== id) {
+                // Find the old element
+                const oldEl = document.querySelector(`.like-container[data-id="${likedByUser}"]`);
+                if (oldEl) {
+                    // Decrement the old number
+                    let likes = JSON.parse(localStorage.getItem('hybridRosterLikes')) || {};
+                    if (likes[likedByUser] && likes[likedByUser] > 0) {
+                        likes[likedByUser] -= 1;
+                        localStorage.setItem('hybridRosterLikes', JSON.stringify(likes));
+                    }
+                    // Update old UI
+                    oldEl.querySelector('.like-count').innerText = likes[likedByUser] || 0;
+                    oldEl.classList.remove('liked');
+                }
+            }
+
+            // --- Now add the like to the NEW person ---
+            let likes = JSON.parse(localStorage.getItem('hybridRosterLikes')) || {};
+            if (!likes[id]) likes[id] = 0;
             likes[id] += 1;
             localStorage.setItem('hybridRosterLikes', JSON.stringify(likes));
             
-            // Update UI
+            // Save the user's current choice
+            localStorage.setItem('hybridUserLike', id);
+
+            // Update new UI
             countSpan.innerText = likes[id];
             element.classList.add('liked');
 
@@ -791,11 +830,16 @@
         // Initialize likes from storage on load
         document.addEventListener('DOMContentLoaded', function() {
             const likes = JSON.parse(localStorage.getItem('hybridRosterLikes')) || {};
+            const userLike = localStorage.getItem('hybridUserLike') || null;
+
             document.querySelectorAll('.like-container').forEach(el => {
                 const id = el.getAttribute('data-id');
                 if (likes[id]) {
                     el.querySelector('.like-count').innerText = likes[id];
-                    if (likes[id] > 0) el.classList.add('liked');
+                    // If this is the one the user currently likes, highlight it
+                    if (userLike === id && likes[id] > 0) {
+                        el.classList.add('liked');
+                    }
                 }
             });
             updateCrowns();
