@@ -467,14 +467,11 @@
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
-                            <span class="member-bio">I am a gorilla tag copy playfab doxxer</span>
+                            <span class="member-bio">gtag comboss & egotistical skid</span>
                         </div>
                         
                         <div class="member-social">
                             <a href="https://guns.lol/apktoolkit" target="_blank"><i class="fas fa-link"></i> guns.lol</a>
-                        </div>
-                        <div class="member-social">
-                            <a href="https://tiktok.com/@apktoolkit" target="_blank"><i class="fas fa-link"></i> tiktok</a>
                         </div>
                         <div class="member-discord">
                             <span><i class="fab fa-discord"></i> @apktoolkit.exe</span>
@@ -490,7 +487,7 @@
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
-                            <span class="member-bio">Gorilla tag copy harm comboss</span>
+                            <span class="member-bio">gtag comboss & egotistical skid</span>
                         </div>
                         
                         <div class="member-social">
@@ -515,7 +512,7 @@
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
-                            <span class="member-bio">A very good ai user & a claude AI Goat</span>
+                            <span class="member-bio">extremely advanced claude skid & gtag horror stealing god</span>
                         </div>
                         
                         <div class="member-social">
@@ -535,7 +532,7 @@
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
-                            <span class="member-bio">A real gorilla tag copy harm guy WILL mod your games</span>
+                            <span class="member-bio">Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</span>
                         </div>
                         
                         <div class="member-social">
@@ -557,9 +554,37 @@
         </div>
     </div>
 
+    <!-- HIDDEN SOCIALS FOOTER (ADDED TO THE VERY BOTTOM) -->
+    <div id="hmhSocialContainer" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,50,100,0.04);">
+        
+        <div class="member" style="padding-left: 0; padding-right: 0;">
+            <!-- HMH AVATAR -->
+            <div class="member-avatar" style="display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: #d6c8a0;">
+                HMH
+            </div>
+            
+            <div class="member-info">
+                <div class="member-name">
+                    <!-- HMH NAME WITH GREY TO BLACK GRADIENT -->
+                    <h3 id="hmhName" style="font-size: 1.1rem; font-weight: 600; letter-spacing: -0.2px; -webkit-text-fill-color: transparent;">
+                        HMH
+                    </h3>
+                </div>
+                
+                <!-- HMH BIO / LINK -->
+                <div class="member-bio-wrapper">
+                    <i class="fas fa-link bio-icon" style="color: #ff6b6b; opacity: 0.35; width: 1rem; flex-shrink: 0;"></i>
+                    <span class="member-bio" style="font-size: 0.85rem; color: #a8b2c9; line-height: 1.4; margin-left: 8px;">
+                        <a href="https://discord.gg/b3emfqSxhF" target="_blank" style="color: #ff6b6b; text-decoration: none; font-weight: 600;">Join our Discord</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- 1. Apply gradient to ROLE HEADERS ---
+            // --- Apply gradients to ROLE HEADERS AND HMH ---
             const roleGroups = document.querySelectorAll('.role-group');
             
             roleGroups.forEach(group => {
@@ -586,7 +611,18 @@
                 header.style.backgroundClip = 'text';
             });
 
-            // --- 2. Apply SOLID COLORS to MEMBER NAMES ---
+            // --- Apply Grey/Black gradient to HMH Name ---
+            const hmhName = document.getElementById('hmhName');
+            if (hmhName) {
+                const gradient = 'linear-gradient(90deg, #888888, #000000, #888888)';
+                hmhName.style.background = gradient;
+                hmhName.style.backgroundSize = '200% 100%';
+                hmhName.style.animation = 'shimmer 3s linear infinite';
+                hmhName.style.webkitBackgroundClip = 'text';
+                hmhName.style.backgroundClip = 'text';
+            }
+
+            // --- Apply SOLID COLORS to MEMBER NAMES ---
             const members = document.querySelectorAll('.member');
             
             members.forEach(member => {
@@ -627,6 +663,8 @@
             
             const contentWrapper = document.getElementById('contentWrapper');
             const aboutContainer = document.getElementById('aboutContainer');
+            const hmhSocialContainer = document.getElementById('hmhSocialContainer');
+            
             const bios = document.querySelectorAll('.member-bio-wrapper');
             const socials = document.querySelectorAll('.member-social');
             const discords = document.querySelectorAll('.member-discord');
@@ -643,6 +681,8 @@
                 });
                 
                 aboutContainer.classList.remove('visible');
+                hmhSocialContainer.style.display = 'none'; // Hide HMH footer by default
+                
                 contentWrapper.style.display = 'block';
                 bios.forEach(b => b.classList.remove('hidden'));
                 socials.forEach(s => s.classList.remove('visible'));
@@ -657,6 +697,10 @@
                     socialTitle.classList.remove('hidden'); socialTitle.classList.add('active');
                     tabSocial.classList.add('active');
                     contentWrapper.style.display = 'block';
+                    
+                    // Show HMH Footer only in Socials tab
+                    hmhSocialContainer.style.display = 'block';
+                    
                     bios.forEach(b => b.classList.add('hidden'));
                     socials.forEach(s => s.classList.add('visible'));
 
