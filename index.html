@@ -207,6 +207,9 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
             margin-bottom: 0.8rem;
+            
+            /* THE FIX: Shrink the background to ONLY the text */
+            display: inline-block;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -537,7 +540,7 @@
                 </div>
             </div>
             
-            <!-- ====== FOUNDER GROUP (PURE TEXT GRADIENT) ====== -->
+            <!-- ====== FOUNDER GROUP ====== -->
             <div class="role-group" data-role="founder">
                 <div class="role-header" id="founderHeader">FOUNDER</div>
 
@@ -585,7 +588,7 @@
                 </div>
             </div>
 
-            <!-- ====== CO-OWNER GROUP (PURE TEXT GRADIENT) ====== -->
+            <!-- ====== CO-OWNER GROUP ====== -->
             <div class="role-group" data-role="co-owner">
                 <div class="role-header" id="coOwnerHeader">CO-OWNER</div>
 
@@ -632,7 +635,7 @@
 
         </div> <!-- End Content Wrapper -->
 
-        <!-- STYLE BUTTON (MOVED TO BOTTOM) -->
+        <!-- STYLE BUTTON -->
         <div class="style-btn-wrapper" id="styleWrapper">
             <button class="style-btn" onclick="cycleTheme()">
                 <i class="fas fa-palette"></i> Style
@@ -709,7 +712,7 @@
                 coOwnerHeader.style.background = `linear-gradient(90deg, ${theme.light}, ${theme.dark}, ${theme.light})`;
             }
 
-            // 5. Update Icons (Tagline, Bio, Footer)
+            // 5. Update Icons
             const icons = document.querySelectorAll('.tagline i, .bio-icon, .footer-note i');
             if(isRgb) {
                 icons.forEach(el => { el.style.color = '#ff0000'; });
@@ -732,7 +735,7 @@
                 hmhBioIcon.style.color = isDefault ? '#ff6b6b' : theme.main;
             }
 
-            // 7. Update Social Link Colors (Border & Text)
+            // 7. Update Social Link Colors
             const socialLinks = document.querySelectorAll('.member-social a');
             const rgbBtnColor = 'rgba(255, 0, 0, 0.1)';
             const rgbBorderColor = 'rgba(255, 0, 0, 0.2)';
@@ -791,12 +794,9 @@
             }
         }
 
-        // Helper to convert HEX to RGB for RGBA CSS
         function hexToRgb(hex) {
             let c = hex.substring(1).split('');
-            if (c.length === 3) {
-                c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-            }
+            if (c.length === 3) c = [c[0], c[0], c[1], c[1], c[2], c[2]];
             c = '0x' + c.join('');
             return (c>>16) + ', ' + ((c>>8)&255) + ', ' + (c&255);
         }
@@ -924,7 +924,6 @@
         }
 
         function getRgbColor(offset) {
-            // Cycle through Red -> Green -> Blue
             let t = (Date.now() / 2000 + offset) % 1;
             let r = Math.sin(t * 2 * Math.PI) * 0.5 + 0.5;
             let g = Math.sin((t + 0.33) * 2 * Math.PI) * 0.5 + 0.5;
@@ -935,7 +934,6 @@
         function animate() {
             ctx.clearRect(0, 0, width, height);
 
-            // --- Draw Sparkles ---
             sparkles.forEach(s => {
                 s.x += s.vx;
                 s.y += s.vy;
@@ -963,7 +961,6 @@
                 ctx.shadowBlur = 0;
             });
 
-            // --- Draw Particle Lines & Dots ---
             particles.forEach(p => {
                 p.vx += (Math.random() - 0.5) * 0.04;
                 p.vy += (Math.random() - 0.5) * 0.04;
@@ -999,7 +996,6 @@
                 ctx.shadowBlur = 0;
             });
 
-            // Draw connections
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     let dx = particles[i].x - particles[j].x;
@@ -1037,7 +1033,6 @@
             return 'rgba(' + (c>>16) + ', ' + ((c>>8)&255) + ', ' + (c&255) + ', ' + alpha + ')';
         }
 
-        // Bridge function for theme switcher
         window.updateParticleColor = function(lightHex, mainHex, rgbMode) {
             isRgbMode = rgbMode;
             if(!rgbMode) {
