@@ -21,6 +21,7 @@
             padding: 2rem;
             position: relative;
             overflow-x: hidden;
+            transition: background-color 0.6s ease;
         }
 
         /* --- CANVAS BACKGROUND LAYER --- */
@@ -47,21 +48,21 @@
             background: rgba(8, 8, 12, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 50, 100, 0.15);
             border-radius: 2.8rem;
             padding: 2.4rem 2rem;
-            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,50,100,0.04) inset;
-            transition: 0.2s;
+            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.9);
+            transition: 0.3s;
             position: relative;
             z-index: 1;
-            /* Fixes content going out of bounds */
             max-height: 90vh;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
+            border: 1px solid rgba(255, 50, 100, 0.15); /* Default border */
+            transition: border-color 0.5s ease, box-shadow 0.5s ease;
         }
         
-        /* --- SCROLLBAR STYLING (Skinnier & Far Right) --- */
+        /* --- SCROLLBAR STYLING --- */
         .roster-card::-webkit-scrollbar {
             width: 4px;
         }
@@ -72,6 +73,7 @@
         .roster-card::-webkit-scrollbar-thumb {
             background: rgba(255,50,100,0.25);
             border-radius: 10px;
+            transition: background 0.4s ease;
         }
 
         .roster-header {
@@ -85,9 +87,10 @@
             gap: 0.5rem;
             min-height: 60px;
             flex-shrink: 0;
+            transition: border-color 0.4s ease;
         }
 
-        /* --- ANIMATED RED & BLACK TITLES --- */
+        /* --- ANIMATED GRADIENT TITLE (Switches based on theme) --- */
         .title-container {
             position: relative;
             display: flex;
@@ -97,14 +100,13 @@
         .title-text {
             font-size: 1.9rem;
             font-weight: 800;
-            background: linear-gradient(90deg, #ff0000, #222222, #ff0000);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.8px;
             text-transform: uppercase;
             animation: leftRightShimmer 3s linear infinite;
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease, background 0.5s ease;
             position: absolute;
             left: 0;
             white-space: nowrap;
@@ -128,6 +130,7 @@
         .header-right {
             display: flex;
             align-items: center;
+            gap: 0.8rem;
         }
         
         /* --- NAVIGATION TABS --- */
@@ -138,12 +141,12 @@
             justify-content: flex-end;
         }
         .tab-btn {
-            background: rgba(255,50,100,0.08);
+            background: rgba(255,255,255,0.03);
             color: #7a8499;
             padding: 0.4rem 1.2rem;
             font-size: 0.75rem;
             font-weight: 700;
-            border: 1px solid rgba(255,50,100,0.05);
+            border: 1px solid rgba(255,255,255,0.05);
             border-radius: 40px;
             cursor: pointer;
             text-transform: uppercase;
@@ -152,13 +155,40 @@
             font-family: inherit;
         }
         .tab-btn:hover {
-            background: rgba(255,50,100,0.15);
+            background: rgba(255,50,100,0.10);
             color: #ffffff;
         }
         .tab-btn.active {
             background: rgba(255,50,100,0.25);
             border-color: rgba(255,50,100,0.3);
             color: #ff6b6b;
+            transition: all 0.4s ease;
+        }
+
+        /* --- STYLE SWITCHER BUTTON --- */
+        .style-btn {
+            background: rgba(255,255,255,0.03);
+            color: #7a8499;
+            padding: 0.4rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 40px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .style-btn:hover {
+            background: rgba(255,255,255,0.08);
+            color: #ffffff;
+        }
+        .style-btn i {
+            font-size: 0.8rem;
         }
 
         /* --- SMOOTH FADE CONTAINER --- */
@@ -173,7 +203,7 @@
             transform: translateY(10px);
         }
 
-        /* --- TOP TAGLINE REFINED (Stacked Vertically) --- */
+        /* --- TOP TAGLINE --- */
         .tagline {
             font-size: 0.8rem;
             color: #7a8499;
@@ -181,22 +211,23 @@
             padding-bottom: 0.6rem;
             border-bottom: 1px solid rgba(255,255,255,0.03);
             display: flex;
-            flex-direction: column; /* Stacks them vertically */
-            align-items: flex-start; /* Aligns left */
+            flex-direction: column;
+            align-items: flex-start;
             gap: 0.3rem;
             flex-shrink: 0;
+            transition: border-color 0.4s ease;
         }
         .tagline span {
             display: flex;
             align-items: center;
         }
         .tagline span i {
-            color: #ff6b6b;
             opacity: 0.4;
             margin-right: 0.3rem;
+            transition: color 0.4s ease;
         }
 
-        /* ---- LARGER ROLE HEADERS (with gradient animation) ---- */
+        /* ---- ROLE HEADERS (With Gradient Animation) ---- */
         .role-group {
             margin-bottom: 1.8rem;
         }
@@ -212,6 +243,7 @@
             background-clip: text;
             background-size: 200% 100%;
             animation: shimmer 3s linear infinite;
+            transition: background 0.5s ease;
         }
         @keyframes shimmer {
             0% { background-position: 0% 50%; }
@@ -247,6 +279,7 @@
             border: 1px solid rgba(255,50,100,0.06);
             box-shadow: 0 2px 8px rgba(0,0,0,0.5);
             text-transform: uppercase;
+            transition: border-color 0.4s ease;
         }
         .member-info {
             flex: 1;
@@ -264,7 +297,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- FIXED BIO SPACING --- */
+        /* --- BIO SPACING --- */
         .member-bio-wrapper {
             display: flex;
             align-items: center;
@@ -279,10 +312,10 @@
             overflow: hidden;
         }
         .bio-icon {
-            color: #ff6b6b;
             opacity: 0.35;
             width: 1rem;
             flex-shrink: 0;
+            transition: color 0.4s ease;
         }
         .member-bio {
             font-size: 0.85rem;
@@ -298,7 +331,6 @@
         }
         
         .member-social a {
-            color: #ff6b6b;
             text-decoration: none;
             font-size: 0.8rem;
             font-weight: 600;
@@ -311,6 +343,7 @@
             border: 1px solid rgba(255,50,100,0.05);
             transition: 0.2s;
             word-break: break-all;
+            transition: color 0.4s ease, background 0.4s ease, border-color 0.4s ease;
         }
         .member-social a:hover {
             background: rgba(255,50,100,0.15);
@@ -347,12 +380,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- HMH FOOTER (Inside the Card) --- */
+        /* --- HMH FOOTER --- */
         .hmh-footer-wrapper {
             margin-top: 1.5rem;
             padding-top: 1rem;
             border-top: 1px solid rgba(255,50,100,0.04);
             display: none;
+            transition: border-color 0.4s ease;
         }
         .hmh-footer-wrapper.visible {
             display: block;
@@ -377,12 +411,13 @@
             color: #d1d5e0;
             line-height: 1.6;
             font-size: 0.95rem;
+            transition: background 0.4s ease, border-color 0.4s ease;
         }
         .about-box a {
-            color: #ff6b6b;
             font-weight: 600;
             text-decoration: none;
             border-bottom: 1px solid rgba(255,50,100,0.2);
+            transition: color 0.4s ease, border-color 0.4s ease;
         }
         .about-box a:hover {
             border-bottom-color: #ff6b6b;
@@ -397,21 +432,22 @@
             font-size: 0.7rem;
             color: #4a5368;
             flex-shrink: 0;
+            transition: border-color 0.4s ease;
         }
         .footer-note span i {
-            color: #ff6b6b;
             opacity: 0.2;
             margin-right: 0.3rem;
+            transition: color 0.4s ease;
         }
         .footer-note .highlight {
-            color: #ff6b6b;
             opacity: 0.6;
+            transition: color 0.4s ease;
         }
         @media (max-width: 500px) {
             .roster-card { padding: 1.5rem 1.2rem; }
             .member { padding: 0.5rem 0.2rem; }
             .title-text { font-size: 1.5rem; }
-            .tab-btn { font-size: 0.65rem; padding: 0.3rem 0.8rem; }
+            .tab-btn, .style-btn { font-size: 0.65rem; padding: 0.3rem 0.8rem; }
         }
     </style>
 </head>
@@ -420,9 +456,9 @@
     <!-- CANVAS FOR THE DYNAMIC ANIMATION -->
     <canvas id="particle-canvas"></canvas>
 
-    <div class="roster-card">
+    <div class="roster-card" id="rosterCard">
         <!-- HEADER -->
-        <div class="roster-header">
+        <div class="roster-header" id="rosterHeader">
             
             <div class="title-container">
                 <h1 id="mainTitle" class="title-text active">✦ hybrid roster</h1>
@@ -438,76 +474,77 @@
                     <button class="tab-btn" id="tabDiscord" onclick="switchTab('discord')">Discords</button>
                     <button class="tab-btn" id="tabAbout" onclick="switchTab('about')">About Us</button>
                 </div>
+                <!-- STYLE SWITCHER BUTTON -->
+                <button class="style-btn" onclick="cycleTheme()">
+                    <i class="fas fa-palette"></i> Style
+                </button>
             </div>
         </div>
 
-        <!-- TAGLINE (STACKED VERTICALLY) -->
-        <div class="tagline">
+        <!-- TAGLINE -->
+        <div class="tagline" id="tagline">
             <span>
-                <i class="fas fa-shield-alt"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)
+                <i class="fas fa-shield-alt" id="tagIcon1"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)
             </span>
             <span>
-                <i class="fas fa-shield-alt"></i>@HybridModdingHub
+                <i class="fas fa-shield-alt" id="tagIcon2"></i>@HybridModdingHub
             </span>
         </div>
 
         <!-- ====== ABOUT US TAB CONTENT ====== -->
         <div id="aboutContainer" class="about-container">
-            <div class="about-box">
-                This modding hub is a vr modding place if you want a vr game to be modded like a fangame of gorilla tag or a gtag copy join hybird we mod active games and etc so join now at <a href="https://discord.gg/Vq6DKkZaq9" target="_blank">discord.gg/Vq6DKkZaq9</a> we will see you there!!
+            <div class="about-box" id="aboutBox">
+                This modding hub is a vr modding place if you want a vr game to be modded like a fangame of gorilla tag or a gtag copy join hybird we mod active games and etc so join now at <a href="https://discord.gg/Vq6DKkZaq9" target="_blank" id="aboutLink">discord.gg/Vq6DKkZaq9</a> we will see you there!!
             </div>
         </div>
 
         <!-- WRAPPER FOR SMOOTH FADING OF ROSTER -->
         <div id="contentWrapper" class="content-container">
 
-            <!-- ====== HMH FOOTER (Only shows in Socials Tab) ====== -->
-        <div id="hmhWrapper" class="hmh-footer-wrapper">
-            <div class="member" style="padding-left: 0; padding-right: 0; margin-bottom: 0;">
-                <div class="member-avatar" style="display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: #d6c8a0;">
-                    HMH
-                </div>
-                
-                <div class="member-info">
-                    <div class="member-name">
-                        <!-- HMH TEXT WITH GREY-BLACK GRADIENT -->
-                        <h3 id="hmhName" style="font-size: 1.1rem; font-weight: 600; letter-spacing: -0.2px; -webkit-text-fill-color: transparent;">
-                            HMH
-                        </h3>
+            <!-- ====== HMH FOOTER ====== -->
+            <div id="hmhWrapper" class="hmh-footer-wrapper">
+                <div class="member" style="padding-left: 0; padding-right: 0; margin-bottom: 0;">
+                    <div class="member-avatar" style="display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: #d6c8a0;">
+                        HMH
                     </div>
                     
-                    <div class="member-bio-wrapper" style="margin-top: 0.3rem;">
-                        <i class="fas fa-link bio-icon" style="color: #ff6b6b; opacity: 0.35; width: 1rem; flex-shrink: 0;"></i>
-                        <span class="member-bio" style="font-size: 0.85rem; color: #a8b2c9; line-height: 1.4; margin-left: 8px;">
-                            <a href="https://discord.gg/b3emfqSxhF" target="_blank" style="color: #ff6b6b; text-decoration: none; font-weight: 600;">discord.gg/b3emfqSxhF</a>
-                        </span>
+                    <div class="member-info">
+                        <div class="member-name">
+                            <h3 id="hmhName" style="font-size: 1.1rem; font-weight: 600; letter-spacing: -0.2px; -webkit-text-fill-color: transparent;">
+                                HMH
+                            </h3>
+                        </div>
+                        
+                        <div class="member-bio-wrapper" style="margin-top: 0.3rem;">
+                            <i class="fas fa-link bio-icon" id="hmhBioIcon" style="width: 1rem; flex-shrink: 0;"></i>
+                            <span class="member-bio" style="font-size: 0.85rem; color: #a8b2c9; line-height: 1.4; margin-left: 8px;">
+                                <a href="https://discord.gg/b3emfqSxhF" target="_blank" style="text-decoration: none; font-weight: 600;">discord.gg/b3emfqSxhF</a>
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- ====== EXCLUSIVE STANDALONE JOIN BUTTON ====== -->
-            <div style="text-align: center; margin-top: 12px; margin-bottom: 4px;">
-                <a href="https://discord.gg/b3emfqSxhF" target="_blank" style="display: inline-block; background: rgba(255, 50, 100, 0.15); color: #ff6b6b; text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; padding: 0.6rem 1.8rem; border: 1px solid rgba(255, 50, 100, 0.2); border-radius: 30px; transition: 0.2s all;">
-                    <i class="fab fa-discord" style="margin-right: 6px;"></i> Join HMH Discord
-                </a>
+                <div style="text-align: center; margin-top: 12px; margin-bottom: 4px;">
+                    <a href="https://discord.gg/b3emfqSxhF" target="_blank" style="display: inline-block; background: rgba(255, 50, 100, 0.15); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; padding: 0.6rem 1.8rem; border: 1px solid rgba(255, 50, 100, 0.2); border-radius: 30px; transition: 0.2s all;">
+                        <i class="fab fa-discord" style="margin-right: 6px;"></i> Join HMH Discord
+                    </a>
+                </div>
+                <div style="text-align: center; margin-top: 12px; margin-bottom: 4px;">
+                    <a href="https://tiktok.com/@hmhmoddinghub" target="_blank" style="display: inline-block; background: rgba(255, 50, 100, 0.15); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; padding: 0.6rem 1.8rem; border: 1px solid rgba(255, 50, 100, 0.2); border-radius: 30px; transition: 0.2s all;">
+                        <i class="fab fa-tiktok" style="margin-right: 6px;"></i> Follow HMH Tiktok
+                    </a>
+                </div>
             </div>
-            <div style="text-align: center; margin-top: 12px; margin-bottom: 4px;">
-                <a href="https://tiktok.com/@hmhmoddinghub" target="_blank" style="display: inline-block; background: rgba(255, 50, 100, 0.15); color: #ff6b6b; text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; padding: 0.6rem 1.8rem; border: 1px solid rgba(255, 50, 100, 0.2); border-radius: 30px; transition: 0.2s all;">
-                    <i class="fab fa-tiktok" style="margin-right: 6px;"></i> Follow HMH Tiktok
-                </a>
-            </div>
-            <!-- ============================================== -->
-        </div>
             
             <!-- ====== FOUNDER GROUP ====== -->
             <div class="role-group" data-role="founder">
-                <div class="role-header">FOUNDER</div>
+                <div class="role-header" id="founderHeader">FOUNDER</div>
 
                 <div class="member">
                     <div class="member-avatar">LK</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3>Lucky</h3>
+                            <h3 style="color: #ff69b4;">Lucky</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -530,7 +567,7 @@
                     <div class="member-avatar">VX</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3>Vexy</h3>
+                            <h3 style="color: #ff69b4;">Vexy</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -549,13 +586,13 @@
 
             <!-- ====== CO-OWNER GROUP ====== -->
             <div class="role-group" data-role="co-owner">
-                <div class="role-header">CO-OWNER</div>
+                <div class="role-header" id="coOwnerHeader">CO-OWNER</div>
 
                 <div class="member">
                     <div class="member-avatar">CL</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3>Catlover</h3>
+                            <h3 style="color: #9b59b6;">Catlover</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -575,7 +612,7 @@
                     <div class="member-avatar">ZK</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3>Zyko</h3>
+                            <h3 style="color: #9b59b6;">Zyko</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -595,80 +632,120 @@
         </div> <!-- End Content Wrapper -->
 
         <!-- FOOTER -->
-        <div class="footer-note">
-            <span><i class="fas fa-shield-alt"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
-            <span class="highlight">@HybridModdingHub</span>
+        <div class="footer-note" id="footerNote">
+            <span><i class="fas fa-shield-alt" id="footerIcon"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
+            <span class="highlight" id="footerHighlight">@HybridModdingHub</span>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- Apply gradients to ROLE HEADERS AND HMH ---
-            const roleGroups = document.querySelectorAll('.role-group');
+        // ==========================================
+        // THEME SWITCHING ENGINE
+        // ==========================================
+        let currentTheme = 0; // 0=Default(Pink), 1=Purple, 2=Red, 3=Blue
+
+        // Theme Color Definitions
+        const themes = [
+            { id: 'default', main: '#ff6b6b', light: '#ff6b6b', dark: '#000000', title: 'linear-gradient(90deg, #ff0000, #222222, #ff0000)' },
+            { id: 'purple', main: '#9b59b6', light: '#b07dd6', dark: '#000000', title: 'linear-gradient(90deg, #9b59b6, #111111, #9b59b6)' },
+            { id: 'red', main: '#e74c3c', light: '#ff6961', dark: '#000000', title: 'linear-gradient(90deg, #e74c3c, #111111, #e74c3c)' },
+            { id: 'blue', main: '#3498db', light: '#6ab0e6', dark: '#000000', title: 'linear-gradient(90deg, #3498db, #111111, #3498db)' }
+        ];
+
+        function cycleTheme() {
+            currentTheme = (currentTheme + 1) % themes.length;
+            applyTheme(currentTheme);
+        }
+
+        function applyTheme(index) {
+            const theme = themes[index];
+            const isDefault = theme.id === 'default';
             
-            roleGroups.forEach(group => {
-                const role = group.dataset.role;
-                const header = group.querySelector('.role-header');
-                if (!header) return;
-                
-                let gradient = '';
-                if (role === 'founder') {
-                    gradient = 'linear-gradient(90deg, #ff69b4, #000000, #ff69b4)';
-                } else if (role === 'co-owner') {
-                    gradient = 'linear-gradient(90deg, #9b59b6, #000000, #9b59b6)';
-                } else if (role === 'mod-maker') {
-                    gradient = 'linear-gradient(90deg, #3498db, #000000, #3498db)';
-                } else {
-                    gradient = 'linear-gradient(90deg, #ffffff, #888888, #ffffff)';
-                }
-                
-                header.style.background = gradient;
-                header.style.backgroundSize = '200% 100%';
-                header.style.animation = 'shimmer 3s linear infinite';
-                header.style.webkitBackgroundClip = 'text';
-                header.style.webkitTextFillColor = 'transparent';
-                header.style.backgroundClip = 'text';
+            // 1. Update Background Animation (Pass color to canvas)
+            window.updateParticleColor(theme.light, theme.main);
+
+            // 2. Card Borders and Scrollbars
+            const card = document.getElementById('rosterCard');
+            const scrollbar = document.querySelector('.roster-card::-webkit-scrollbar-thumb');
+            card.style.borderColor = isDefault ? 'rgba(255, 50, 100, 0.15)' : `rgba(${hexToRgb(theme.main)}, 0.25)`;
+            card.style.boxShadow = isDefault ? '0 30px 60px -12px rgba(0,0,0,0.9)' : `0 30px 60px -12px rgba(0,0,0,0.9), 0 0 0 1px rgba(${hexToRgb(theme.main)}, 0.08) inset`;
+
+            // 3. Update Titles (Red & Black default, others match theme)
+            const titleElements = document.querySelectorAll('.title-text');
+            titleElements.forEach(el => {
+                el.style.background = theme.title;
             });
 
-            // --- Apply Grey/Black gradient to HMH Name ---
-            const hmhName = document.getElementById('hmhName');
-            if (hmhName) {
-                const gradient = 'linear-gradient(90deg, #888888, #000000, #888888)';
-                hmhName.style.background = gradient;
-                hmhName.style.backgroundSize = '200% 100%';
-                hmhName.style.animation = 'shimmer 3s linear infinite';
-                hmhName.style.webkitBackgroundClip = 'text';
-                hmhName.style.backgroundClip = 'text';
+            // 4. Update Role Headers (FOUNDER, CO-OWNER)
+            const founderHeader = document.getElementById('founderHeader');
+            const coOwnerHeader = document.getElementById('coOwnerHeader');
+            
+            // Defaults are Pink/Purple, but we override for other themes
+            if(isDefault) {
+                founderHeader.style.background = 'linear-gradient(90deg, #ff69b4, #000000, #ff69b4)';
+                coOwnerHeader.style.background = 'linear-gradient(90deg, #9b59b6, #000000, #9b59b6)';
+            } else {
+                founderHeader.style.background = `linear-gradient(90deg, ${theme.light}, ${theme.dark}, ${theme.light})`;
+                coOwnerHeader.style.background = `linear-gradient(90deg, ${theme.light}, ${theme.dark}, ${theme.light})`;
             }
 
-            // --- Apply SOLID COLORS to MEMBER NAMES ---
-            const members = document.querySelectorAll('.member');
-            
-            members.forEach(member => {
-                const roleGroup = member.closest('.role-group');
-                if (!roleGroup) return;
-                
-                const role = roleGroup.dataset.role;
-                const nameElement = member.querySelector('.member-name h3');
-                if (!nameElement) return;
-                
-                let color = '';
-                if (role === 'founder') {
-                    color = '#ff69b4'; // pink
-                } else if (role === 'co-owner') {
-                    color = '#9b59b6'; // purple
-                } else if (role === 'mod-maker') {
-                    color = '#3498db'; // blue
-                } else {
-                    color = '#ffffff';
-                }
-                
-                nameElement.style.color = color;
-                nameElement.style.webkitTextFillColor = color;
+            // 5. Update Icons (Tagline, Bio, Footer)
+            const icons = document.querySelectorAll('.tagline i, .bio-icon, .footer-note i');
+            icons.forEach(el => {
+                el.style.color = isDefault ? '#ff6b6b' : theme.main;
             });
-        });
+            
+            // 6. Update HMH Gradients & Button Colors
+            const hmhName = document.getElementById('hmhName');
+            hmhName.style.background = `linear-gradient(90deg, #888888, ${theme.dark}, #888888)`;
+            
+            const hmhBioIcon = document.getElementById('hmhBioIcon');
+            hmhBioIcon.style.color = isDefault ? '#ff6b6b' : theme.main;
 
-        // --- SMOOTH TAB SWITCHING LOGIC ---
+            // 7. Update Social Link Colors (Border & Text)
+            const socialLinks = document.querySelectorAll('.member-social a');
+            socialLinks.forEach(link => {
+                link.style.color = isDefault ? '#ff6b6b' : theme.main;
+                link.style.borderColor = isDefault ? 'rgba(255,50,100,0.05)' : `rgba(${hexToRgb(theme.main)}, 0.2)`;
+                link.style.background = isDefault ? 'rgba(255,50,100,0.08)' : `rgba(${hexToRgb(theme.main)}, 0.1)`;
+            });
+
+            // 8. Update HMH Discord/TikTok Buttons
+            const btns = document.querySelectorAll('#hmhWrapper a[style*="display: inline-block"]');
+            btns.forEach(btn => {
+                btn.style.color = isDefault ? '#ff6b6b' : theme.main;
+                btn.style.borderColor = isDefault ? 'rgba(255, 50, 100, 0.2)' : `rgba(${hexToRgb(theme.main)}, 0.3)`;
+                btn.style.background = isDefault ? 'rgba(255, 50, 100, 0.15)' : `rgba(${hexToRgb(theme.main)}, 0.15)`;
+            });
+
+            // 9. Update About Tab Colors
+            const aboutBox = document.getElementById('aboutBox');
+            const aboutLink = document.getElementById('aboutLink');
+            aboutBox.style.borderColor = isDefault ? 'rgba(255,50,100,0.10)' : `rgba(${hexToRgb(theme.main)}, 0.15)`;
+            aboutBox.style.background = isDefault ? 'rgba(255, 50, 100, 0.04)' : `rgba(${hexToRgb(theme.main)}, 0.05)`;
+            aboutLink.style.color = isDefault ? '#ff6b6b' : theme.main;
+            aboutLink.style.borderBottomColor = isDefault ? 'rgba(255,50,100,0.2)' : `rgba(${hexToRgb(theme.main)}, 0.2)`;
+
+            // 10. Update Tagline & Footer Borders
+            document.getElementById('tagline').style.borderColor = isDefault ? 'rgba(255,255,255,0.03)' : `rgba(${hexToRgb(theme.main)}, 0.05)`;
+            document.getElementById('rosterHeader').style.borderColor = isDefault ? 'rgba(255,50,100,0.08)' : `rgba(${hexToRgb(theme.main)}, 0.1)`;
+            document.getElementById('footerNote').style.borderColor = isDefault ? 'rgba(255,50,100,0.04)' : `rgba(${hexToRgb(theme.main)}, 0.05)`;
+            document.getElementById('footerHighlight').style.color = isDefault ? '#ff6b6b' : theme.main;
+        }
+
+        // Helper to convert HEX to RGB for RGBA CSS
+        function hexToRgb(hex) {
+            let c = hex.substring(1).split('');
+            if (c.length === 3) {
+                c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+            }
+            c = '0x' + c.join('');
+            return (c>>16) + ', ' + ((c>>8)&255) + ', ' + (c&255);
+        }
+
+        // ==========================================
+        // TAB SWITCHING LOGIC
+        // ==========================================
         function switchTab(tab) {
             const mainTitle = document.getElementById('mainTitle');
             const socialTitle = document.getElementById('socialTitle');
@@ -700,7 +777,7 @@
                 });
                 
                 aboutContainer.classList.remove('visible');
-                hmhWrapper.classList.remove('visible'); // Hide HMH footer
+                hmhWrapper.classList.remove('visible');
                 
                 contentWrapper.style.display = 'block';
                 bios.forEach(b => b.classList.remove('hidden'));
@@ -717,7 +794,6 @@
                     tabSocial.classList.add('active');
                     contentWrapper.style.display = 'block';
                     
-                    // Show HMH Footer only in Socials tab
                     hmhWrapper.classList.add('visible');
                     
                     bios.forEach(b => b.classList.add('hidden'));
@@ -741,17 +817,22 @@
             }, 300); 
         }
 
-        // --- ULTRA SMOOTH PINK PARTICLE NETWORK ANIMATION ---
+        // ==========================================
+        // ULTRA SMOOTH PINK PARTICLE NETWORK (Canvas)
+        // ==========================================
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
         let particles = [];
         let sparkles = [];
 
-        // Optimized for smoothness and density
-        const PARTICLE_COUNT = 130;      // More particles
-        const CONNECTION_DISTANCE = 220; // More lines connecting
-        const SPARKLE_COUNT = 75;        // More sparkles
+        const PARTICLE_COUNT = 130;
+        const CONNECTION_DISTANCE = 220;
+        const SPARKLE_COUNT = 75;
+
+        // Colors to send from the theme engine
+        let currentColor = '#ff6b6b';
+        let currentLightColor = '#ff6b6b';
 
         function init() {
             width = canvas.width = window.innerWidth;
@@ -763,7 +844,7 @@
                 particles.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * 0.8, // Slower, smoother drift
+                    vx: (Math.random() - 0.5) * 0.8,
                     vy: (Math.random() - 0.5) * 0.8,
                     size: Math.random() * 2.5 + 1.5,
                     phase: Math.random() * Math.PI * 2
@@ -774,7 +855,7 @@
                 sparkles.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * 0.15, // Slower for smooth float
+                    vx: (Math.random() - 0.5) * 0.15,
                     vy: (Math.random() - 0.5) * 0.15,
                     size: Math.random() * 2 + 1,
                     alpha: Math.random() * 0.6 + 0.4,
@@ -797,17 +878,16 @@
                 
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.size * pulse, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 180, 210, ${s.alpha * pulse * 0.7})`;
+                ctx.fillStyle = hexToRgba(currentLightColor, s.alpha * pulse * 0.7);
                 ctx.fill();
                 ctx.shadowBlur = 20;
-                ctx.shadowColor = 'rgba(255, 100, 150, 0.3)';
+                ctx.shadowColor = hexToRgba(currentColor, 0.3);
                 ctx.fill();
                 ctx.shadowBlur = 0;
             });
 
             // --- Draw Particle Lines & Dots ---
             particles.forEach(p => {
-                // Super smooth random drift
                 p.vx += (Math.random() - 0.5) * 0.04;
                 p.vy += (Math.random() - 0.5) * 0.04;
                 let maxSpeed = 0.6;
@@ -820,20 +900,19 @@
                 if (p.x < -50) p.x = width + 50; if (p.x > width + 50) p.x = -50;
                 if (p.y < -50) p.y = height + 50; if (p.y > height + 50) p.y = -50;
 
-                // Breathing effect
                 let sizePulse = Math.sin(Date.now() * 0.001 + p.phase) * 0.3 + 0.7;
                 let currentSize = p.size * sizePulse;
 
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, currentSize, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 150, 190, 0.85)';
+                ctx.fillStyle = hexToRgba(currentLightColor, 0.85);
                 ctx.shadowBlur = 12;
-                ctx.shadowColor = 'rgba(255, 50, 100, 0.5)';
+                ctx.shadowColor = hexToRgba(currentColor, 0.5);
                 ctx.fill();
                 ctx.shadowBlur = 0;
             });
 
-            // Draw connections between nearby particles
+            // Draw connections
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     let dx = particles[i].x - particles[j].x;
@@ -841,15 +920,14 @@
                     let distance = Math.sqrt(dx * dx + dy * dy);
 
                     if (distance < CONNECTION_DISTANCE) {
-                        // Smoother fade based on distance
                         let opacity = 1 - (distance / CONNECTION_DISTANCE);
                         opacity *= 0.35;
 
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(255, 130, 170, ${opacity})`;
-                        ctx.lineWidth = 0.6; // Thinner lines for cleaner look
+                        ctx.strokeStyle = hexToRgba(currentLightColor, opacity);
+                        ctx.lineWidth = 0.6;
                         ctx.stroke();
                     }
                 }
@@ -857,6 +935,21 @@
 
             requestAnimationFrame(animate);
         }
+
+        function hexToRgba(hex, alpha) {
+            let c = hex.substring(1).split('');
+            if (c.length === 3) {
+                c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+            }
+            c = '0x' + c.join('');
+            return 'rgba(' + (c>>16) + ', ' + ((c>>8)&255) + ', ' + (c&255) + ', ' + alpha + ')';
+        }
+
+        // Bridge function for theme switcher
+        window.updateParticleColor = function(lightHex, mainHex) {
+            currentLightColor = lightHex;
+            currentColor = mainHex;
+        };
 
         window.addEventListener('resize', () => {
             init();
