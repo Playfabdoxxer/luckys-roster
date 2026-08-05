@@ -13,7 +13,7 @@
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
         }
         body {
-            background-color: #050508; /* Deep black background */
+            background-color: #050508;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -23,126 +23,24 @@
             overflow-x: hidden;
         }
 
-        /* --- ANIMATED PINK GEOMETRIC NETWORK BACKGROUND --- */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+        /* --- CANVAS BACKGROUND LAYER --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
-            pointer-events: none;
-            
-            background-image: 
-                linear-gradient(45deg, rgba(255, 100, 150, 0.12) 1px, transparent 1px),
-                linear-gradient(-45deg, rgba(255, 100, 150, 0.12) 1px, transparent 1px),
-                linear-gradient(rgba(255, 100, 150, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 100, 150, 0.08) 1px, transparent 1px),
-                linear-gradient(45deg, rgba(255, 50, 100, 0.15) 2px, transparent 2px),
-                linear-gradient(-45deg, rgba(255, 50, 100, 0.15) 2px, transparent 2px);
-            
-            background-size: 
-                140px 140px, 
-                140px 140px, 
-                250px 250px, 
-                250px 250px, 
-                450px 450px, 
-                450px 450px;
-            
-            background-blend-mode: screen;
-            
-            /* Animation: slow drift of the network */
-            animation: networkDrift 20s linear infinite alternate;
+            display: block;
+            pointer-events: none; /* Prevents it from blocking clicks */
         }
-
-        /* Make the lines slowly move diagonally */
-        @keyframes networkDrift {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
-        }
-
-        /* --- FLOATING PINK GLOWING BLOBS --- */
-        .blob-container {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 50, 100, 0.6), rgba(255, 50, 100, 0) 70%);
-            filter: blur(20px);
-            opacity: 0;
-            /* Each blob will move, scale, and fade independently */
-            animation: blobFloat 6s ease-in-out infinite alternate;
-        }
-
-        /* Customize each blob's size, position, and timing */
-        .blob:nth-child(1) {
-            width: 250px; height: 250px;
-            top: 10%; left: 10%;
-            animation-duration: 7s;
-            animation-delay: 0s;
-        }
-        .blob:nth-child(2) {
-            width: 350px; height: 350px;
-            bottom: 20%; right: 15%;
-            background: radial-gradient(circle, rgba(255, 100, 150, 0.5), rgba(255, 100, 150, 0) 70%);
-            animation-duration: 9s;
-            animation-delay: 1s;
-        }
-        .blob:nth-child(3) {
-            width: 180px; height: 180px;
-            top: 50%; left: 60%;
-            background: radial-gradient(circle, rgba(255, 20, 80, 0.7), rgba(255, 20, 80, 0) 70%);
-            animation-duration: 5s;
-            animation-delay: 2s;
-        }
-        .blob:nth-child(4) {
-            width: 300px; height: 300px;
-            top: 80%; left: -50px;
-            background: radial-gradient(circle, rgba(255, 70, 120, 0.5), rgba(255, 70, 120, 0) 70%);
-            animation-duration: 8s;
-            animation-delay: 0.5s;
-        }
-        .blob:nth-child(5) {
-            width: 200px; height: 200px;
-            top: -50px; right: 20%;
-            background: radial-gradient(circle, rgba(255, 150, 200, 0.4), rgba(255, 150, 200, 0) 70%);
-            animation-duration: 6.5s;
-            animation-delay: 3s;
-        }
-
-        /* Animation for popping up, moving, and fading */
-        @keyframes blobFloat {
-            0% {
-                transform: translate(0, 0) scale(0.5);
-                opacity: 0;
-            }
-            20% {
-                opacity: 0.8;
-            }
-            50% {
-                transform: translate(30px, -40px) scale(1.2);
-                opacity: 0.9;
-            }
-            80% {
-                opacity: 0.5;
-            }
-            100% {
-                transform: translate(-20px, 50px) scale(0.8);
-                opacity: 0;
-            }
-        }
-        /* ----------------------------------------- */
 
         .roster-card {
             max-width: 580px;
             width: 100%;
-            background: rgba(8, 8, 12, 0.78); /* Dark glass card */
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            background: rgba(8, 8, 12, 0.75); /* Dark glass card */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 50, 100, 0.15);
             border-radius: 2.8rem;
             padding: 2.4rem 2rem;
@@ -252,7 +150,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.5);
             text-transform: uppercase;
         }
-        /* ----------------------------------- */
 
         .member-info {
             flex: 1;
@@ -318,14 +215,8 @@
 </head>
 <body>
     
-    <!-- THE MOVING BACKGROUND BLOBS -->
-    <div class="blob-container">
-        <div class="blob"></div>
-        <div class="blob"></div>
-        <div class="blob"></div>
-        <div class="blob"></div>
-        <div class="blob"></div>
-    </div>
+    <!-- CANVAS FOR THE DYNAMIC ANIMATION -->
+    <canvas id="particle-canvas"></canvas>
 
     <div class="roster-card">
         <!-- HEADER -->
@@ -407,25 +298,18 @@
     </div>
 
     <script>
+        // --- Apply Roster Text Colors ---
         document.addEventListener('DOMContentLoaded', function() {
-            // --- 1. Apply gradient to ROLE HEADERS ---
             const roleGroups = document.querySelectorAll('.role-group');
-            
             roleGroups.forEach(group => {
                 const role = group.dataset.role;
                 const header = group.querySelector('.role-header');
                 if (!header) return;
-                
                 let gradient = '';
-                if (role === 'founder') {
-                    gradient = 'linear-gradient(90deg, #ff69b4, #000000, #ff69b4)';
-                } else if (role === 'co-owner') {
-                    gradient = 'linear-gradient(90deg, #9b59b6, #000000, #9b59b6)';
-                } else if (role === 'mod-maker') {
-                    gradient = 'linear-gradient(90deg, #3498db, #000000, #3498db)';
-                } else {
-                    gradient = 'linear-gradient(90deg, #ffffff, #888888, #ffffff)';
-                }
+                if (role === 'founder') gradient = 'linear-gradient(90deg, #ff69b4, #000000, #ff69b4)';
+                else if (role === 'co-owner') gradient = 'linear-gradient(90deg, #9b59b6, #000000, #9b59b6)';
+                else if (role === 'mod-maker') gradient = 'linear-gradient(90deg, #3498db, #000000, #3498db)';
+                else gradient = 'linear-gradient(90deg, #ffffff, #888888, #ffffff)';
                 
                 header.style.background = gradient;
                 header.style.backgroundSize = '200% 100%';
@@ -435,32 +319,158 @@
                 header.style.backgroundClip = 'text';
             });
 
-            // --- 2. Apply SOLID COLORS to MEMBER NAMES ---
             const members = document.querySelectorAll('.member');
-            
             members.forEach(member => {
                 const roleGroup = member.closest('.role-group');
                 if (!roleGroup) return;
-                
                 const role = roleGroup.dataset.role;
                 const nameElement = member.querySelector('.member-name h3');
                 if (!nameElement) return;
-                
                 let color = '';
-                if (role === 'founder') {
-                    color = '#ff69b4'; // pink
-                } else if (role === 'co-owner') {
-                    color = '#9b59b6'; // purple
-                } else if (role === 'mod-maker') {
-                    color = '#3498db'; // blue
-                } else {
-                    color = '#ffffff';
-                }
-                
+                if (role === 'founder') color = '#ff69b4';
+                else if (role === 'co-owner') color = '#9b59b6';
+                else if (role === 'mod-maker') color = '#3498db';
+                else color = '#ffffff';
                 nameElement.style.color = color;
                 nameElement.style.webkitTextFillColor = color;
             });
         });
+
+        // --- SMOOTH PINK PARTICLE NETWORK ANIMATION ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let particles = [];
+        let sparkles = [];
+
+        // Configuration for smoothness
+        const PARTICLE_COUNT = 90;
+        const CONNECTION_DISTANCE = 150;
+        const SPARKLE_COUNT = 40;
+
+        function init() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            sparkles = [];
+
+            // Create the moving nodes (dots)
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 1.5, // Smooth, slow horizontal drift
+                    vy: (Math.random() - 0.5) * 1.5, // Smooth, slow vertical drift
+                    size: Math.random() * 2.5 + 1.5,
+                    phase: Math.random() * Math.PI * 2 // For gentle pulsing
+                });
+            }
+
+            // Create floating sparkles (little stars)
+            for (let i = 0; i < SPARKLE_COUNT; i++) {
+                sparkles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    size: Math.random() * 2 + 1,
+                    alpha: Math.random() * 0.6 + 0.4,
+                    pulseSpeed: Math.random() * 0.02 + 0.01
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // --- 1. Draw Sparkles (Twinkling background) ---
+            sparkles.forEach(s => {
+                s.x += s.vx;
+                s.y += s.vy;
+                // Wrap around screen so they never disappear
+                if(s.x < 0) s.x = width; if(s.x > width) s.x = 0;
+                if(s.y < 0) s.y = height; if(s.y > height) s.y = 0;
+
+                // Gentle twinkle pulse
+                let pulse = Math.sin(Date.now() * s.pulseSpeed) * 0.3 + 0.7;
+                
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size * pulse, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 150, 200, ${s.alpha * pulse * 0.8})`;
+                ctx.fill();
+                // Glow
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = 'rgba(255, 100, 150, 0.4)';
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+
+            // --- 2. Draw Particle Lines & Dots ---
+            // Update particle positions smoothly
+            particles.forEach(p => {
+                // Add gentle random drift (up/down/left/right)
+                p.vx += (Math.random() - 0.5) * 0.1;
+                p.vy += (Math.random() - 0.5) * 0.1;
+                // Limit speed so it stays smooth
+                let maxSpeed = 1.2;
+                if (Math.abs(p.vx) > maxSpeed) p.vx = p.vx > 0 ? maxSpeed : -maxSpeed;
+                if (Math.abs(p.vy) > maxSpeed) p.vy = p.vy > 0 ? maxSpeed : -maxSpeed;
+
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Wrap particles around the screen to keep them in frame
+                if (p.x < -50) p.x = width + 50; if (p.x > width + 50) p.x = -50;
+                if (p.y < -50) p.y = height + 50; if (p.y > height + 50) p.y = -50;
+
+                // Gentle size pulsation
+                let sizePulse = Math.sin(Date.now() * 0.001 + p.phase) * 0.3 + 0.7;
+                let currentSize = p.size * sizePulse;
+
+                // Draw the dot
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, currentSize, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 120, 170, 0.8)';
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = 'rgba(255, 50, 100, 0.6)';
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+
+            // Draw lines between nearby particles
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < CONNECTION_DISTANCE) {
+                        // Fade lines based on distance (smooth network)
+                        let opacity = 1 - (distance / CONNECTION_DISTANCE);
+                        opacity *= 0.5; // Keep lines subtle
+
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(255, 100, 150, ${opacity})`;
+                        ctx.lineWidth = 0.8; // Very thin, clean lines
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Handle resizing
+        window.addEventListener('resize', () => {
+            init();
+        });
+
+        init();
+        animate();
+
     </script>
 </body>
 </html>
