@@ -48,8 +48,11 @@
             transition: 0.2s;
             position: relative;
             z-index: 1;
+            /* Fixes content going out of bounds */
             max-height: 90vh;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
         
         /* --- SCROLLBAR STYLING (Skinnier & Far Right) --- */
@@ -75,6 +78,7 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             min-height: 60px;
+            flex-shrink: 0;
         }
 
         /* --- ANIMATED RED & BLACK TITLES --- */
@@ -156,6 +160,7 @@
             transition: opacity 0.4s ease, transform 0.4s ease;
             opacity: 1;
             transform: translateY(0);
+            flex: 1;
         }
         .content-container.fading {
             opacity: 0;
@@ -173,6 +178,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
+            flex-shrink: 0;
         }
         .tagline span {
             display: flex;
@@ -346,6 +352,18 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* --- HMH FOOTER (Inside the Card) --- */
+        .hmh-footer-wrapper {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,50,100,0.04);
+            display: none;
+        }
+        .hmh-footer-wrapper.visible {
+            display: block;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
         /* --- ABOUT US TAB --- */
         .about-container {
             display: none;
@@ -383,6 +401,7 @@
             justify-content: space-between;
             font-size: 0.7rem;
             color: #4a5368;
+            flex-shrink: 0;
         }
         .footer-note span i {
             color: #ff6b6b;
@@ -547,38 +566,35 @@
 
         </div> <!-- End Content Wrapper -->
 
+        <!-- ====== HMH FOOTER (Only shows in Socials Tab) ====== -->
+        <div id="hmhWrapper" class="hmh-footer-wrapper">
+            <div class="member" style="padding-left: 0; padding-right: 0; margin-bottom: 0;">
+                <div class="member-avatar" style="display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: #d6c8a0;">
+                    HMH
+                </div>
+                
+                <div class="member-info">
+                    <div class="member-name">
+                        <!-- HMH TEXT WITH GREY-BLACK GRADIENT -->
+                        <h3 id="hmhName" style="font-size: 1.1rem; font-weight: 600; letter-spacing: -0.2px; -webkit-text-fill-color: transparent;">
+                            HMH
+                        </h3>
+                    </div>
+                    
+                    <div class="member-bio-wrapper">
+                        <i class="fas fa-link bio-icon" style="color: #ff6b6b; opacity: 0.35; width: 1rem; flex-shrink: 0;"></i>
+                        <span class="member-bio" style="font-size: 0.85rem; color: #a8b2c9; line-height: 1.4; margin-left: 8px;">
+                            <a href="https://discord.gg/b3emfqSxhF" target="_blank" style="color: #ff6b6b; text-decoration: none; font-weight: 600;">Join our Discord</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- FOOTER -->
         <div class="footer-note">
             <span><i class="fas fa-shield-alt"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
             <span class="highlight">@HybridModdingHub</span>
-        </div>
-    </div>
-
-    <!-- HIDDEN SOCIALS FOOTER (ADDED TO THE VERY BOTTOM) -->
-    <div id="hmhSocialContainer" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,50,100,0.04);">
-        
-        <div class="member" style="padding-left: 0; padding-right: 0;">
-            <!-- HMH AVATAR -->
-            <div class="member-avatar" style="display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: #d6c8a0;">
-                HMH
-            </div>
-            
-            <div class="member-info">
-                <div class="member-name">
-                    <!-- HMH NAME WITH GREY TO BLACK GRADIENT -->
-                    <h3 id="hmhName" style="font-size: 1.1rem; font-weight: 600; letter-spacing: -0.2px; -webkit-text-fill-color: transparent;">
-                        HMH
-                    </h3>
-                </div>
-                
-                <!-- HMH BIO / LINK -->
-                <div class="member-bio-wrapper">
-                    <i class="fas fa-link bio-icon" style="color: #ff6b6b; opacity: 0.35; width: 1rem; flex-shrink: 0;"></i>
-                    <span class="member-bio" style="font-size: 0.85rem; color: #a8b2c9; line-height: 1.4; margin-left: 8px;">
-                        <a href="https://discord.gg/b3emfqSxhF" target="_blank" style="color: #ff6b6b; text-decoration: none; font-weight: 600;">Join our Discord</a>
-                    </span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -663,7 +679,7 @@
             
             const contentWrapper = document.getElementById('contentWrapper');
             const aboutContainer = document.getElementById('aboutContainer');
-            const hmhSocialContainer = document.getElementById('hmhSocialContainer');
+            const hmhWrapper = document.getElementById('hmhWrapper');
             
             const bios = document.querySelectorAll('.member-bio-wrapper');
             const socials = document.querySelectorAll('.member-social');
@@ -681,7 +697,7 @@
                 });
                 
                 aboutContainer.classList.remove('visible');
-                hmhSocialContainer.style.display = 'none'; // Hide HMH footer by default
+                hmhWrapper.classList.remove('visible'); // Hide HMH footer
                 
                 contentWrapper.style.display = 'block';
                 bios.forEach(b => b.classList.remove('hidden'));
@@ -699,7 +715,7 @@
                     contentWrapper.style.display = 'block';
                     
                     // Show HMH Footer only in Socials tab
-                    hmhSocialContainer.style.display = 'block';
+                    hmhWrapper.classList.add('visible');
                     
                     bios.forEach(b => b.classList.add('hidden'));
                     socials.forEach(s => s.classList.add('visible'));
