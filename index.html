@@ -48,6 +48,8 @@
             transition: 0.2s;
             position: relative;
             z-index: 1;
+            max-height: 90vh;
+            overflow-y: auto; /* Scroll if roster gets too long */
         }
         
         .roster-header {
@@ -59,44 +61,51 @@
             margin-bottom: 1.6rem;
             flex-wrap: wrap;
             gap: 0.5rem;
-            min-height: 60px; /* Keeps height consistent */
+            min-height: 60px;
         }
 
-        /* --- TITLE & TAB SWITCHING --- */
+        /* --- SMOOTH TITLE & ANIMATION --- */
         .title-container {
             position: relative;
             display: flex;
             align-items: center;
+            overflow: hidden;
         }
         .title-text {
             font-size: 1.9rem;
             font-weight: 800;
-            background: linear-gradient(90deg, #ff0000, #000000);
+            background: linear-gradient(90deg, #ff0000, #222222, #ff0000);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.8px;
             text-transform: uppercase;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            animation: leftRightShimmer 3s linear infinite;
+            transition: opacity 0.4s ease, transform 0.4s ease;
             position: absolute;
             left: 0;
             white-space: nowrap;
         }
         .title-text.hidden {
             opacity: 0;
-            transform: translateY(-8px);
+            transform: translateY(10px);
             pointer-events: none;
         }
         .title-text.active {
             opacity: 1;
             transform: translateY(0);
-            position: relative; /* Stacks properly when visible */
+            position: relative;
+        }
+
+        @keyframes leftRightShimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
         /* --------------------------------- */
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
         }
         
         /* --- NAVIGATION TABS --- */
@@ -105,27 +114,39 @@
             gap: 0.5rem;
         }
         .tab-btn {
-            background: rgba(255,50,100,0.10);
-            color: #ff6b6b;
-            padding: 0.3rem 1rem;
+            background: rgba(255,255,255,0.03);
+            color: #7a8499;
+            padding: 0.4rem 1.2rem;
             font-size: 0.75rem;
             font-weight: 700;
-            border: 1px solid rgba(255,50,100,0.08);
+            border: 1px solid rgba(255,255,255,0.05);
             border-radius: 40px;
             cursor: pointer;
             text-transform: uppercase;
-            transition: 0.2s;
+            transition: all 0.3s ease;
             letter-spacing: 0.5px;
             font-family: inherit;
         }
         .tab-btn:hover {
-            background: rgba(255,50,100,0.20);
-            border-color: rgba(255,50,100,0.2);
+            background: rgba(255,50,100,0.10);
+            color: #ffffff;
         }
         .tab-btn.active {
-            background: rgba(255,50,100,0.25);
-            border-color: #ff6b6b;
-            color: #ffffff;
+            background: rgba(255,50,100,0.20);
+            border-color: rgba(255,50,100,0.3);
+            color: #ff6b6b;
+            box-shadow: 0 0 15px rgba(255,50,100,0.05);
+        }
+
+        /* --- SMOOTH FADE CONTAINER --- */
+        .content-container {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .content-container.fading {
+            opacity: 0;
+            transform: translateY(10px);
         }
         /* ---------------------------------- */
 
@@ -146,26 +167,30 @@
             margin-right: 0.3rem;
         }
 
-        /* ---- ROLE HEADERS (with gradient animation) ---- */
+        /* --- BIGGER ROLE HEADERS WITH GRADIENT BUBBLE --- */
         .role-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .role-header-wrapper {
+            display: inline-block;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 40px;
+            padding: 0.2rem 1.2rem;
+            margin-bottom: 0.8rem;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         .role-header {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.8px;
+            font-size: 1.2rem; /* Bigger text */
+            font-weight: 800;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            padding-bottom: 0.4rem;
-            margin-bottom: 0.6rem;
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            background-size: 200% 100%;
-            animation: shimmer 3s linear infinite;
-        }
-        @keyframes shimmer {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+            animation: leftRightShimmer 3s linear infinite;
         }
         /* ------------------------------------------ */
 
@@ -184,11 +209,10 @@
             border-color: rgba(255,50,100,0.04);
         }
         
-        /* --- INITIALS AVATAR --- */
         .member-avatar {
-            width: 38px;
-            height: 38px;
-            min-width: 38px;
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
             border-radius: 50%;
             background: linear-gradient(135deg, #212833, #13181f);
             display: flex;
@@ -218,22 +242,39 @@
             letter-spacing: -0.2px;
             -webkit-text-fill-color: transparent;
         }
+
+        /* --- ROLE TAG WITH GRADIENT --- */
         .member-role-tag {
             font-size: 0.6rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.6px;
-            color: #ff6b6b;
-            background: rgba(255,50,100,0.06);
-            padding: 0.1rem 0.6rem;
+            padding: 0.1rem 0.8rem;
             border-radius: 30px;
-            border: 1px solid rgba(255,50,100,0.04);
+            background-size: 200% auto;
+            animation: leftRightShimmer 3s linear infinite;
+            border: 1px solid rgba(255,255,255,0.05);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+        /* ---------------------------------- */
+
         .member-bio {
             font-size: 0.85rem;
             color: #a8b2c9;
             margin-top: 0.15rem;
             line-height: 1.4;
+            transition: all 0.3s ease;
+            max-height: 50px;
+            overflow: hidden;
+        }
+        .member-bio.hidden {
+            opacity: 0;
+            max-height: 0;
+            margin: 0;
+            padding: 0;
+            pointer-events: none;
         }
         .member-bio i {
             color: #ff6b6b;
@@ -244,15 +285,14 @@
 
         /* --- SOCIAL LINKS UNDER NAMES --- */
         .member-social {
-            margin-top: 0.5rem;
-            display: none; /* Hidden by default */
-            padding-left: 0.2rem;
+            margin-top: 0.4rem;
+            display: none;
         }
         .member-social a {
             color: #ff6b6b;
             text-decoration: none;
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
@@ -266,12 +306,19 @@
         .member-social a:hover {
             background: rgba(255,50,100,0.15);
             border-color: rgba(255,50,100,0.2);
+            transform: scale(1.02);
         }
         .member-social a i {
             font-size: 0.7rem;
         }
         .member-social.visible {
-            display: block; /* Shown when Socials tab is active */
+            display: block;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         /* ---------------------------------- */
 
@@ -293,10 +340,24 @@
             color: #ff6b6b;
             opacity: 0.6;
         }
+        
+        /* --- SCROLLBAR STYLING --- */
+        .roster-card::-webkit-scrollbar {
+            width: 4px;
+        }
+        .roster-card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .roster-card::-webkit-scrollbar-thumb {
+            background: rgba(255,50,100,0.3);
+            border-radius: 10px;
+        }
+
         @media (max-width: 500px) {
             .roster-card { padding: 1.5rem 1.2rem; }
             .member { padding: 0.5rem 0.2rem; }
             .title-text { font-size: 1.5rem; }
+            .role-header { font-size: 1rem; }
         }
     </style>
 </head>
@@ -319,11 +380,9 @@
             <div class="header-right">
                 <!-- NAVIGATION TABS -->
                 <div class="nav-tabs">
-                    <button class="tab-btn active" id="tabHybrid" onclick="switchTab('hybrid')">Hybrid</button>
+                    <button class="tab-btn active" id="tabHybrid" onclick="switchTab('hybrid')">Roster</button>
                     <button class="tab-btn" id="tabSocial" onclick="switchTab('social')">Socials</button>
                 </div>
-                
-                <span class="badge">HMH</span>
             </div>
         </div>
 
@@ -333,90 +392,99 @@
             <span><i class="fas fa-shield-alt"></i>@hybridprotection</span>
         </div>
 
-        <!-- ====== FOUNDER GROUP ====== -->
-        <div class="role-group" data-role="founder">
-            <div class="role-header">FOUNDER</div>
+        <!-- WRAPPER FOR SMOOTH FADING -->
+        <div id="contentWrapper" class="content-container">
+            
+            <!-- ====== FOUNDER GROUP ====== -->
+            <div class="role-group" data-role="founder">
+                <div class="role-header-wrapper">
+                    <div class="role-header">FOUNDER</div>
+                </div>
 
-            <div class="member">
-                <div class="member-avatar">LK</div>
-                <div class="member-info">
-                    <div class="member-name">
-                        <h3>Lucky</h3>
-                        <span class="member-role-tag">founder</span>
+                <div class="member">
+                    <div class="member-avatar">LK</div>
+                    <div class="member-info">
+                        <div class="member-name">
+                            <h3>Lucky</h3>
+                            <span class="member-role-tag">founder</span>
+                        </div>
+                        <div class="member-bio"><i class="fas fa-code"></i>gtag comboss &amp; egotistical skid</div>
+                        <!-- LUCKY'S SOCIAL LINK (Short Display) -->
+                        <div class="member-social">
+                            <a href="https://guns.lol/apktoolkit" target="_blank"><i class="fas fa-link"></i> guns.lol</a>
+                        </div>
                     </div>
-                    <div class="member-bio"><i class="fas fa-code"></i>gtag comboss &amp; egotistical skid</div>
-                    <!-- LUCKY'S SOCIAL LINK -->
-                    <div class="member-social">
-                        <a href="https://guns.lol/apktoolkit" target="_blank"><i class="fas fa-link"></i> guns.lol/apktoolkit</a>
+                </div>
+
+                <div class="member">
+                    <div class="member-avatar">VX</div>
+                    <div class="member-info">
+                        <div class="member-name">
+                            <h3>Vexy</h3>
+                            <span class="member-role-tag">founder</span>
+                        </div>
+                        <div class="member-bio"><i class="fas fa-code"></i>gtag comboss &amp; egotistical skid</div>
+                        <!-- ADD VEXY'S SOCIAL LINK HERE -->
+                        <div class="member-social">
+                            <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="member">
-                <div class="member-avatar">VX</div>
-                <div class="member-info">
-                    <div class="member-name">
-                        <h3>Vexy</h3>
-                        <span class="member-role-tag">founder</span>
+            <!-- ====== CO-OWNER GROUP ====== -->
+            <div class="role-group" data-role="co-owner">
+                <div class="role-header-wrapper">
+                    <div class="role-header">CO-OWNER</div>
+                </div>
+
+                <div class="member">
+                    <div class="member-avatar">CL</div>
+                    <div class="member-info">
+                        <div class="member-name">
+                            <h3>Catlover</h3>
+                            <span class="member-role-tag">co-owner</span>
+                        </div>
+                        <div class="member-bio"><i class="fas fa-code"></i>extremely advanced claude skid &amp; gtag horror stealing god</div>
+                        <!-- ADD CATLOVER'S SOCIAL LINK HERE -->
+                        <div class="member-social">
+                            <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
+                        </div>
                     </div>
-                    <div class="member-bio"><i class="fas fa-code"></i>gtag comboss &amp; egotistical skid</div>
-                    <!-- ADD VEXY'S SOCIAL LINK HERE -->
-                    <div class="member-social">
-                        <a href="#" target="_blank"><i class="fas fa-link"></i> PASTE VEXY LINK</a>
+                </div>
+
+                <div class="member">
+                    <div class="member-avatar">ST</div>
+                    <div class="member-info">
+                        <div class="member-name">
+                            <h3>Static</h3>
+                            <span class="member-role-tag">co-owner</span>
+                        </div>
+                        <div class="member-bio"><i class="fas fa-code"></i>Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</div>
+                        <!-- ADD STATIC'S SOCIAL LINK HERE -->
+                        <div class="member-social">
+                            <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <div class="member-avatar">ZK</div>
+                    <div class="member-info">
+                        <div class="member-name">
+                            <h3>Zyko</h3>
+                            <span class="member-role-tag">co-owner</span>
+                        </div>
+                        <div class="member-bio"><i class="fas fa-code"></i>Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</div>
+                        <!-- ADD ZYKO'S SOCIAL LINK HERE -->
+                        <div class="member-social">
+                            <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- ====== CO-OWNER GROUP ====== -->
-        <div class="role-group" data-role="co-owner">
-            <div class="role-header">CO-OWNER</div>
-
-            <div class="member">
-                <div class="member-avatar">CL</div>
-                <div class="member-info">
-                    <div class="member-name">
-                        <h3>Catlover</h3>
-                        <span class="member-role-tag">co-owner</span>
-                    </div>
-                    <div class="member-bio"><i class="fas fa-code"></i>extremely advanced claude skid &amp; gtag horror stealing god</div>
-                    <!-- ADD CATLOVER'S SOCIAL LINK HERE -->
-                    <div class="member-social">
-                        <a href="#" target="_blank"><i class="fas fa-link"></i> PASTE CATLOVER LINK</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member">
-                <div class="member-avatar">ST</div>
-                <div class="member-info">
-                    <div class="member-name">
-                        <h3>Static</h3>
-                        <span class="member-role-tag">co-owner</span>
-                    </div>
-                    <div class="member-bio"><i class="fas fa-code"></i>Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</div>
-                    <!-- ADD STATIC'S SOCIAL LINK HERE -->
-                    <div class="member-social">
-                        <a href="#" target="_blank"><i class="fas fa-link"></i> PASTE STATIC LINK</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="member">
-                <div class="member-avatar">ZK</div>
-                <div class="member-info">
-                    <div class="member-name">
-                        <h3>Zyko</h3>
-                        <span class="member-role-tag">co-owner</span>
-                    </div>
-                    <div class="member-bio"><i class="fas fa-code"></i>Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</div>
-                    <!-- ADD ZYKO'S SOCIAL LINK HERE -->
-                    <div class="member-social">
-                        <a href="#" target="_blank"><i class="fas fa-link"></i> PASTE ZYKO LINK</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </div> <!-- End Content Wrapper -->
 
         <!-- FOOTER -->
         <div class="footer-note">
@@ -426,86 +494,100 @@
     </div>
 
     <script>
-        // --- TAB SWITCHING LOGIC ---
+        // --- APPLY GRADIENTS & COLORS ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // Define role colors
+            const roleColors = {
+                'founder': { light: '#ff69b4', dark: '#000000', tag: '#ff69b4' },
+                'co-owner': { light: '#9b59b6', dark: '#000000', tag: '#9b59b6' },
+                'mod-maker': { light: '#3498db', dark: '#000000', tag: '#3498db' }
+            };
+
+            // Apply to Role Headers and Role Tags
+            const roleGroups = document.querySelectorAll('.role-group');
+            roleGroups.forEach(group => {
+                const role = group.dataset.role;
+                const header = group.querySelector('.role-header');
+                const tags = group.querySelectorAll('.member-role-tag');
+                const names = group.querySelectorAll('.member-name h3');
+
+                if (roleColors[role]) {
+                    // Header Gradient (Left to Right)
+                    if(header) {
+                        header.style.background = `linear-gradient(90deg, ${roleColors[role].light}, ${roleColors[role].dark}, ${roleColors[role].light})`;
+                        header.style.backgroundSize = '200% auto';
+                        header.style.animation = 'leftRightShimmer 3s linear infinite';
+                    }
+                    
+                    // Tags Gradient (Left to Right)
+                    tags.forEach(tag => {
+                        tag.style.background = `linear-gradient(90deg, ${roleColors[role].light}, ${roleColors[role].dark}, ${roleColors[role].light})`;
+                        tag.style.backgroundSize = '200% auto';
+                        tag.style.animation = 'leftRightShimmer 3s linear infinite';
+                    });
+
+                    // Solid text color for names
+                    names.forEach(name => {
+                        name.style.color = roleColors[role].light;
+                        name.style.webkitTextFillColor = roleColors[role].light;
+                    });
+                }
+            });
+        });
+
+        // --- SMOOTH TAB SWITCHING LOGIC ---
         function switchTab(tab) {
             const mainTitle = document.getElementById('mainTitle');
             const socialTitle = document.getElementById('socialTitle');
             const tabHybrid = document.getElementById('tabHybrid');
             const tabSocial = document.getElementById('tabSocial');
-            const socialLinks = document.querySelectorAll('.member-social');
+            const contentWrapper = document.getElementById('contentWrapper');
+            const bios = document.querySelectorAll('.member-bio');
+            const socials = document.querySelectorAll('.member-social');
 
-            if (tab === 'hybrid') {
-                // Switch Title
-                mainTitle.classList.remove('hidden');
-                mainTitle.classList.add('active');
-                socialTitle.classList.add('hidden');
-                socialTitle.classList.remove('active');
+            // 1. Trigger Fade Out
+            contentWrapper.classList.add('fading');
+
+            setTimeout(() => {
+                if (tab === 'hybrid') {
+                    // Switch Titles
+                    mainTitle.classList.remove('hidden');
+                    mainTitle.classList.add('active');
+                    socialTitle.classList.add('hidden');
+                    socialTitle.classList.remove('active');
+                    
+                    // Switch Buttons
+                    tabHybrid.classList.add('active');
+                    tabSocial.classList.remove('active');
+
+                    // Show Bios, Hide Socials
+                    bios.forEach(b => b.classList.remove('hidden'));
+                    socials.forEach(s => s.classList.remove('visible'));
+
+                } else if (tab === 'social') {
+                    // Switch Titles
+                    mainTitle.classList.add('hidden');
+                    mainTitle.classList.remove('active');
+                    socialTitle.classList.remove('hidden');
+                    socialTitle.classList.add('active');
+
+                    // Switch Buttons
+                    tabHybrid.classList.remove('active');
+                    tabSocial.classList.add('active');
+
+                    // Hide Bios, Show Socials
+                    bios.forEach(b => b.classList.add('hidden'));
+                    socials.forEach(s => s.classList.add('visible'));
+                }
                 
-                // Switch Buttons
-                tabHybrid.classList.add('active');
-                tabSocial.classList.remove('active');
-
-                // Hide all social links
-                socialLinks.forEach(link => link.classList.remove('visible'));
-            } 
-            else if (tab === 'social') {
-                // Switch Title
-                mainTitle.classList.add('hidden');
-                mainTitle.classList.remove('active');
-                socialTitle.classList.remove('hidden');
-                socialTitle.classList.add('active');
-
-                // Switch Buttons
-                tabHybrid.classList.remove('active');
-                tabSocial.classList.add('active');
-
-                // Show all social links
-                socialLinks.forEach(link => link.classList.add('visible'));
-            }
+                // 2. Trigger Fade In
+                contentWrapper.classList.remove('fading');
+            }, 300); // Matches CSS transition time
         }
 
-        // --- Apply Roster Text Colors ---
-        document.addEventListener('DOMContentLoaded', function() {
-            const roleGroups = document.querySelectorAll('.role-group');
-            roleGroups.forEach(group => {
-                const role = group.dataset.role;
-                const header = group.querySelector('.role-header');
-                if (!header) return;
-                let gradient = '';
-                if (role === 'founder') gradient = 'linear-gradient(90deg, #ff69b4, #000000, #ff69b4)';
-                else if (role === 'co-owner') gradient = 'linear-gradient(90deg, #9b59b6, #000000, #9b59b6)';
-                else if (role === 'mod-maker') gradient = 'linear-gradient(90deg, #3498db, #000000, #3498db)';
-                else gradient = 'linear-gradient(90deg, #ffffff, #888888, #ffffff)';
-                
-                header.style.background = gradient;
-                header.style.backgroundSize = '200% 100%';
-                header.style.animation = 'shimmer 3s linear infinite';
-                header.style.webkitBackgroundClip = 'text';
-                header.style.webkitTextFillColor = 'transparent';
-                header.style.backgroundClip = 'text';
-            });
-
-            const members = document.querySelectorAll('.member');
-            members.forEach(member => {
-                const roleGroup = member.closest('.role-group');
-                if (!roleGroup) return;
-                const role = roleGroup.dataset.role;
-                const nameElement = member.querySelector('.member-name h3');
-                if (!nameElement) return;
-                let color = '';
-                if (role === 'founder') color = '#ff69b4';
-                else if (role === 'co-owner') color = '#9b59b6';
-                else if (role === 'mod-maker') color = '#3498db';
-                else color = '#ffffff';
-                nameElement.style.color = color;
-                nameElement.style.webkitTextFillColor = color;
-            });
-        });
-
-        // --- SMOOTH PINK PARTICLE NETWORK ANIMATION ---
+        // --- PINK PARTICLE NETWORK ANIMATION ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-
         let width, height;
         let particles = [];
         let sparkles = [];
