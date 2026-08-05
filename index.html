@@ -370,10 +370,10 @@
         }
         /* ---------------------------------- */
 
-        /* --- "EVERYTHING ABOUT HYBRID" BOX --- */
+        /* --- "ABOUT US" BOX --- */
         .about-container {
             display: none;
-            padding: 1rem 0;
+            padding: 0.5rem 0;
             animation: fadeIn 0.4s ease forwards;
         }
         .about-container.visible {
@@ -447,8 +447,8 @@
                 <h1 id="socialTitle" class="title-text hidden">✦ socials</h1>
                 <!-- Discords Tab Title -->
                 <h1 id="discordTitle" class="title-text hidden">✦ discords</h1>
-                <!-- About Tab Title -->
-                <h1 id="aboutTitle" class="title-text hidden">✦ about</h1>
+                <!-- About Us Tab Title -->
+                <h1 id="aboutTitle" class="title-text hidden">✦ about us</h1>
             </div>
             
             <div class="header-right">
@@ -457,27 +457,27 @@
                     <button class="tab-btn active" id="tabRoster" onclick="switchTab('roster')">Roster</button>
                     <button class="tab-btn" id="tabSocial" onclick="switchTab('social')">Socials</button>
                     <button class="tab-btn" id="tabDiscord" onclick="switchTab('discord')">Discords</button>
-                    <button class="tab-btn" id="tabAbout" onclick="switchTab('about')">About</button>
+                    <button class="tab-btn" id="tabAbout" onclick="switchTab('about')">About Us</button>
                 </div>
             </div>
         </div>
 
-        <!-- TOP TAGLINE UPDATED -->
+        <!-- TOP TAGLINE -->
         <div class="tagline">
             <span><i class="fas fa-shield-alt"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
             <span><i class="fas fa-shield-alt"></i>@HybridModdingHub</span>
         </div>
 
-        <!-- WRAPPER FOR SMOOTH FADING -->
+        <!-- ====== ABOUT US TAB CONTENT ====== -->
+        <div id="aboutContainer" class="about-container">
+            <div class="about-box">
+                This modding hub is a vr modding place if you want a vr game to be modded like a fangame of gorilla tag or a gtag copy join hybird we mod active games and etc so join now at <a href="https://discord.gg/Vq6DKkZaq9" target="_blank">discord.gg/Vq6DKkZaq9</a> we will see you there!!
+            </div>
+        </div>
+
+        <!-- WRAPPER FOR SMOOTH FADING OF ROSTER ONLY -->
         <div id="contentWrapper" class="content-container">
             
-            <!-- ====== ABOUT TAB CONTENT ====== -->
-            <div id="aboutContainer" class="about-container">
-                <div class="about-box">
-                    This modding hub is a vr modding place if you want a vr game to be modded like a fangame of gorilla tag or a gtag copy join hybird we mod active games and etc so join now at <a href="https://discord.gg/Vq6DKkZaq9" target="_blank">discord.gg/Vq6DKkZaq9</a> we will se you there!!
-                </div>
-            </div>
-
             <!-- ====== FOUNDER GROUP ====== -->
             <div class="role-group" data-role="founder">
                 <div class="role-header-wrapper">
@@ -599,7 +599,7 @@
 
         </div> <!-- End Content Wrapper -->
 
-        <!-- FOOTER UPDATED -->
+        <!-- FOOTER -->
         <div class="footer-note">
             <span><i class="fas fa-shield-alt"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
             <span class="highlight">@HybridModdingHub</span>
@@ -661,10 +661,10 @@
             const tabAbout = document.getElementById('tabAbout');
             
             const contentWrapper = document.getElementById('contentWrapper');
+            const aboutContainer = document.getElementById('aboutContainer');
             const bios = document.querySelectorAll('.member-bio-wrapper');
             const socials = document.querySelectorAll('.member-social');
             const discords = document.querySelectorAll('.member-discord');
-            const aboutContainer = document.getElementById('aboutContainer');
 
             // 1. Trigger Fade Out
             contentWrapper.classList.add('fading');
@@ -681,6 +681,7 @@
                 });
                 // Reset all data
                 aboutContainer.classList.remove('visible');
+                contentWrapper.style.display = 'block';
                 bios.forEach(b => b.classList.remove('hidden'));
                 socials.forEach(s => s.classList.remove('visible'));
                 discords.forEach(d => d.classList.remove('visible'));
@@ -689,11 +690,13 @@
                     mainTitle.classList.remove('hidden');
                     mainTitle.classList.add('active');
                     tabRoster.classList.add('active');
+                    contentWrapper.style.display = 'block';
 
                 } else if (tab === 'social') {
                     socialTitle.classList.remove('hidden');
                     socialTitle.classList.add('active');
                     tabSocial.classList.add('active');
+                    contentWrapper.style.display = 'block';
                     
                     bios.forEach(b => b.classList.add('hidden'));
                     socials.forEach(s => s.classList.add('visible'));
@@ -702,6 +705,7 @@
                     discordTitle.classList.remove('hidden');
                     discordTitle.classList.add('active');
                     tabDiscord.classList.add('active');
+                    contentWrapper.style.display = 'block';
                     
                     bios.forEach(b => b.classList.add('hidden'));
                     discords.forEach(d => d.classList.add('visible'));
@@ -711,7 +715,7 @@
                     aboutTitle.classList.add('active');
                     tabAbout.classList.add('active');
                     
-                    bios.forEach(b => b.classList.add('hidden')); // Hide all bios
+                    contentWrapper.style.display = 'none'; // Hides the entire roster/people
                     aboutContainer.classList.add('visible');
                 }
                 
