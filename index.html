@@ -180,19 +180,23 @@
             margin-right: 0.3rem;
         }
 
-        /* --- ROLE HEADERS --- */
+        /* --- ROLE HEADERS WITH ANIMATED GRADIENTS --- */
         .role-group {
             margin-bottom: 1.8rem;
         }
         .role-header {
             font-size: 1.2rem;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             padding-bottom: 0.5rem;
             margin-bottom: 0.8rem;
-            color: #7a8499;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
+            /* Gradient animation shared globally */
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: leftRightShimmer 3s linear infinite;
         }
 
         .member {
@@ -420,7 +424,8 @@
             
             <!-- ====== FOUNDER GROUP ====== -->
             <div class="role-group" data-role="founder">
-                <div class="role-header">FOUNDER</div>
+                <!-- PINK TO BLACK ANIMATED GRADIENT -->
+                <div class="role-header" style="background: linear-gradient(90deg, #ff69b4, #000000, #ff69b4);">FOUNDER</div>
 
                 <div class="member">
                     <div class="member-avatar">LK</div>
@@ -428,7 +433,6 @@
                         <div class="member-name">
                             <h3 style="color: #ff69b4;">Lucky</h3>
                         </div>
-                        <!-- REMOVED &amp; AND REPLACED WITH PLAIN & -->
                         <div class="member-bio-wrapper">
                             <span class="member-bio">gtag comboss & egotistical skid</span>
                         </div>
@@ -464,7 +468,8 @@
 
             <!-- ====== CO-OWNER GROUP ====== -->
             <div class="role-group" data-role="co-owner">
-                <div class="role-header">CO-OWNER</div>
+                <!-- PURPLE TO BLACK ANIMATED GRADIENT -->
+                <div class="role-header" style="background: linear-gradient(90deg, #9b59b6, #000000, #9b59b6);">CO-OWNER</div>
 
                 <div class="member">
                     <div class="member-avatar">CL</div>
