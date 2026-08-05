@@ -167,7 +167,7 @@
             margin-right: 0.3rem;
         }
 
-        /* --- BIGGER ROLE HEADERS WITH GRADIENT BUBBLE --- */
+        /* --- ROLE HEADERS WITH GRADIENT BUBBLE (Like Screenshot) --- */
         .role-group {
             margin-bottom: 1.5rem;
         }
@@ -176,13 +176,13 @@
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.05);
             border-radius: 40px;
-            padding: 0.2rem 1.2rem;
+            padding: 0.25rem 1.2rem;
             margin-bottom: 0.8rem;
             backdrop-filter: blur(4px);
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         .role-header {
-            font-size: 1.2rem; /* Bigger text */
+            font-size: 1.2rem;
             font-weight: 800;
             letter-spacing: 0.5px;
             text-transform: uppercase;
@@ -196,7 +196,7 @@
 
         .member {
             display: flex;
-            align-items: flex-start;
+            align-items: center; /* Centered so name aligns with avatar */
             gap: 1rem;
             padding: 0.6rem 0.4rem;
             margin-bottom: 0.1rem;
@@ -228,6 +228,9 @@
 
         .member-info {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .member-name {
             display: flex;
@@ -237,7 +240,7 @@
             margin-bottom: 0.1rem;
         }
         .member-name h3 {
-            font-size: 1.05rem;
+            font-size: 1.1rem; /* Slightly bigger for emphasis */
             font-weight: 600;
             letter-spacing: -0.2px;
             -webkit-text-fill-color: transparent;
@@ -283,11 +286,12 @@
             width: 1rem;
         }
 
-        /* --- SOCIAL LINKS UNDER NAMES --- */
-        .member-social {
+        /* --- SOCIAL LINKS & DISCORD TAGS --- */
+        .member-social, .member-discord {
             margin-top: 0.4rem;
             display: none;
         }
+        
         .member-social a {
             color: #ff6b6b;
             text-decoration: none;
@@ -311,7 +315,25 @@
         .member-social a i {
             font-size: 0.7rem;
         }
-        .member-social.visible {
+
+        .member-discord span {
+            color: #a8b2c9;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(88, 101, 242, 0.08); /* Discord blue hint */
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid rgba(88, 101, 242, 0.05);
+            font-weight: 500;
+        }
+        .member-discord span i {
+            color: #5865F2; /* Discord Brand Color */
+            font-size: 0.8rem;
+        }
+
+        .member-social.visible, .member-discord.visible {
             display: block;
             animation: fadeIn 0.4s ease forwards;
         }
@@ -375,21 +397,24 @@
                 <h1 id="mainTitle" class="title-text active">✦ hybrid roster</h1>
                 <!-- Socials Tab Title -->
                 <h1 id="socialTitle" class="title-text hidden">✦ socials</h1>
+                <!-- Discords Tab Title -->
+                <h1 id="discordTitle" class="title-text hidden">✦ discords</h1>
             </div>
             
             <div class="header-right">
                 <!-- NAVIGATION TABS -->
                 <div class="nav-tabs">
-                    <button class="tab-btn active" id="tabHybrid" onclick="switchTab('hybrid')">Roster</button>
+                    <button class="tab-btn active" id="tabRoster" onclick="switchTab('roster')">Roster</button>
                     <button class="tab-btn" id="tabSocial" onclick="switchTab('social')">Socials</button>
+                    <button class="tab-btn" id="tabDiscord" onclick="switchTab('discord')">Discords</button>
                 </div>
             </div>
         </div>
 
-        <!-- TAGLINE -->
+        <!-- UPDATED TAGLINE -->
         <div class="tagline">
-            <span><i class="fas fa-skull"></i>newest and most harmful gen of hybrid ever</span>
-            <span><i class="fas fa-shield-alt"></i>@hybridprotection</span>
+            <span><i class="fas fa-shield-alt"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
+            <span><i class="fas fa-skull"></i>HybridModdingHub</span>
         </div>
 
         <!-- WRAPPER FOR SMOOTH FADING -->
@@ -409,9 +434,14 @@
                             <span class="member-role-tag">founder</span>
                         </div>
                         <div class="member-bio"><i class="fas fa-code"></i>gtag comboss &amp; egotistical skid</div>
-                        <!-- LUCKY'S SOCIAL LINK (Short Display) -->
+                        
+                        <!-- LUCKY'S SOCIAL (Short Display) -->
                         <div class="member-social">
                             <a href="https://guns.lol/apktoolkit" target="_blank"><i class="fas fa-link"></i> guns.lol</a>
+                        </div>
+                        <!-- LUCKY'S DISCORD -->
+                        <div class="member-discord">
+                            <span><i class="fab fa-discord"></i> @apktoolkit.exe</span>
                         </div>
                     </div>
                 </div>
@@ -424,9 +454,14 @@
                             <span class="member-role-tag">founder</span>
                         </div>
                         <div class="member-bio"><i class="fas fa-code"></i>gtag comboss &amp; egotistical skid</div>
-                        <!-- ADD VEXY'S SOCIAL LINK HERE -->
+                        
+                        <!-- ADD VEXY'S SOCIAL HERE -->
                         <div class="member-social">
                             <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
+                        </div>
+                        <!-- ADD VEXY'S DISCORD HERE -->
+                        <div class="member-discord">
+                            <span><i class="fab fa-discord"></i> @discorduser</span>
                         </div>
                     </div>
                 </div>
@@ -446,9 +481,14 @@
                             <span class="member-role-tag">co-owner</span>
                         </div>
                         <div class="member-bio"><i class="fas fa-code"></i>extremely advanced claude skid &amp; gtag horror stealing god</div>
-                        <!-- ADD CATLOVER'S SOCIAL LINK HERE -->
+                        
+                        <!-- ADD CATLOVER'S SOCIAL HERE -->
                         <div class="member-social">
                             <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
+                        </div>
+                        <!-- ADD CATLOVER'S DISCORD HERE -->
+                        <div class="member-discord">
+                            <span><i class="fab fa-discord"></i> @discorduser</span>
                         </div>
                     </div>
                 </div>
@@ -461,9 +501,14 @@
                             <span class="member-role-tag">co-owner</span>
                         </div>
                         <div class="member-bio"><i class="fas fa-code"></i>Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</div>
-                        <!-- ADD STATIC'S SOCIAL LINK HERE -->
+                        
+                        <!-- ADD STATIC'S SOCIAL HERE -->
                         <div class="member-social">
                             <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
+                        </div>
+                        <!-- ADD STATIC'S DISCORD HERE -->
+                        <div class="member-discord">
+                            <span><i class="fab fa-discord"></i> @discorduser</span>
                         </div>
                     </div>
                 </div>
@@ -476,9 +521,14 @@
                             <span class="member-role-tag">co-owner</span>
                         </div>
                         <div class="member-bio"><i class="fas fa-code"></i>Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</div>
-                        <!-- ADD ZYKO'S SOCIAL LINK HERE -->
+                        
+                        <!-- ADD ZYKO'S SOCIAL HERE -->
                         <div class="member-social">
                             <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
+                        </div>
+                        <!-- ADD ZYKO'S DISCORD HERE -->
+                        <div class="member-discord">
+                            <span><i class="fab fa-discord"></i> @discorduser</span>
                         </div>
                     </div>
                 </div>
@@ -486,10 +536,10 @@
 
         </div> <!-- End Content Wrapper -->
 
-        <!-- FOOTER -->
+        <!-- UPDATED FOOTER -->
         <div class="footer-note">
-            <span><i class="fas fa-shield-alt"></i>newest and most harmful gen of hybrid</span>
-            <span class="highlight">@hybridprotection</span>
+            <span><i class="fas fa-shield-alt"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
+            <span class="highlight">HybridModdingHub</span>
         </div>
     </div>
 
@@ -539,45 +589,59 @@
         function switchTab(tab) {
             const mainTitle = document.getElementById('mainTitle');
             const socialTitle = document.getElementById('socialTitle');
-            const tabHybrid = document.getElementById('tabHybrid');
+            const discordTitle = document.getElementById('discordTitle');
+            
+            const tabRoster = document.getElementById('tabRoster');
             const tabSocial = document.getElementById('tabSocial');
+            const tabDiscord = document.getElementById('tabDiscord');
+            
             const contentWrapper = document.getElementById('contentWrapper');
             const bios = document.querySelectorAll('.member-bio');
             const socials = document.querySelectorAll('.member-social');
+            const discords = document.querySelectorAll('.member-discord');
 
             // 1. Trigger Fade Out
             contentWrapper.classList.add('fading');
 
             setTimeout(() => {
-                if (tab === 'hybrid') {
-                    // Switch Titles
+                // Reset all titles
+                mainTitle.classList.remove('active');
+                mainTitle.classList.add('hidden');
+                socialTitle.classList.remove('active');
+                socialTitle.classList.add('hidden');
+                discordTitle.classList.remove('active');
+                discordTitle.classList.add('hidden');
+
+                // Reset all buttons
+                tabRoster.classList.remove('active');
+                tabSocial.classList.remove('active');
+                tabDiscord.classList.remove('active');
+
+                // Reset all data
+                bios.forEach(b => b.classList.remove('hidden'));
+                socials.forEach(s => s.classList.remove('visible'));
+                discords.forEach(d => d.classList.remove('visible'));
+
+                if (tab === 'roster') {
                     mainTitle.classList.remove('hidden');
                     mainTitle.classList.add('active');
-                    socialTitle.classList.add('hidden');
-                    socialTitle.classList.remove('active');
-                    
-                    // Switch Buttons
-                    tabHybrid.classList.add('active');
-                    tabSocial.classList.remove('active');
-
-                    // Show Bios, Hide Socials
-                    bios.forEach(b => b.classList.remove('hidden'));
-                    socials.forEach(s => s.classList.remove('visible'));
+                    tabRoster.classList.add('active');
 
                 } else if (tab === 'social') {
-                    // Switch Titles
-                    mainTitle.classList.add('hidden');
-                    mainTitle.classList.remove('active');
                     socialTitle.classList.remove('hidden');
                     socialTitle.classList.add('active');
-
-                    // Switch Buttons
-                    tabHybrid.classList.remove('active');
                     tabSocial.classList.add('active');
-
-                    // Hide Bios, Show Socials
+                    
                     bios.forEach(b => b.classList.add('hidden'));
                     socials.forEach(s => s.classList.add('visible'));
+
+                } else if (tab === 'discord') {
+                    discordTitle.classList.remove('hidden');
+                    discordTitle.classList.add('active');
+                    tabDiscord.classList.add('active');
+                    
+                    bios.forEach(b => b.classList.add('hidden'));
+                    discords.forEach(d => d.classList.add('visible'));
                 }
                 
                 // 2. Trigger Fade In
