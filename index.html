@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Hybrid Roster</title>
+    <title>Hybrid Roster · Mod Makers</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -78,6 +78,7 @@
             opacity: 0.4;
             margin-right: 0.3rem;
         }
+
         .member {
             display: flex;
             align-items: flex-start;
@@ -120,8 +121,11 @@
         .member-name h3 {
             font-size: 1.05rem;
             font-weight: 600;
-            color: #f0ece4;
             letter-spacing: -0.2px;
+            /* Gradient will be applied via JavaScript based on role */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .member-role {
             font-size: 0.6rem;
@@ -175,68 +179,102 @@
         <!-- HEADER -->
         <div class="roster-header">
             <h1>✦ hybrid roster</h1>
-            <span class="badge">Hybrid</span>
+            <span class="badge">⚡ elite</span>
         </div>
 
         <!-- TAGLINE -->
         <div class="tagline">
-            <span><i class="fas fa-skull"></i>Welcome to the hybrids modding hub roster</span>
-            <span><i class="fas fa-shield-alt"></i>@apktoolkit.exe</span>
+            <span><i class="fas fa-skull"></i>newest and most harmful gen of hybrid ever</span>
+            <span><i class="fas fa-shield-alt"></i>@hybridprotection</span>
+        </div>
+
+        <!-- MOD MAKERS SECTION -->
+        <div style="margin-bottom: 1.2rem;">
+            <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #7a8499; border-bottom: 1px solid rgba(255,255,255,0.04); padding-bottom: 0.4rem; display: inline-block;">Mod Makers</span>
         </div>
 
         <!-- OWNER -->
-        <div class="member">
+        <div class="member" data-role="owner">
             <div class="member-avatar">VX</div>
             <div class="member-info">
                 <div class="member-name">
-                    <h3>Lucky</h3>
+                    <h3>Vexy</h3>
                     <span class="member-role">owner</span>
                 </div>
-                <div class="member-bio"><i class="fas fa-skull"></i>Gorilla tag playfab doxxer &amp; and owner of hybrids modding hub</div>
+                <div class="member-bio"><i class="fas fa-skull"></i>gtag comboss &amp; egotistical skid</div>
             </div>
         </div>
 
         <!-- CO-OWNER 1 -->
-        <div class="member">
+        <div class="member" data-role="co-owner">
             <div class="member-avatar">CL</div>
             <div class="member-info">
                 <div class="member-name">
                     <h3>Catlover</h3>
                     <span class="member-role">co-owner</span>
                 </div>
-                <div class="member-bio"><i class="fas fa-code"></i>extremely advanced claude skid &amp; Claude AI GOAT</div>
+                <div class="member-bio"><i class="fas fa-code"></i>extremely advanced claude skid &amp; gtag horror stealing god</div>
             </div>
         </div>
 
         <!-- CO-OWNER 2 -->
-        <div class="member">
+        <div class="member" data-role="co-owner">
             <div class="member-avatar">ST</div>
             <div class="member-info">
                 <div class="member-name">
                     <h3>Static</h3>
                     <span class="member-role">co-owner</span>
                 </div>
-                <div class="member-bio"><i class="fas fa-bolt"></i>Idk tuff guy skid ego MAX</div>
+                <div class="member-bio"><i class="fas fa-bolt"></i>Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</div>
             </div>
         </div>
 
-        <!-- MEMBER -->
-        <div class="member">
+        <!-- MOD MAKER -->
+        <div class="member" data-role="mod-maker">
             <div class="member-avatar">ZK</div>
             <div class="member-info">
                 <div class="member-name">
                     <h3>Zyko</h3>
-                    <span class="member-role">member</span>
+                    <span class="member-role">mod maker</span>
                 </div>
-                <div class="member-bio"><i class="fas fa-crown"></i>Hi I am Zyko and I am a comboss and i will swat you from your playfab ip</div>
+                <div class="member-bio"><i class="fas fa-crown"></i>Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</div>
             </div>
         </div>
 
         <!-- FOOTER -->
         <div class="footer-note">
-            <span><i class="fas fa-shield-alt"></i>The Hybrid Modding Hub Roster</span>
-            <span class="highlight">@HybridModdingHub</span>
+            <span><i class="fas fa-shield-alt"></i>newest and most harmful gen of hybrid</span>
+            <span class="highlight">@hybridprotection</span>
         </div>
     </div>
+
+    <script>
+        // Apply gradient colors based on role
+        document.addEventListener('DOMContentLoaded', function() {
+            const members = document.querySelectorAll('.member');
+            
+            members.forEach(member => {
+                const role = member.dataset.role;
+                const nameElement = member.querySelector('.member-name h3');
+                if (!nameElement) return;
+                
+                let gradient = '';
+                if (role === 'owner') {
+                    gradient = 'linear-gradient(135deg, #ff69b4, #000000)';
+                } else if (role === 'co-owner') {
+                    gradient = 'linear-gradient(135deg, #9b59b6, #000000)';
+                } else if (role === 'mod-maker') {
+                    gradient = 'linear-gradient(135deg, #3498db, #000000)';
+                } else {
+                    gradient = 'linear-gradient(135deg, #ffffff, #888888)';
+                }
+                
+                nameElement.style.background = gradient;
+                nameElement.style.webkitBackgroundClip = 'text';
+                nameElement.style.webkitTextFillColor = 'transparent';
+                nameElement.style.backgroundClip = 'text';
+            });
+        });
+    </script>
 </body>
 </html>
