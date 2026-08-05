@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* --- CANVAS BACKGROUND LAYER --- */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -61,7 +60,6 @@
             transition: border-color 0.5s ease, box-shadow 0.5s ease;
         }
         
-        /* --- SCROLLBAR STYLING --- */
         .roster-card::-webkit-scrollbar {
             width: 4px;
         }
@@ -87,7 +85,6 @@
             transition: border-color 0.4s ease;
         }
 
-        /* --- ANIMATED GRADIENT TITLE --- */
         .title-container {
             position: relative;
             display: flex;
@@ -124,7 +121,6 @@
             width: 100%;
         }
         
-        /* --- NAVIGATION TABS --- */
         .nav-tabs {
             display: flex;
             gap: 0.5rem;
@@ -156,7 +152,6 @@
             transition: all 0.4s ease;
         }
 
-        /* --- SMOOTH FADE CONTAINER --- */
         .content-container {
             transition: opacity 0.4s ease, transform 0.4s ease;
             opacity: 1;
@@ -168,7 +163,6 @@
             transform: translateY(10px);
         }
 
-        /* --- TOP TAGLINE --- */
         .tagline {
             font-size: 0.8rem;
             color: #7a8499;
@@ -192,7 +186,7 @@
             transition: color 0.4s ease;
         }
 
-        /* ---- THE FINAL FIX: ROLE HEADERS (PURE TEXT) ---- */
+        /* ---- FIXED ROLE HEADERS ---- */
         .role-group {
             margin-bottom: 1.8rem;
             width: 100%;
@@ -204,17 +198,16 @@
             text-transform: uppercase;
             margin-bottom: 0.8rem;
             
-            /* FIX: Forces the element to wrap exactly around the text */
+            /* CRITICAL FIX: Forces text-only gradient */
             display: inline-block;
-            width: fit-content;
+            width: auto;
             padding: 0;
-            
+            background: transparent !important; /* Fallback */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             background-size: 200% 100%;
             animation: shimmer 3s linear infinite;
-            transition: background 0.5s ease;
         }
         @keyframes shimmer {
             0% { background-position: 0% 50%; }
@@ -269,7 +262,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- BIO SPACING --- */
         .member-bio-wrapper {
             display: flex;
             align-items: flex-start;
@@ -296,7 +288,6 @@
             line-height: 1.4;
         }
 
-        /* --- SOCIAL LINKS & DISCORD TAGS --- */
         .member-social, .member-discord {
             margin-top: 0.4rem;
             display: none;
@@ -352,7 +343,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- HMH FOOTER --- */
         .hmh-footer-wrapper {
             margin-top: 1.5rem;
             padding-top: 1rem;
@@ -365,7 +355,6 @@
             animation: fadeIn 0.4s ease forwards;
         }
 
-        /* --- ABOUT US TAB --- */
         .about-container {
             display: none;
             padding: 1rem 0;
@@ -395,7 +384,6 @@
             border-bottom-color: #ff6b6b;
         }
 
-        /* --- STYLE BUTTON (AT BOTTOM) --- */
         .style-btn-wrapper {
             display: flex;
             justify-content: center;
@@ -494,7 +482,7 @@
             </span>
         </div>
 
-        <!-- ====== ABOUT US TAB CONTENT ====== -->
+        <!-- ABOUT US TAB CONTENT -->
         <div id="aboutContainer" class="about-container">
             <div class="about-box" id="aboutBox">
                 This modding hub is a vr modding place if you want a vr game to be modded like a fangame of gorilla tag or a gtag copy join hybird we mod active games and etc so join now at <a href="https://discord.gg/Vq6DKkZaq9" target="_blank" id="aboutLink">discord.gg/Vq6DKkZaq9</a> we will see you there!!
@@ -504,7 +492,7 @@
         <!-- WRAPPER FOR SMOOTH FADING OF ROSTER -->
         <div id="contentWrapper" class="content-container">
 
-            <!-- ====== HMH FOOTER ====== -->
+            <!-- HMH FOOTER -->
             <div id="hmhWrapper" class="hmh-footer-wrapper">
                 <div class="member" style="padding-left: 0; padding-right: 0; margin-bottom: 0;">
                     <div class="member-avatar" style="display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: #d6c8a0;">
@@ -654,7 +642,6 @@
         // ==========================================
         let currentTheme = 0; 
 
-        // Theme Color Definitions
         const themes = [
             { id: 'default', main: '#ff6b6b', light: '#ff6b6b', dark: '#000000', title: 'linear-gradient(90deg, #ff0000, #222222, #ff0000)' },
             { id: 'purple', main: '#9b59b6', light: '#b07dd6', dark: '#000000', title: 'linear-gradient(90deg, #9b59b6, #111111, #9b59b6)' },
@@ -696,10 +683,11 @@
                 el.style.background = theme.title;
             });
 
-            // 4. Update Role Headers (Pure Text)
+            // 4. Update Role Headers (PURE TEXT GRADIENT — FIXED)
             const founderHeader = document.getElementById('founderHeader');
             const coOwnerHeader = document.getElementById('coOwnerHeader');
             
+            // CRITICAL FIX: Set background and force inline-block
             if (isRgb) {
                 founderHeader.style.background = 'linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000)';
                 coOwnerHeader.style.background = 'linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000)';
@@ -710,6 +698,21 @@
                 founderHeader.style.background = `linear-gradient(90deg, ${theme.light}, ${theme.dark}, ${theme.light})`;
                 coOwnerHeader.style.background = `linear-gradient(90deg, ${theme.light}, ${theme.dark}, ${theme.light})`;
             }
+            
+            // Ensure text clipping works
+            founderHeader.style.webkitBackgroundClip = 'text';
+            founderHeader.style.webkitTextFillColor = 'transparent';
+            founderHeader.style.backgroundClip = 'text';
+            founderHeader.style.display = 'inline-block';
+            founderHeader.style.width = 'auto';
+            founderHeader.style.padding = '0';
+            
+            coOwnerHeader.style.webkitBackgroundClip = 'text';
+            coOwnerHeader.style.webkitTextFillColor = 'transparent';
+            coOwnerHeader.style.backgroundClip = 'text';
+            coOwnerHeader.style.display = 'inline-block';
+            coOwnerHeader.style.width = 'auto';
+            coOwnerHeader.style.padding = '0';
 
             // 5. Update Icons
             const icons = document.querySelectorAll('.tagline i, .bio-icon, .footer-note i');
@@ -726,6 +729,9 @@
             } else {
                 hmhName.style.background = `linear-gradient(90deg, #888888, ${theme.dark}, #888888)`;
             }
+            hmhName.style.webkitBackgroundClip = 'text';
+            hmhName.style.webkitTextFillColor = 'transparent';
+            hmhName.style.backgroundClip = 'text';
             
             const hmhBioIcon = document.getElementById('hmhBioIcon');
             if(isRgb) {
@@ -875,7 +881,7 @@
         }
 
         // ==========================================
-        // ULTRA SMOOTH PINK PARTICLE NETWORK (Canvas)
+        // PARTICLE CANVAS ENGINE
         // ==========================================
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
