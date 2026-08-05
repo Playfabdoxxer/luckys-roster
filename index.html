@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* --- PINK GEOMETRIC NETWORK BACKGROUND --- */
+        /* --- ANIMATED PINK GEOMETRIC NETWORK BACKGROUND --- */
         body::before {
             content: '';
             position: absolute;
@@ -31,15 +31,11 @@
             z-index: 0;
             pointer-events: none;
             
-            /* Creating diagonal and straight pink lines to simulate the polygon web */
             background-image: 
-                /* Fine diagonal lines */
                 linear-gradient(45deg, rgba(255, 100, 150, 0.12) 1px, transparent 1px),
                 linear-gradient(-45deg, rgba(255, 100, 150, 0.12) 1px, transparent 1px),
-                /* Fine straight lines */
                 linear-gradient(rgba(255, 100, 150, 0.08) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 100, 150, 0.08) 1px, transparent 1px),
-                /* Thicker glowing pink structural lines */
                 linear-gradient(45deg, rgba(255, 50, 100, 0.15) 2px, transparent 2px),
                 linear-gradient(-45deg, rgba(255, 50, 100, 0.15) 2px, transparent 2px);
             
@@ -52,24 +48,92 @@
                 450px 450px;
             
             background-blend-mode: screen;
+            
+            /* Animation: slow drift of the network */
+            animation: networkDrift 20s linear infinite alternate;
         }
 
-        /* Adding the glowing pink "nodes" (the dots at the corners) */
-        body::after {
-            content: '';
+        /* Make the lines slowly move diagonally */
+        @keyframes networkDrift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        /* --- FLOATING PINK GLOWING BLOBS --- */
+        .blob-container {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             z-index: 0;
             pointer-events: none;
-            background: 
-                /* Large diffuse pink glows */
-                radial-gradient(circle 300px at 25% 30%, rgba(255, 50, 100, 0.20) 0%, transparent 60%),
-                radial-gradient(circle 250px at 75% 70%, rgba(255, 100, 150, 0.20) 0%, transparent 60%),
-                /* Smaller intense pink dots (nodes) */
-                radial-gradient(circle 40px at 20% 35%, rgba(255, 100, 150, 0.7) 0%, transparent 100%),
-                radial-gradient(circle 30px at 80% 65%, rgba(255, 50, 100, 0.8) 0%, transparent 100%),
-                radial-gradient(circle 50px at 50% 85%, rgba(255, 100, 150, 0.6) 0%, transparent 100%),
-                radial-gradient(circle 25px at 10% 80%, rgba(255, 50, 100, 0.9) 0%, transparent 100%);
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 50, 100, 0.6), rgba(255, 50, 100, 0) 70%);
+            filter: blur(20px);
+            opacity: 0;
+            /* Each blob will move, scale, and fade independently */
+            animation: blobFloat 6s ease-in-out infinite alternate;
+        }
+
+        /* Customize each blob's size, position, and timing */
+        .blob:nth-child(1) {
+            width: 250px; height: 250px;
+            top: 10%; left: 10%;
+            animation-duration: 7s;
+            animation-delay: 0s;
+        }
+        .blob:nth-child(2) {
+            width: 350px; height: 350px;
+            bottom: 20%; right: 15%;
+            background: radial-gradient(circle, rgba(255, 100, 150, 0.5), rgba(255, 100, 150, 0) 70%);
+            animation-duration: 9s;
+            animation-delay: 1s;
+        }
+        .blob:nth-child(3) {
+            width: 180px; height: 180px;
+            top: 50%; left: 60%;
+            background: radial-gradient(circle, rgba(255, 20, 80, 0.7), rgba(255, 20, 80, 0) 70%);
+            animation-duration: 5s;
+            animation-delay: 2s;
+        }
+        .blob:nth-child(4) {
+            width: 300px; height: 300px;
+            top: 80%; left: -50px;
+            background: radial-gradient(circle, rgba(255, 70, 120, 0.5), rgba(255, 70, 120, 0) 70%);
+            animation-duration: 8s;
+            animation-delay: 0.5s;
+        }
+        .blob:nth-child(5) {
+            width: 200px; height: 200px;
+            top: -50px; right: 20%;
+            background: radial-gradient(circle, rgba(255, 150, 200, 0.4), rgba(255, 150, 200, 0) 70%);
+            animation-duration: 6.5s;
+            animation-delay: 3s;
+        }
+
+        /* Animation for popping up, moving, and fading */
+        @keyframes blobFloat {
+            0% {
+                transform: translate(0, 0) scale(0.5);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            50% {
+                transform: translate(30px, -40px) scale(1.2);
+                opacity: 0.9;
+            }
+            80% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(-20px, 50px) scale(0.8);
+                opacity: 0;
+            }
         }
         /* ----------------------------------------- */
 
@@ -253,6 +317,16 @@
     </style>
 </head>
 <body>
+    
+    <!-- THE MOVING BACKGROUND BLOBS -->
+    <div class="blob-container">
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+    </div>
+
     <div class="roster-card">
         <!-- HEADER -->
         <div class="roster-header">
