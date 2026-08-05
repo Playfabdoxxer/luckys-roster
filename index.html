@@ -277,7 +277,8 @@
 
         /* --- ULTIMATE CLEAN BIO FIX --- */
         .member-bio-wrapper {
-            display: block;
+            display: flex;
+            align-items: center;
             margin-top: 4px;
             transition: all 0.3s ease;
         }
@@ -288,16 +289,24 @@
             pointer-events: none;
             overflow: hidden;
         }
+        .bio-icon-box {
+            color: #ff6b6b;
+            opacity: 0.6;
+            font-size: 0.7rem;
+            background: rgba(255,50,100,0.08);
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            margin-right: 8px;
+            flex-shrink: 0; /* Prevents breaking */
+        }
         .member-bio {
             font-size: 0.85rem;
             color: #a8b2c9;
             line-height: 1.4;
-        }
-        .member-bio .code-tag {
-            color: #ff6b6b;
-            opacity: 0.4;
-            font-weight: bold;
-            margin-right: 6px;
         }
         /* ---------------------------------- */
 
@@ -472,9 +481,10 @@
                             <h3>Lucky</h3>
                             <span class="member-role-tag">founder</span>
                         </div>
-                        <!-- FIXED: No HTML codes, just clean text -->
+                        <!-- BULLETPROOF BIO: NO &amp; SO IT CANNOT BREAK -->
                         <div class="member-bio-wrapper">
-                            <span class="member-bio"><span class="code-tag">&lt;/&gt;</span> gtag comboss, egotistical skid</span>
+                            <div class="bio-icon-box"><i class="fas fa-code"></i></div>
+                            <span class="member-bio">gtag comboss and egotistical skid</span>
                         </div>
                         
                         <div class="member-social">
@@ -494,7 +504,8 @@
                             <span class="member-role-tag">founder</span>
                         </div>
                         <div class="member-bio-wrapper">
-                            <span class="member-bio"><span class="code-tag">&lt;/&gt;</span> gtag comboss, egotistical skid</span>
+                            <div class="bio-icon-box"><i class="fas fa-code"></i></div>
+                            <span class="member-bio">gtag comboss and egotistical skid</span>
                         </div>
                         
                         <div class="member-social">
@@ -521,7 +532,8 @@
                             <span class="member-role-tag">co-owner</span>
                         </div>
                         <div class="member-bio-wrapper">
-                            <span class="member-bio"><span class="code-tag">&lt;/&gt;</span> extremely advanced claude skid, gtag horror stealing god</span>
+                            <div class="bio-icon-box"><i class="fas fa-code"></i></div>
+                            <span class="member-bio">extremely advanced claude skid and gtag horror stealing god</span>
                         </div>
                         
                         <div class="member-social">
@@ -541,7 +553,8 @@
                             <span class="member-role-tag">co-owner</span>
                         </div>
                         <div class="member-bio-wrapper">
-                            <span class="member-bio"><span class="code-tag">&lt;/&gt;</span> Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</span>
+                            <div class="bio-icon-box"><i class="fas fa-code"></i></div>
+                            <span class="member-bio">Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</span>
                         </div>
                         
                         <div class="member-social">
@@ -561,7 +574,8 @@
                             <span class="member-role-tag">co-owner</span>
                         </div>
                         <div class="member-bio-wrapper">
-                            <span class="member-bio"><span class="code-tag">&lt;/&gt;</span> Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</span>
+                            <div class="bio-icon-box"><i class="fas fa-code"></i></div>
+                            <span class="member-bio">Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</span>
                         </div>
                         
                         <div class="member-social">
