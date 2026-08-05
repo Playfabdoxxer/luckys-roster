@@ -78,113 +78,6 @@
             opacity: 0.4;
             margin-right: 0.3rem;
         }
-
-        /* ---- YOUTUBE PLAYER (MINIMAL) ---- */
-        .yt-player {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto 1.2rem auto;
-            border-radius: 1.2rem;
-            overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255,70,70,0.06);
-            aspect-ratio: 16 / 9;
-            background: #0a0c10;
-        }
-        .yt-player iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        /* ------------------------------ */
-
-        /* ---- BACKGROUND AUDIO PLAYER ---- */
-        .audio-player {
-            display: flex;
-            align-items: center;
-            gap: 0.9rem;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,70,70,0.08);
-            border-radius: 1.2rem;
-            padding: 0.7rem 1rem;
-            margin: 0 auto 1.6rem auto;
-            max-width: 400px;
-        }
-        .audio-player .play-btn {
-            width: 38px;
-            height: 38px;
-            min-width: 38px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ff6b6b, #ee4444);
-            border: none;
-            color: #0a0c10;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.15s;
-        }
-        .audio-player .play-btn:hover {
-            transform: scale(1.06);
-        }
-        .audio-player .audio-info {
-            flex: 1;
-            min-width: 0;
-        }
-        .audio-player .audio-title {
-            font-size: 0.78rem;
-            color: #f0ece4;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .audio-player .audio-sub {
-            font-size: 0.65rem;
-            color: #7a8499;
-            margin-top: 0.1rem;
-        }
-        .audio-player .volume-wrap {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .audio-player .volume-wrap i {
-            color: #ff6b6b;
-            opacity: 0.6;
-            font-size: 0.8rem;
-        }
-        .audio-player input[type="range"] {
-            -webkit-appearance: none;
-            width: 70px;
-            height: 4px;
-            border-radius: 4px;
-            background: rgba(255,255,255,0.08);
-            outline: none;
-        }
-        .audio-player input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ff6b6b;
-            cursor: pointer;
-        }
-        .audio-player input[type="range"]::-moz-range-thumb {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ff6b6b;
-            border: none;
-            cursor: pointer;
-        }
-        /* ---------------------------------- */
-
         .member {
             display: flex;
             align-items: flex-start;
@@ -274,8 +167,6 @@
         @media (max-width: 500px) {
             .roster-card { padding: 1.5rem 1.2rem; }
             .member { padding: 0.7rem 0.3rem; }
-            .yt-player { max-width: 100%; }
-            .audio-player { max-width: 100%; }
         }
     </style>
 </head>
@@ -284,47 +175,24 @@
         <!-- HEADER -->
         <div class="roster-header">
             <h1>✦ hybrid roster</h1>
-            <span class="badge">⚡ elite</span>
+            <span class="badge">Hybrid</span>
         </div>
 
         <!-- TAGLINE -->
         <div class="tagline">
-            <span><i class="fas fa-skull"></i>newest and most harmful gen of hybrid ever</span>
-            <span><i class="fas fa-shield-alt"></i>@hybridprotection</span>
+            <span><i class="fas fa-skull"></i>Welcome to the hybrids modding hub roster</span>
+            <span><i class="fas fa-shield-alt"></i>@apktoolkit.exe</span>
         </div>
-
-        <!-- ---- YOUTUBE PLAYER (EMBED) ---- -->
-        <div class="yt-player" id="ytPlayer">
-            <!-- YouTube iframe will be injected here by the API -->
-        </div>
-        <!-- --------------------------------- -->
-
-        <!-- ---- BACKGROUND AUDIO PLAYER ---- -->
-        <audio id="bgAudio" src="background-audio.mp3" loop preload="auto"></audio>
-        <div class="audio-player">
-            <button class="play-btn" id="playPauseBtn" aria-label="Play or pause background audio">
-                <i class="fas fa-pause" id="playPauseIcon"></i>
-            </button>
-            <div class="audio-info">
-                <div class="audio-title">Sexual Fantasies</div>
-                <div class="audio-sub">maxon ft. Percaso</div>
-            </div>
-            <div class="volume-wrap">
-                <i class="fas fa-volume-up"></i>
-                <input type="range" id="volumeSlider" min="0" max="100" value="70">
-            </div>
-        </div>
-        <!-- ---------------------------------- -->
 
         <!-- OWNER -->
         <div class="member">
             <div class="member-avatar">VX</div>
             <div class="member-info">
                 <div class="member-name">
-                    <h3>Vexy</h3>
+                    <h3>Lucky</h3>
                     <span class="member-role">owner</span>
                 </div>
-                <div class="member-bio"><i class="fas fa-skull"></i>gtag comboss &amp; egotistical skid</div>
+                <div class="member-bio"><i class="fas fa-skull"></i>Gorilla tag playfab doxxer &amp; and owner of hybrids modding hub</div>
             </div>
         </div>
 
@@ -336,7 +204,7 @@
                     <h3>Catlover</h3>
                     <span class="member-role">co-owner</span>
                 </div>
-                <div class="member-bio"><i class="fas fa-code"></i>extremely advanced claude skid &amp; gtag horror stealing god</div>
+                <div class="member-bio"><i class="fas fa-code"></i>extremely advanced claude skid &amp; Claude AI GOAT</div>
             </div>
         </div>
 
@@ -348,7 +216,7 @@
                     <h3>Static</h3>
                     <span class="member-role">co-owner</span>
                 </div>
-                <div class="member-bio"><i class="fas fa-bolt"></i>Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</div>
+                <div class="member-bio"><i class="fas fa-bolt"></i>Idk tuff guy skid ego MAX</div>
             </div>
         </div>
 
@@ -360,113 +228,15 @@
                     <h3>Zyko</h3>
                     <span class="member-role">member</span>
                 </div>
-                <div class="member-bio"><i class="fas fa-crown"></i>Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</div>
+                <div class="member-bio"><i class="fas fa-crown"></i>Hi I am Zyko and I am a comboss and i will swat you from your playfab ip</div>
             </div>
         </div>
 
         <!-- FOOTER -->
         <div class="footer-note">
-            <span><i class="fas fa-shield-alt"></i>newest and most harmful gen of hybrid</span>
-            <span class="highlight">@hybridprotection</span>
+            <span><i class="fas fa-shield-alt"></i>The Hybrid Modding Hub Roster</span>
+            <span class="highlight">@HybridModdingHub</span>
         </div>
     </div>
-
-    <!-- ---- YOUTUBE IFRAME API SCRIPT ---- -->
-    <script>
-        // This script loads the YouTube IFrame Player API and creates the player.
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('ytPlayer', {
-                height: '100%',
-                width: '100%',
-                videoId: 'mFhYO2YUgOA',
-                playerVars: {
-                    'autoplay': 1,
-                    'mute': 1,
-                    'loop': 1,
-                    'playlist': 'mFhYO2YUgOA',
-                    'controls': 1,
-                    'modestbranding': 1,
-                    'rel': 0,
-                    'showinfo': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            document.addEventListener('click', function unmuteOnClick() {
-                if (player && player.isMuted()) {
-                    player.unMute();
-                    player.setVolume(70);
-                }
-                document.removeEventListener('click', unmuteOnClick);
-            });
-        }
-
-        function onPlayerStateChange(event) {
-            // Optional: handle state changes if needed
-        }
-    </script>
-
-    <!-- ---- BACKGROUND AUDIO SCRIPT ---- -->
-    <script>
-        (function () {
-            const audio = document.getElementById('bgAudio');
-            const playPauseBtn = document.getElementById('playPauseBtn');
-            const playPauseIcon = document.getElementById('playPauseIcon');
-            const volumeSlider = document.getElementById('volumeSlider');
-
-            audio.volume = volumeSlider.value / 100;
-
-            function updateIcon() {
-                playPauseIcon.className = audio.paused ? 'fas fa-play' : 'fas fa-pause';
-            }
-
-            function tryAutoplay() {
-                const playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(() => {
-                        // Autoplay blocked by the browser until the user interacts with the page.
-                        // Fall back to starting on first click, same as the YouTube embed above.
-                        const startOnClick = () => {
-                            audio.play();
-                            updateIcon();
-                            document.removeEventListener('click', startOnClick);
-                        };
-                        document.addEventListener('click', startOnClick);
-                    });
-                }
-                updateIcon();
-            }
-
-            playPauseBtn.addEventListener('click', () => {
-                if (audio.paused) {
-                    audio.play();
-                } else {
-                    audio.pause();
-                }
-                updateIcon();
-            });
-
-            volumeSlider.addEventListener('input', () => {
-                audio.volume = volumeSlider.value / 100;
-            });
-
-            audio.addEventListener('play', updateIcon);
-            audio.addEventListener('pause', updateIcon);
-
-            window.addEventListener('DOMContentLoaded', tryAutoplay);
-            tryAutoplay();
-        })();
-    </script>
 </body>
 </html>
