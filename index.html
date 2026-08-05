@@ -180,27 +180,24 @@
             margin-right: 0.3rem;
         }
 
-        /* --- ROLE HEADERS (NO TAG, JUST TEXT WITH GRADIENT) --- */
+        /* --- ROLE HEADERS --- */
         .role-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
         .role-header {
             font-size: 1.2rem;
-            font-weight: 800;
+            font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: leftRightShimmer 3s linear infinite;
             padding-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            color: #7a8499;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
         }
-        /* ------------------------------------------ */
 
         .member {
             display: flex;
-            align-items: flex-start;
+            align-items: center; /* Keeps avatar perfectly centered with the text */
             gap: 1rem;
             padding: 0.6rem 0.4rem;
             margin-bottom: 0.1rem;
@@ -228,7 +225,6 @@
             border: 1px solid rgba(255,50,100,0.06);
             box-shadow: 0 2px 8px rgba(0,0,0,0.5);
             text-transform: uppercase;
-            margin-top: 4px;
         }
 
         .member-info {
@@ -248,15 +244,12 @@
             font-weight: 600;
             letter-spacing: -0.2px;
             margin-right: 0.1rem;
-            -webkit-text-fill-color: transparent; /* Gradient in Name */
-            background-size: 200% auto;
-            animation: leftRightShimmer 3s linear infinite;
         }
 
         /* --- BIO TEXT --- */
         .member-bio-wrapper {
             display: block;
-            margin-top: 4px;
+            margin-top: 2px;
             transition: all 0.3s ease;
         }
         .member-bio-wrapper.hidden {
@@ -271,7 +264,6 @@
             color: #a8b2c9;
             line-height: 1.4;
         }
-        /* ---------------------------------- */
 
         /* --- SOCIAL LINKS & DISCORD TAGS --- */
         .member-social, .member-discord {
@@ -426,16 +418,17 @@
         <!-- WRAPPER FOR SMOOTH FADING OF ROSTER -->
         <div id="contentWrapper" class="content-container">
             
-            <!-- ====== FOUNDER GROUP (PINK TO BLACK GRADIENT) ====== -->
+            <!-- ====== FOUNDER GROUP ====== -->
             <div class="role-group" data-role="founder">
-                <div class="role-header" style="background: linear-gradient(90deg, #ff69b4, #000000, #ff69b4);">FOUNDER</div>
+                <div class="role-header">FOUNDER</div>
 
                 <div class="member">
                     <div class="member-avatar">LK</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3 style="background: linear-gradient(90deg, #ff69b4, #000000, #ff69b4);">Lucky</h3>
+                            <h3 style="color: #ff69b4;">Lucky</h3>
                         </div>
+                        <!-- REMOVED &amp; AND REPLACED WITH PLAIN & -->
                         <div class="member-bio-wrapper">
                             <span class="member-bio">gtag comboss & egotistical skid</span>
                         </div>
@@ -453,7 +446,7 @@
                     <div class="member-avatar">VX</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3 style="background: linear-gradient(90deg, #ff69b4, #000000, #ff69b4);">Vexy</h3>
+                            <h3 style="color: #ff69b4;">Vexy</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <span class="member-bio">gtag comboss & egotistical skid</span>
@@ -469,15 +462,15 @@
                 </div>
             </div>
 
-            <!-- ====== CO-OWNER GROUP (PURPLE TO BLACK GRADIENT) ====== -->
+            <!-- ====== CO-OWNER GROUP ====== -->
             <div class="role-group" data-role="co-owner">
-                <div class="role-header" style="background: linear-gradient(90deg, #9b59b6, #000000, #9b59b6);">CO-OWNER</div>
+                <div class="role-header">CO-OWNER</div>
 
                 <div class="member">
                     <div class="member-avatar">CL</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3 style="background: linear-gradient(90deg, #9b59b6, #000000, #9b59b6);">Catlover</h3>
+                            <h3 style="color: #9b59b6;">Catlover</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <span class="member-bio">extremely advanced claude skid & gtag horror stealing god</span>
@@ -496,7 +489,7 @@
                     <div class="member-avatar">ST</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3 style="background: linear-gradient(90deg, #9b59b6, #000000, #9b59b6);">Static</h3>
+                            <h3 style="color: #9b59b6;">Static</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <span class="member-bio">Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</span>
@@ -515,7 +508,7 @@
                     <div class="member-avatar">ZK</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3 style="background: linear-gradient(90deg, #9b59b6, #000000, #9b59b6);">Zyko</h3>
+                            <h3 style="color: #9b59b6;">Zyko</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <span class="member-bio">Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</span>
@@ -541,9 +534,6 @@
     </div>
 
     <script>
-        // --- NO JAVASCRIPT GRADIENTS NEEDED ---
-        // (They are built directly into the HTML above to ensure they 100% work)
-
         // --- SMOOTH TAB SWITCHING LOGIC ---
         function switchTab(tab) {
             const mainTitle = document.getElementById('mainTitle');
