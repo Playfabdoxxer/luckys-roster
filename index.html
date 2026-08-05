@@ -180,31 +180,20 @@
             margin-right: 0.3rem;
         }
 
-        /* --- ROLE HEADERS --- */
+        /* --- ROLE HEADERS (BACK TO SIMPLE TEXT) --- */
         .role-group {
             margin-bottom: 1.5rem;
         }
-        .role-header-wrapper {
-            display: inline-block;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 40px;
-            padding: 0.25rem 1.2rem;
-            margin-bottom: 0.8rem;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
         .role-header {
-            font-size: 1.2rem;
-            font-weight: 800;
+            font-size: 1.1rem;
+            font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: leftRightShimmer 3s linear infinite;
+            padding-bottom: 0.4rem;
+            margin-bottom: 0.6rem;
+            color: #7a8499;
         }
+        /* ------------------------------------------ */
 
         .member {
             display: flex;
@@ -275,10 +264,9 @@
             background-clip: text;
         }
 
-        /* --- ULTIMATE CLEAN BIO FIX --- */
+        /* --- SIMPLE TEXT BIO LINE (NO ICONS) --- */
         .member-bio-wrapper {
-            display: flex;
-            align-items: center;
+            display: block;
             margin-top: 4px;
             transition: all 0.3s ease;
         }
@@ -288,20 +276,6 @@
             margin: 0;
             pointer-events: none;
             overflow: hidden;
-        }
-        .bio-icon-box {
-            color: #ff6b6b;
-            opacity: 0.6;
-            font-size: 0.7rem;
-            background: rgba(255,50,100,0.08);
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            margin-right: 8px;
-            flex-shrink: 0; /* Prevents breaking */
         }
         .member-bio {
             font-size: 0.85rem;
@@ -329,12 +303,10 @@
             border-radius: 20px;
             border: 1px solid rgba(255,50,100,0.05);
             transition: 0.2s;
-            word-break: break-all;
         }
         .member-social a:hover {
             background: rgba(255,50,100,0.15);
             border-color: rgba(255,50,100,0.2);
-            transform: scale(1.02);
         }
         .member-social a i {
             font-size: 0.7rem;
@@ -385,14 +357,12 @@
             color: #d1d5e0;
             line-height: 1.6;
             font-size: 0.95rem;
-            box-shadow: inset 0 0 20px rgba(255,50,100,0.02);
         }
         .about-box a {
             color: #ff6b6b;
             font-weight: 600;
             text-decoration: none;
             border-bottom: 1px solid rgba(255,50,100,0.2);
-            transition: 0.2s;
         }
         .about-box a:hover {
             border-bottom-color: #ff6b6b;
@@ -421,7 +391,6 @@
             .roster-card { padding: 1.5rem 1.2rem; }
             .member { padding: 0.5rem 0.2rem; }
             .title-text { font-size: 1.5rem; }
-            .role-header { font-size: 1rem; }
             .tab-btn { font-size: 0.65rem; padding: 0.3rem 0.8rem; }
         }
     </style>
@@ -470,9 +439,7 @@
             
             <!-- ====== FOUNDER GROUP ====== -->
             <div class="role-group" data-role="founder">
-                <div class="role-header-wrapper">
-                    <div class="role-header">FOUNDER</div>
-                </div>
+                <div class="role-header">FOUNDER</div>
 
                 <div class="member">
                     <div class="member-avatar">LK</div>
@@ -481,10 +448,9 @@
                             <h3>Lucky</h3>
                             <span class="member-role-tag">founder</span>
                         </div>
-                        <!-- BULLETPROOF BIO: NO &amp; SO IT CANNOT BREAK -->
+                        <!-- PLAIN TEXT BIO -->
                         <div class="member-bio-wrapper">
-                            <div class="bio-icon-box"><i class="fas fa-code"></i></div>
-                            <span class="member-bio">gtag comboss and egotistical skid</span>
+                            <span class="member-bio">gtag comboss & egotistical skid</span>
                         </div>
                         
                         <div class="member-social">
@@ -504,8 +470,7 @@
                             <span class="member-role-tag">founder</span>
                         </div>
                         <div class="member-bio-wrapper">
-                            <div class="bio-icon-box"><i class="fas fa-code"></i></div>
-                            <span class="member-bio">gtag comboss and egotistical skid</span>
+                            <span class="member-bio">gtag comboss & egotistical skid</span>
                         </div>
                         
                         <div class="member-social">
@@ -520,9 +485,7 @@
 
             <!-- ====== CO-OWNER GROUP ====== -->
             <div class="role-group" data-role="co-owner">
-                <div class="role-header-wrapper">
-                    <div class="role-header">CO-OWNER</div>
-                </div>
+                <div class="role-header">CO-OWNER</div>
 
                 <div class="member">
                     <div class="member-avatar">CL</div>
@@ -532,8 +495,7 @@
                             <span class="member-role-tag">co-owner</span>
                         </div>
                         <div class="member-bio-wrapper">
-                            <div class="bio-icon-box"><i class="fas fa-code"></i></div>
-                            <span class="member-bio">extremely advanced claude skid and gtag horror stealing god</span>
+                            <span class="member-bio">extremely advanced claude skid & gtag horror stealing god</span>
                         </div>
                         
                         <div class="member-social">
@@ -553,7 +515,6 @@
                             <span class="member-role-tag">co-owner</span>
                         </div>
                         <div class="member-bio-wrapper">
-                            <div class="bio-icon-box"><i class="fas fa-code"></i></div>
                             <span class="member-bio">Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</span>
                         </div>
                         
@@ -574,7 +535,6 @@
                             <span class="member-role-tag">co-owner</span>
                         </div>
                         <div class="member-bio-wrapper">
-                            <div class="bio-icon-box"><i class="fas fa-code"></i></div>
                             <span class="member-bio">Hi I am Zyko and I am a comboss and swat boss, and harmful af, please be scared because I ddosed google</span>
                         </div>
                         
@@ -601,24 +561,18 @@
         // --- APPLY GRADIENTS & COLORS ---
         document.addEventListener('DOMContentLoaded', function() {
             const roleColors = {
-                'founder': { light: '#ff69b4', dark: '#000000', tag: '#ff69b4' },
-                'co-owner': { light: '#9b59b6', dark: '#000000', tag: '#9b59b6' },
-                'mod-maker': { light: '#3498db', dark: '#000000', tag: '#3498db' }
+                'founder': { light: '#ff69b4', dark: '#000000' },
+                'co-owner': { light: '#9b59b6', dark: '#000000' },
+                'mod-maker': { light: '#3498db', dark: '#000000' }
             };
 
             const roleGroups = document.querySelectorAll('.role-group');
             roleGroups.forEach(group => {
                 const role = group.dataset.role;
-                const header = group.querySelector('.role-header');
                 const tags = group.querySelectorAll('.member-role-tag');
                 const names = group.querySelectorAll('.member-name h3');
 
                 if (roleColors[role]) {
-                    if(header) {
-                        header.style.background = `linear-gradient(90deg, ${roleColors[role].light}, ${roleColors[role].dark}, ${roleColors[role].light})`;
-                        header.style.backgroundSize = '200% auto';
-                        header.style.animation = 'leftRightShimmer 3s linear infinite';
-                    }
                     tags.forEach(tag => {
                         tag.style.background = `linear-gradient(90deg, ${roleColors[role].light}, ${roleColors[role].dark}, ${roleColors[role].light})`;
                         tag.style.backgroundSize = '200% auto';
