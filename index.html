@@ -79,7 +79,7 @@
             margin-right: 0.3rem;
         }
 
-        /* ---- ROLE HEADERS (like your reference) ---- */
+        /* ---- ROLE HEADERS (with gradient animation) ---- */
         .role-group {
             margin-bottom: 1.2rem;
         }
@@ -88,10 +88,18 @@
             font-weight: 700;
             letter-spacing: 0.8px;
             text-transform: uppercase;
-            color: #7a8499;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
             padding-bottom: 0.4rem;
             margin-bottom: 0.6rem;
+            /* Gradient will be applied via JavaScript */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
         /* ------------------------------------------ */
 
@@ -138,17 +146,8 @@
             font-size: 1.05rem;
             font-weight: 600;
             letter-spacing: -0.2px;
-            /* Gradient will be applied via JavaScript */
-            -webkit-background-clip: text;
+            /* Solid color — applied via JavaScript */
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            /* Animation for moving gradient */
-            background-size: 200% 100%;
-            animation: shimmer 3s linear infinite;
-        }
-        @keyframes shimmer {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
         }
         .member-role-tag {
             font-size: 0.6rem;
@@ -211,16 +210,16 @@
             <span><i class="fas fa-shield-alt"></i>@hybridprotection</span>
         </div>
 
-        <!-- ====== OWNER GROUP ====== -->
-        <div class="role-group">
-            <div class="role-header">OWNER</div>
+        <!-- ====== FOUNDER GROUP ====== -->
+        <div class="role-group" data-role="founder">
+            <div class="role-header">FOUNDER</div>
 
-            <div class="member" data-role="owner">
+            <div class="member">
                 <div class="member-avatar">VX</div>
                 <div class="member-info">
                     <div class="member-name">
                         <h3>Vexy</h3>
-                        <span class="member-role-tag">owner</span>
+                        <span class="member-role-tag">founder</span>
                     </div>
                     <div class="member-bio"><i class="fas fa-skull"></i>gtag comboss &amp; egotistical skid</div>
                 </div>
@@ -228,10 +227,10 @@
         </div>
 
         <!-- ====== CO-OWNER GROUP ====== -->
-        <div class="role-group">
+        <div class="role-group" data-role="co-owner">
             <div class="role-header">CO-OWNER</div>
 
-            <div class="member" data-role="co-owner">
+            <div class="member">
                 <div class="member-avatar">CL</div>
                 <div class="member-info">
                     <div class="member-name">
@@ -242,7 +241,7 @@
                 </div>
             </div>
 
-            <div class="member" data-role="co-owner">
+            <div class="member">
                 <div class="member-avatar">ST</div>
                 <div class="member-info">
                     <div class="member-name">
@@ -255,10 +254,10 @@
         </div>
 
         <!-- ====== MOD MAKER GROUP ====== -->
-        <div class="role-group">
+        <div class="role-group" data-role="mod-maker">
             <div class="role-header">MOD MAKER</div>
 
-            <div class="member" data-role="mod-maker">
+            <div class="member">
                 <div class="member-avatar">ZK</div>
                 <div class="member-info">
                     <div class="member-name">
@@ -279,15 +278,16 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const members = document.querySelectorAll('.member');
-
-            members.forEach(member => {
-                const role = member.dataset.role;
-                const nameElement = member.querySelector('.member-name h3');
-                if (!nameElement) return;
-
+            // --- 1. Apply gradient to ROLE HEADERS ---
+            const roleGroups = document.querySelectorAll('.role-group');
+            
+            roleGroups.forEach(group => {
+                const role = group.dataset.role;
+                const header = group.querySelector('.role-header');
+                if (!header) return;
+                
                 let gradient = '';
-                if (role === 'owner') {
+                if (role === 'founder') {
                     gradient = 'linear-gradient(90deg, #ff69b4, #000000, #ff69b4)';
                 } else if (role === 'co-owner') {
                     gradient = 'linear-gradient(90deg, #9b59b6, #000000, #9b59b6)';
@@ -296,13 +296,39 @@
                 } else {
                     gradient = 'linear-gradient(90deg, #ffffff, #888888, #ffffff)';
                 }
+                
+                header.style.background = gradient;
+                header.style.backgroundSize = '200% 100%';
+                header.style.animation = 'shimmer 3s linear infinite';
+                header.style.webkitBackgroundClip = 'text';
+                header.style.webkitTextFillColor = 'transparent';
+                header.style.backgroundClip = 'text';
+            });
 
-                nameElement.style.background = gradient;
-                nameElement.style.backgroundSize = '200% 100%';
-                nameElement.style.animation = 'shimmer 3s linear infinite';
-                nameElement.style.webkitBackgroundClip = 'text';
-                nameElement.style.webkitTextFillColor = 'transparent';
-                nameElement.style.backgroundClip = 'text';
+            // --- 2. Apply SOLID COLORS to MEMBER NAMES ---
+            const members = document.querySelectorAll('.member');
+            
+            members.forEach(member => {
+                const roleGroup = member.closest('.role-group');
+                if (!roleGroup) return;
+                
+                const role = roleGroup.dataset.role;
+                const nameElement = member.querySelector('.member-name h3');
+                if (!nameElement) return;
+                
+                let color = '';
+                if (role === 'founder') {
+                    color = '#ff69b4'; // pink
+                } else if (role === 'co-owner') {
+                    color = '#9b59b6'; // purple
+                } else if (role === 'mod-maker') {
+                    color = '#3498db'; // blue
+                } else {
+                    color = '#ffffff';
+                }
+                
+                nameElement.style.color = color;
+                nameElement.style.webkitTextFillColor = color;
             });
         });
     </script>
