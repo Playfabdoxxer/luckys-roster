@@ -52,16 +52,16 @@
             overflow-y: auto;
         }
         
-        /* --- SCROLLBAR STYLING (Far Right) --- */
+        /* --- SCROLLBAR STYLING (Skinnier & Far Right) --- */
         .roster-card::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
         }
         .roster-card::-webkit-scrollbar-track {
             background: transparent;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
         }
         .roster-card::-webkit-scrollbar-thumb {
-            background: rgba(255,50,100,0.3);
+            background: rgba(255,50,100,0.25);
             border-radius: 10px;
         }
 
@@ -87,7 +87,6 @@
         .title-text {
             font-size: 1.9rem;
             font-weight: 800;
-            /* Red to Black to Red animated gradient */
             background: linear-gradient(90deg, #ff0000, #222222, #ff0000);
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -163,6 +162,7 @@
             transform: translateY(10px);
         }
 
+        /* --- TOP TAGLINE REFINED --- */
         .tagline {
             font-size: 0.8rem;
             color: #7a8499;
@@ -171,13 +171,28 @@
             border-bottom: 1px solid rgba(255,255,255,0.03);
             display: flex;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.3rem;
+            align-items: center;
+            gap: 1rem;
+        }
+        .tagline span {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
         }
         .tagline span i {
             color: #ff6b6b;
             opacity: 0.4;
             margin-right: 0.3rem;
+        }
+        .tagline-left {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            min-width: 0;
+        }
+        .tagline-right {
+            margin-left: auto;
+            flex-shrink: 0;
         }
 
         /* ---- LARGER ROLE HEADERS (with gradient animation) ---- */
@@ -185,7 +200,7 @@
             margin-bottom: 1.8rem;
         }
         .role-header {
-            font-size: 1.4rem; /* Made much larger */
+            font-size: 1.4rem;
             font-weight: 800;
             letter-spacing: 0.5px;
             text-transform: uppercase;
@@ -204,7 +219,7 @@
 
         .member {
             display: flex;
-            align-items: center; /* Vertically centered */
+            align-items: center;
             gap: 1rem;
             padding: 0.6rem 0.4rem;
             margin-bottom: 0.1rem;
@@ -242,13 +257,13 @@
             flex-wrap: wrap;
         }
         .member-name h3 {
-            font-size: 1.1rem; /* Slightly larger name text */
+            font-size: 1.1rem;
             font-weight: 600;
             letter-spacing: -0.2px;
             -webkit-text-fill-color: transparent;
         }
-        /* Removed .member-role-tag completely */
 
+        /* --- FIXED BIO SPACING --- */
         .member-bio-wrapper {
             display: flex;
             align-items: center;
@@ -265,13 +280,14 @@
         .bio-icon {
             color: #ff6b6b;
             opacity: 0.35;
-            margin-right: 0.3rem;
             width: 1rem;
+            flex-shrink: 0;
         }
         .member-bio {
             font-size: 0.85rem;
             color: #a8b2c9;
             line-height: 1.4;
+            margin-left: 8px;
         }
 
         /* --- SOCIAL LINKS & DISCORD TAGS --- */
@@ -382,6 +398,14 @@
             .member { padding: 0.5rem 0.2rem; }
             .title-text { font-size: 1.5rem; }
             .tab-btn { font-size: 0.65rem; padding: 0.3rem 0.8rem; }
+            
+            .tagline {
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+            .tagline-right {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
@@ -413,8 +437,12 @@
 
         <!-- TAGLINE -->
         <div class="tagline">
-            <span><i class="fas fa-skull"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
-            <span><i class="fas fa-shield-alt"></i>@HybridModdingHub</span>
+            <span class="tagline-left">
+                <i class="fas fa-shield-alt"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)
+            </span>
+            <span class="tagline-right">
+                <i class="fas fa-shield-alt"></i>@HybridModdingHub
+            </span>
         </div>
 
         <!-- ====== ABOUT US TAB CONTENT ====== -->
@@ -466,7 +494,7 @@
                             <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
                         </div>
                         <div class="member-discord">
-                            <span><i class="fab fa-discord"></i> @vexydiscord</span>
+                            <span><i class="fab fa-discord"></i> @uabea.exe</span>
                         </div>
                     </div>
                 </div>
@@ -491,27 +519,7 @@
                             <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
                         </div>
                         <div class="member-discord">
-                            <span><i class="fab fa-discord"></i> @catloverdiscord</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="member">
-                    <div class="member-avatar">ST</div>
-                    <div class="member-info">
-                        <div class="member-name">
-                            <h3>Static</h3>
-                        </div>
-                        <div class="member-bio-wrapper">
-                            <i class="fas fa-code bio-icon"></i>
-                            <span class="member-bio">Gtag comboss and skidder and sucks alot of dih and i own gorilla tag im lemming</span>
-                        </div>
-                        
-                        <div class="member-social">
-                            <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
-                        </div>
-                        <div class="member-discord">
-                            <span><i class="fab fa-discord"></i> @staticdiscord</span>
+                            <span><i class="fab fa-discord"></i> @uabeaavalonia</span>
                         </div>
                     </div>
                 </div>
@@ -531,7 +539,7 @@
                             <a href="#" target="_blank"><i class="fas fa-link"></i> social.link</a>
                         </div>
                         <div class="member-discord">
-                            <span><i class="fab fa-discord"></i> @zykodiscord</span>
+                            <span><i class="fab fa-discord"></i> @realzykozzz_</span>
                         </div>
                     </div>
                 </div>
