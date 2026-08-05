@@ -167,7 +167,7 @@
             transform: translateY(10px);
         }
 
-        /* --- TOP TAGLINE REFINED --- */
+        /* --- TOP TAGLINE REFINED (Stacked Vertically) --- */
         .tagline {
             font-size: 0.8rem;
             color: #7a8499;
@@ -175,30 +175,19 @@
             padding-bottom: 0.6rem;
             border-bottom: 1px solid rgba(255,255,255,0.03);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
+            flex-direction: column; /* Stacks them vertically */
+            align-items: flex-start; /* Aligns left */
+            gap: 0.3rem;
             flex-shrink: 0;
         }
         .tagline span {
             display: flex;
             align-items: center;
-            white-space: nowrap;
         }
         .tagline span i {
             color: #ff6b6b;
             opacity: 0.4;
             margin-right: 0.3rem;
-        }
-        .tagline-left {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            min-width: 0;
-        }
-        .tagline-right {
-            margin-left: auto;
-            flex-shrink: 0;
         }
 
         /* ---- LARGER ROLE HEADERS (with gradient animation) ---- */
@@ -417,14 +406,6 @@
             .member { padding: 0.5rem 0.2rem; }
             .title-text { font-size: 1.5rem; }
             .tab-btn { font-size: 0.65rem; padding: 0.3rem 0.8rem; }
-            
-            .tagline {
-                flex-wrap: wrap;
-                justify-content: flex-start;
-            }
-            .tagline-right {
-                margin-left: 0;
-            }
         }
     </style>
 </head>
@@ -454,12 +435,12 @@
             </div>
         </div>
 
-        <!-- TAGLINE -->
+        <!-- TAGLINE (STACKED VERTICALLY) -->
         <div class="tagline">
-            <span class="tagline-left">
+            <span>
                 <i class="fas fa-shield-alt"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)
             </span>
-            <span class="tagline-right">
+            <span>
                 <i class="fas fa-shield-alt"></i>@HybridModdingHub
             </span>
         </div>
