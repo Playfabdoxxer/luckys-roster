@@ -79,60 +79,28 @@
             margin-right: 0.3rem;
         }
         
-        /* ---- AUDIO PLAYER BUTTON ---- */
-        .audio-player {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            background: rgba(255,70,70,0.04);
-            border: 1px solid rgba(255,70,70,0.08);
-            border-radius: 40px;
-            padding: 0.4rem 1.2rem 0.4rem 0.8rem;
-            margin-bottom: 1.6rem;
-            cursor: pointer;
-            transition: 0.2s;
-            width: fit-content;
+        /* ---- YOUTUBE PLAYER (MINIMAL) ---- */
+        .yt-player {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 1.6rem auto;
+            border-radius: 1.2rem;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,70,70,0.06);
+            aspect-ratio: 16 / 9;
+            background: #0a0c10;
         }
-        .audio-player:hover {
-            background: rgba(255,70,70,0.08);
-            border-color: rgba(255,70,70,0.15);
+        .yt-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
-        .audio-player i {
-            font-size: 1.2rem;
-            color: #ff6b6b;
-            width: 2rem;
-            height: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,70,70,0.06);
-            border-radius: 50%;
-            transition: 0.2s;
-        }
-        .audio-player:hover i {
-            background: rgba(255,70,70,0.12);
-        }
-        .audio-player span {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #a8b2c9;
-            letter-spacing: 0.3px;
-        }
-        .audio-player .status {
-            font-size: 0.65rem;
-            font-weight: 400;
-            color: #4a5368;
-            margin-left: 0.3rem;
-        }
-        .audio-player.playing i {
-            color: #66ff88;
-            background: rgba(100, 255, 136, 0.06);
-        }
-        .audio-player.playing span {
-            color: #66ff88;
-        }
-        /* --------------------------- */
+        /* ------------------------------ */
 
         .member {
             display: flex;
@@ -223,6 +191,7 @@
         @media (max-width: 500px) {
             .roster-card { padding: 1.5rem 1.2rem; }
             .member { padding: 0.7rem 0.3rem; }
+            .yt-player { max-width: 100%; }
         }
     </style>
 </head>
@@ -240,12 +209,11 @@
             <span><i class="fas fa-shield-alt"></i>@hybridprotection</span>
         </div>
 
-        <!-- ---- AUDIO PLAYER ---- -->
-        <div class="audio-player" id="audioPlayer">
-            <i class="fas fa-play" id="playIcon"></i>
-            <span>maxon - Sexual Fantasies <span class="status" id="audioStatus">click to play</span></span>
+        <!-- ---- YOUTUBE PLAYER (EMBED) ---- -->
+        <div class="yt-player" id="ytPlayer">
+            <!-- YouTube iframe will be injected here by the API -->
         </div>
-        <!-- ------------------------- -->
+        <!-- --------------------------------- -->
 
         <!-- OWNER -->
         <div class="member">
@@ -302,53 +270,56 @@
         </div>
     </div>
 
-    <!-- ---- AUDIO SCRIPT ---- -->
+    <!-- ---- YOUTUBE IFRAME API SCRIPT ---- -->
     <script>
-        const player = document.getElementById('audioPlayer');
-        const playIcon = document.getElementById('playIcon');
-        const statusText = document.getElementById('audioStatus');
+        // This script loads the YouTube IFrame Player API and creates the player.
+        // The video ID is extracted from your link: mFhYO2YUgOA
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        let audio = null;
-        let isPlaying = false;
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('ytPlayer', {
+                height: '100%',
+                width: '100%',
+                videoId: 'mFhYO2YUgOA',
+                playerVars: {
+                    'autoplay': 1,
+                    'mute': 1,          // Start muted to allow autoplay
+                    'loop': 1,
+                    'playlist': 'mFhYO2YUgOA',
+                    'controls': 1,
+                    'modestbranding': 1,
+                    'rel': 0,
+                    'showinfo': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
 
-        player.addEventListener('click', () => {
-            if (!audio) {
-                // Create the audio element only on first click
-                audio = new Audio('https://www.youtube.com/watch?v=mFhYO2YUgOA');
-                // YouTube URLs don't work directly in <audio> tags.
-                // We need to use a proxy or embed the YouTube player.
-                // Let's use the YouTube iframe API instead.
-                // We'll replace the audio element with an iframe approach.
-                // But for simplicity, we'll use a direct audio source if available.
-                // Since we can't use YouTube directly, we'll use a fallback:
-                // We'll open the YouTube video in a new tab or window.
-                // But that's not ideal.
-                // Instead, let's embed the YouTube player in a small iframe.
-                // We'll create an iframe that loads the video.
-                // This is the most reliable way to play YouTube audio.
-                // Let's do that.
-                // We'll replace the audio player with an iframe.
-                // But that would change the UI.
-                // Let's just open the video in a new tab.
-                // That's the simplest solution.
-                window.open('https://www.youtube.com/watch?v=mFhYO2YUgOA', '_blank');
-                return;
-            }
+        function onPlayerReady(event) {
+            // The player is ready. The video will autoplay muted.
+            // We'll unmute it after a short delay so the user hears it.
+            // But due to browser policies, we need user interaction to unmute.
+            // So we'll listen for a click anywhere on the page to unmute.
+            document.addEventListener('click', function unmuteOnClick() {
+                if (player && player.isMuted()) {
+                    player.unMute();
+                    player.setVolume(70);
+                }
+                document.removeEventListener('click', unmuteOnClick);
+            });
+        }
 
-            if (isPlaying) {
-                audio.pause();
-                isPlaying = false;
-                playIcon.className = 'fas fa-play';
-                statusText.textContent = 'paused';
-                player.classList.remove('playing');
-            } else {
-                audio.play();
-                isPlaying = true;
-                playIcon.className = 'fas fa-pause';
-                statusText.textContent = 'playing...';
-                player.classList.add('playing');
-            }
-        });
+        function onPlayerStateChange(event) {
+            // Optional: handle state changes if needed
+            // event.data is a number: -1 (unstarted), 0 (ended), 1 (playing), 2 (paused), 3 (buffering), 5 (video cued)
+        }
     </script>
 </body>
 </html>
