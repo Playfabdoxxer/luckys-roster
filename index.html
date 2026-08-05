@@ -32,12 +32,6 @@
             z-index: 0;
             display: block;
             pointer-events: none;
-            animation: fadeInBg 2s ease-in-out forwards;
-            opacity: 0;
-        }
-        @keyframes fadeInBg {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .roster-card {
@@ -49,7 +43,6 @@
             border-radius: 2.8rem;
             padding: 2.4rem 2rem;
             box-shadow: 0 30px 60px -12px rgba(0,0,0,0.9);
-            transition: 0.3s;
             position: relative;
             z-index: 1;
             max-height: 90vh;
@@ -57,7 +50,6 @@
             display: flex;
             flex-direction: column;
             border: 1px solid rgba(255, 50, 100, 0.15);
-            transition: border-color 0.5s ease, box-shadow 0.5s ease;
         }
         
         .roster-card::-webkit-scrollbar {
@@ -65,12 +57,10 @@
         }
         .roster-card::-webkit-scrollbar-track {
             background: transparent;
-            margin: 1.5rem 0;
         }
         .roster-card::-webkit-scrollbar-thumb {
             background: rgba(255,50,100,0.25);
             border-radius: 10px;
-            transition: background 0.4s ease;
         }
 
         .roster-header {
@@ -80,13 +70,11 @@
             gap: 1rem;
             border-bottom: 1px solid rgba(255,50,100,0.08);
             padding-bottom: 1rem;
-            margin-bottom: 1.6rem;
+            margin-bottom: 1.2rem;
             flex-shrink: 0;
-            transition: border-color 0.4s ease;
         }
 
         .title-container {
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -95,15 +83,15 @@
         .title-text {
             font-size: 1.9rem;
             font-weight: 800;
+            letter-spacing: -0.8px;
+            text-transform: uppercase;
+            text-align: center;
+            background: linear-gradient(90deg, #ff0000, #222222, #ff0000);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.8px;
-            text-transform: uppercase;
+            background-clip: text;
             animation: leftRightShimmer 3s linear infinite;
-            transition: opacity 0.4s ease, transform 0.4s ease, background 0.5s ease;
-            white-space: nowrap;
-            text-align: center;
         }
         @keyframes leftRightShimmer {
             0% { background-position: 0% center; }
@@ -113,14 +101,6 @@
         .title-text.hidden { display: none; }
         .title-text.active { display: block; }
 
-        .header-right {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-            width: 100%;
-        }
-        
         .nav-tabs {
             display: flex;
             gap: 0.5rem;
@@ -149,7 +129,6 @@
             background: rgba(255,50,100,0.25);
             border-color: rgba(255,50,100,0.3);
             color: #ff6b6b;
-            transition: all 0.4s ease;
         }
 
         .content-container {
@@ -174,7 +153,6 @@
             align-items: flex-start;
             gap: 0.3rem;
             flex-shrink: 0;
-            transition: border-color 0.4s ease;
         }
         .tagline span {
             display: flex;
@@ -183,10 +161,10 @@
         .tagline span i {
             opacity: 0.4;
             margin-right: 0.3rem;
-            transition: color 0.4s ease;
+            color: #ff6b6b;
         }
 
-        /* ---- FIXED ROLE HEADERS ---- */
+        /* ---- ROLE HEADERS - FIXED ---- */
         .role-group {
             margin-bottom: 1.8rem;
             width: 100%;
@@ -197,21 +175,28 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
             margin-bottom: 0.8rem;
-            
-            /* CRITICAL FIX: Forces text-only gradient */
             display: inline-block;
-            width: auto;
             padding: 0;
-            background: transparent !important; /* Fallback */
+            background: linear-gradient(90deg, #ff69b4, #000000, #ff69b4);
+            background-size: 200% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            background-size: 200% 100%;
             animation: shimmer 3s linear infinite;
         }
         @keyframes shimmer {
             0% { background-position: 0% 50%; }
             100% { background-position: 200% 50%; }
+        }
+
+        /* Co-owner header gets different gradient */
+        .role-group[data-role="co-owner"] .role-header {
+            background: linear-gradient(90deg, #9b59b6, #000000, #9b59b6);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
         }
 
         .member {
@@ -243,30 +228,30 @@
             border: 1px solid rgba(255,50,100,0.06);
             box-shadow: 0 2px 8px rgba(0,0,0,0.5);
             text-transform: uppercase;
-            transition: border-color 0.4s ease;
             margin-top: 2px;
         }
         .member-info {
             flex: 1;
         }
-        .member-name {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
         .member-name h3 {
             font-size: 1.1rem;
             font-weight: 600;
             letter-spacing: -0.2px;
-            -webkit-text-fill-color: transparent;
+            color: #ffffff;
+        }
+        /* Founder names - pink */
+        .role-group[data-role="founder"] .member-name h3 {
+            color: #ff69b4;
+        }
+        /* Co-owner names - purple */
+        .role-group[data-role="co-owner"] .member-name h3 {
+            color: #9b59b6;
         }
 
         .member-bio-wrapper {
             display: flex;
             align-items: flex-start;
             margin-top: 0.15rem;
-            transition: all 0.3s ease;
         }
         .member-bio-wrapper.hidden {
             opacity: 0;
@@ -280,7 +265,7 @@
             font-size: 0.85rem;
             margin-top: 2px;
             margin-right: 6px;
-            transition: color 0.4s ease;
+            color: #ff6b6b;
         }
         .member-bio {
             font-size: 0.85rem;
@@ -306,7 +291,7 @@
             border: 1px solid rgba(255,50,100,0.05);
             transition: 0.2s;
             word-break: break-all;
-            transition: color 0.4s ease, background 0.4s ease, border-color 0.4s ease;
+            color: #ff6b6b;
         }
         .member-social a:hover {
             background: rgba(255,50,100,0.15);
@@ -348,7 +333,6 @@
             padding-top: 1rem;
             border-top: 1px solid rgba(255,50,100,0.04);
             display: none;
-            transition: border-color 0.4s ease;
         }
         .hmh-footer-wrapper.visible {
             display: block;
@@ -372,13 +356,12 @@
             color: #d1d5e0;
             line-height: 1.6;
             font-size: 0.95rem;
-            transition: background 0.4s ease, border-color 0.4s ease;
         }
         .about-box a {
             font-weight: 600;
             text-decoration: none;
             border-bottom: 1px solid rgba(255,50,100,0.2);
-            transition: color 0.4s ease, border-color 0.4s ease;
+            color: #ff6b6b;
         }
         .about-box a:hover {
             border-bottom-color: #ff6b6b;
@@ -391,7 +374,6 @@
             padding-top: 1rem;
             border-top: 1px solid rgba(255,50,100,0.04);
             flex-shrink: 0;
-            transition: border-color 0.4s ease;
         }
         .style-btn {
             background: rgba(255,255,255,0.03);
@@ -414,9 +396,6 @@
             background: rgba(255,255,255,0.08);
             color: #ffffff;
         }
-        .style-btn i {
-            font-size: 0.8rem;
-        }
 
         .footer-note {
             display: flex;
@@ -427,17 +406,29 @@
             margin-top: 1.8rem;
             padding-top: 1rem;
             border-top: 1px solid rgba(255,50,100,0.04);
-            transition: border-color 0.4s ease;
         }
         .footer-note span i {
             opacity: 0.2;
             margin-right: 0.3rem;
-            transition: color 0.4s ease;
+            color: #ff6b6b;
         }
         .footer-note .highlight {
             opacity: 0.6;
-            transition: color 0.4s ease;
+            color: #ff6b6b;
         }
+
+        #hmhName {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+            background: linear-gradient(90deg, #888888, #000000, #888888);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
         @media (max-width: 500px) {
             .roster-card { padding: 1.5rem 1.2rem; }
             .member { padding: 0.5rem 0.2rem; }
@@ -448,12 +439,10 @@
 </head>
 <body>
     
-    <!-- CANVAS FOR THE DYNAMIC ANIMATION -->
     <canvas id="particle-canvas"></canvas>
 
     <div class="roster-card" id="rosterCard">
         
-        <!-- HEADER -->
         <div class="roster-header" id="rosterHeader">
             <div class="title-container">
                 <h1 id="mainTitle" class="title-text active">✦ hybrid roster</h1>
@@ -472,7 +461,6 @@
             </div>
         </div>
 
-        <!-- TAGLINE -->
         <div class="tagline" id="tagline">
             <span>
                 <i class="fas fa-shield-alt" id="tagIcon1"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)
@@ -482,17 +470,14 @@
             </span>
         </div>
 
-        <!-- ABOUT US TAB CONTENT -->
         <div id="aboutContainer" class="about-container">
             <div class="about-box" id="aboutBox">
                 This modding hub is a vr modding place if you want a vr game to be modded like a fangame of gorilla tag or a gtag copy join hybird we mod active games and etc so join now at <a href="https://discord.gg/Vq6DKkZaq9" target="_blank" id="aboutLink">discord.gg/Vq6DKkZaq9</a> we will see you there!!
             </div>
         </div>
 
-        <!-- WRAPPER FOR SMOOTH FADING OF ROSTER -->
         <div id="contentWrapper" class="content-container">
 
-            <!-- HMH FOOTER -->
             <div id="hmhWrapper" class="hmh-footer-wrapper">
                 <div class="member" style="padding-left: 0; padding-right: 0; margin-bottom: 0;">
                     <div class="member-avatar" style="display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: #d6c8a0;">
@@ -501,27 +486,25 @@
                     
                     <div class="member-info">
                         <div class="member-name">
-                            <h3 id="hmhName" style="font-size: 1.1rem; font-weight: 600; letter-spacing: -0.2px; -webkit-text-fill-color: transparent;">
-                                HMH
-                            </h3>
+                            <h3 id="hmhName">HMH</h3>
                         </div>
                         
                         <div class="member-bio-wrapper" style="margin-top: 0.3rem;">
                             <i class="fas fa-link bio-icon" id="hmhBioIcon" style="width: 1rem; flex-shrink: 0;"></i>
                             <span class="member-bio" style="font-size: 0.85rem; color: #a8b2c9; line-height: 1.4; margin-left: 0px;">
-                                <a href="https://discord.gg/b3emfqSxhF" target="_blank" style="text-decoration: none; font-weight: 600;">discord.gg/b3emfqSxhF</a>
+                                <a href="https://discord.gg/b3emfqSxhF" target="_blank" style="text-decoration: none; font-weight: 600; color: #ff6b6b;">discord.gg/b3emfqSxhF</a>
                             </span>
                         </div>
                     </div>
                 </div>
 
                 <div style="text-align: center; margin-top: 12px; margin-bottom: 4px;">
-                    <a href="https://discord.gg/b3emfqSxhF" target="_blank" style="display: inline-block; background: rgba(255, 50, 100, 0.15); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; padding: 0.6rem 1.8rem; border: 1px solid rgba(255, 50, 100, 0.2); border-radius: 30px; transition: 0.2s all;">
+                    <a href="https://discord.gg/b3emfqSxhF" target="_blank" style="display: inline-block; background: rgba(255, 50, 100, 0.15); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; padding: 0.6rem 1.8rem; border: 1px solid rgba(255, 50, 100, 0.2); border-radius: 30px; transition: 0.2s all; color: #ff6b6b;">
                         <i class="fab fa-discord" style="margin-right: 6px;"></i> Join HMH Discord
                     </a>
                 </div>
                 <div style="text-align: center; margin-top: 12px; margin-bottom: 4px;">
-                    <a href="https://tiktok.com/@hmhmoddinghub" target="_blank" style="display: inline-block; background: rgba(255, 50, 100, 0.15); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; padding: 0.6rem 1.8rem; border: 1px solid rgba(255, 50, 100, 0.2); border-radius: 30px; transition: 0.2s all;">
+                    <a href="https://tiktok.com/@hmhmoddinghub" target="_blank" style="display: inline-block; background: rgba(255, 50, 100, 0.15); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.75rem; padding: 0.6rem 1.8rem; border: 1px solid rgba(255, 50, 100, 0.2); border-radius: 30px; transition: 0.2s all; color: #ff6b6b;">
                         <i class="fab fa-tiktok" style="margin-right: 6px;"></i> Follow HMH Tiktok
                     </a>
                 </div>
@@ -529,13 +512,13 @@
             
             <!-- ====== FOUNDER GROUP ====== -->
             <div class="role-group" data-role="founder">
-                <div class="role-header" id="founderHeader">FOUNDER</div>
+                <div class="role-header">FOUNDER</div>
 
                 <div class="member">
                     <div class="member-avatar">LK</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3 style="color: #ff69b4;">Lucky</h3>
+                            <h3>Lucky</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -558,7 +541,7 @@
                     <div class="member-avatar">VX</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3 style="color: #ff69b4;">Vexy</h3>
+                            <h3>Vexy</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -577,13 +560,13 @@
 
             <!-- ====== CO-OWNER GROUP ====== -->
             <div class="role-group" data-role="co-owner">
-                <div class="role-header" id="coOwnerHeader">CO-OWNER</div>
+                <div class="role-header">CO-OWNER</div>
 
                 <div class="member">
                     <div class="member-avatar">CL</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3 style="color: #9b59b6;">Catlover</h3>
+                            <h3>Catlover</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -603,7 +586,7 @@
                     <div class="member-avatar">ZK</div>
                     <div class="member-info">
                         <div class="member-name">
-                            <h3 style="color: #9b59b6;">Zyko</h3>
+                            <h3>Zyko</h3>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -620,16 +603,14 @@
                 </div>
             </div>
 
-        </div> <!-- End Content Wrapper -->
+        </div>
 
-        <!-- STYLE BUTTON -->
         <div class="style-btn-wrapper" id="styleWrapper">
             <button class="style-btn" onclick="cycleTheme()">
                 <i class="fas fa-palette"></i> Style
             </button>
         </div>
 
-        <!-- FOOTER -->
         <div class="footer-note" id="footerNote">
             <span><i class="fas fa-shield-alt" id="footerIcon"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
             <span class="highlight" id="footerHighlight">@HybridModdingHub</span>
@@ -643,11 +624,11 @@
         let currentTheme = 0; 
 
         const themes = [
-            { id: 'default', main: '#ff6b6b', light: '#ff6b6b', dark: '#000000', title: 'linear-gradient(90deg, #ff0000, #222222, #ff0000)' },
-            { id: 'purple', main: '#9b59b6', light: '#b07dd6', dark: '#000000', title: 'linear-gradient(90deg, #9b59b6, #111111, #9b59b6)' },
-            { id: 'red', main: '#e74c3c', light: '#ff6961', dark: '#000000', title: 'linear-gradient(90deg, #e74c3c, #111111, #e74c3c)' },
-            { id: 'blue', main: '#3498db', light: '#6ab0e6', dark: '#000000', title: 'linear-gradient(90deg, #3498db, #111111, #3498db)' },
-            { id: 'rgb', main: 'rgb', light: 'rgb', dark: '#000000', title: 'linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000)' }
+            { id: 'default', main: '#ff6b6b', light: '#ff6b6b', dark: '#000000' },
+            { id: 'purple', main: '#9b59b6', light: '#b07dd6', dark: '#000000' },
+            { id: 'red', main: '#e74c3c', light: '#ff6961', dark: '#000000' },
+            { id: 'blue', main: '#3498db', light: '#6ab0e6', dark: '#000000' },
+            { id: 'rgb', main: 'rgb', light: 'rgb', dark: '#000000' }
         ];
 
         function cycleTheme() {
@@ -660,142 +641,139 @@
             const isDefault = theme.id === 'default';
             const isRgb = theme.id === 'rgb';
             
-            // 1. Update Background Animation
             if(isRgb) {
                 window.updateParticleColor('#ff0000', '#ff0000', true);
             } else {
                 window.updateParticleColor(theme.light, theme.main, false);
             }
 
-            // 2. Card Borders and Scrollbars
             const card = document.getElementById('rosterCard');
             if(isRgb) {
                 card.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                card.style.boxShadow = '0 30px 60px -12px rgba(0,0,0,0.9), 0 0 0 1px rgba(255, 255, 255, 0.05) inset';
             } else {
                 card.style.borderColor = isDefault ? 'rgba(255, 50, 100, 0.15)' : `rgba(${hexToRgb(theme.main)}, 0.25)`;
-                card.style.boxShadow = isDefault ? '0 30px 60px -12px rgba(0,0,0,0.9)' : `0 30px 60px -12px rgba(0,0,0,0.9), 0 0 0 1px rgba(${hexToRgb(theme.main)}, 0.08) inset`;
             }
 
-            // 3. Update Titles
+            // Update title gradient
             const titleElements = document.querySelectorAll('.title-text');
             titleElements.forEach(el => {
-                el.style.background = theme.title;
+                if(isRgb) {
+                    el.style.background = 'linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000)';
+                } else {
+                    el.style.background = `linear-gradient(90deg, ${theme.light}, ${theme.dark}, ${theme.light})`;
+                }
+                el.style.backgroundSize = '200% auto';
+                el.style.webkitBackgroundClip = 'text';
+                el.style.webkitTextFillColor = 'transparent';
+                el.style.backgroundClip = 'text';
             });
 
-            // 4. Update Role Headers (PURE TEXT GRADIENT — FIXED)
-            const founderHeader = document.getElementById('founderHeader');
-            const coOwnerHeader = document.getElementById('coOwnerHeader');
-            
-            // CRITICAL FIX: Set background and force inline-block
-            if (isRgb) {
-                founderHeader.style.background = 'linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000)';
-                coOwnerHeader.style.background = 'linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000)';
-            } else if(isDefault) {
-                founderHeader.style.background = 'linear-gradient(90deg, #ff69b4, #000000, #ff69b4)';
-                coOwnerHeader.style.background = 'linear-gradient(90deg, #9b59b6, #000000, #9b59b6)';
-            } else {
-                founderHeader.style.background = `linear-gradient(90deg, ${theme.light}, ${theme.dark}, ${theme.light})`;
-                coOwnerHeader.style.background = `linear-gradient(90deg, ${theme.light}, ${theme.dark}, ${theme.light})`;
+            // Update founder header
+            const founderHeader = document.querySelector('.role-group[data-role="founder"] .role-header');
+            if(founderHeader) {
+                if(isRgb) {
+                    founderHeader.style.background = 'linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000)';
+                } else {
+                    founderHeader.style.background = `linear-gradient(90deg, ${theme.light}, ${theme.dark}, ${theme.light})`;
+                }
+                founderHeader.style.backgroundSize = '200% 100%';
+                founderHeader.style.webkitBackgroundClip = 'text';
+                founderHeader.style.webkitTextFillColor = 'transparent';
+                founderHeader.style.backgroundClip = 'text';
             }
-            
-            // Ensure text clipping works
-            founderHeader.style.webkitBackgroundClip = 'text';
-            founderHeader.style.webkitTextFillColor = 'transparent';
-            founderHeader.style.backgroundClip = 'text';
-            founderHeader.style.display = 'inline-block';
-            founderHeader.style.width = 'auto';
-            founderHeader.style.padding = '0';
-            
-            coOwnerHeader.style.webkitBackgroundClip = 'text';
-            coOwnerHeader.style.webkitTextFillColor = 'transparent';
-            coOwnerHeader.style.backgroundClip = 'text';
-            coOwnerHeader.style.display = 'inline-block';
-            coOwnerHeader.style.width = 'auto';
-            coOwnerHeader.style.padding = '0';
 
-            // 5. Update Icons
-            const icons = document.querySelectorAll('.tagline i, .bio-icon, .footer-note i');
-            if(isRgb) {
-                icons.forEach(el => { el.style.color = '#ff0000'; });
-            } else {
-                icons.forEach(el => { el.style.color = isDefault ? '#ff6b6b' : theme.main; });
+            // Update co-owner header
+            const coOwnerHeader = document.querySelector('.role-group[data-role="co-owner"] .role-header');
+            if(coOwnerHeader) {
+                if(isRgb) {
+                    coOwnerHeader.style.background = 'linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000)';
+                } else {
+                    coOwnerHeader.style.background = `linear-gradient(90deg, ${theme.light}, ${theme.dark}, ${theme.light})`;
+                }
+                coOwnerHeader.style.backgroundSize = '200% 100%';
+                coOwnerHeader.style.webkitBackgroundClip = 'text';
+                coOwnerHeader.style.webkitTextFillColor = 'transparent';
+                coOwnerHeader.style.backgroundClip = 'text';
             }
-            
-            // 6. Update HMH Gradients & Button Colors
+
+            // Update founder names (pink → theme color)
+            const founderNames = document.querySelectorAll('.role-group[data-role="founder"] .member-name h3');
+            founderNames.forEach(name => {
+                if(isRgb) {
+                    name.style.color = '#ff0000';
+                } else {
+                    name.style.color = theme.main;
+                }
+            });
+
+            // Update co-owner names (purple → theme color)
+            const coOwnerNames = document.querySelectorAll('.role-group[data-role="co-owner"] .member-name h3');
+            coOwnerNames.forEach(name => {
+                if(isRgb) {
+                    name.style.color = '#ff0000';
+                } else {
+                    name.style.color = theme.main;
+                }
+            });
+
+            // Update icons
+            const icons = document.querySelectorAll('.tagline i, .bio-icon, .footer-note i, #hmhBioIcon');
+            icons.forEach(el => {
+                if(isRgb) {
+                    el.style.color = '#ff0000';
+                } else {
+                    el.style.color = theme.main;
+                }
+            });
+
+            // Update HMH name
             const hmhName = document.getElementById('hmhName');
-            if(isRgb) {
-                hmhName.style.background = 'linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000)';
-            } else {
-                hmhName.style.background = `linear-gradient(90deg, #888888, ${theme.dark}, #888888)`;
-            }
-            hmhName.style.webkitBackgroundClip = 'text';
-            hmhName.style.webkitTextFillColor = 'transparent';
-            hmhName.style.backgroundClip = 'text';
-            
-            const hmhBioIcon = document.getElementById('hmhBioIcon');
-            if(isRgb) {
-                hmhBioIcon.style.color = '#ff0000';
-            } else {
-                hmhBioIcon.style.color = isDefault ? '#ff6b6b' : theme.main;
+            if(hmhName) {
+                if(isRgb) {
+                    hmhName.style.background = 'linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000)';
+                } else {
+                    hmhName.style.background = `linear-gradient(90deg, ${theme.light}, ${theme.dark}, ${theme.light})`;
+                }
+                hmhName.style.backgroundSize = '200% 100%';
+                hmhName.style.webkitBackgroundClip = 'text';
+                hmhName.style.webkitTextFillColor = 'transparent';
+                hmhName.style.backgroundClip = 'text';
             }
 
-            // 7. Update Social Link Colors
-            const socialLinks = document.querySelectorAll('.member-social a');
-            const rgbBtnColor = 'rgba(255, 0, 0, 0.1)';
-            const rgbBorderColor = 'rgba(255, 0, 0, 0.2)';
+            // Update social links
+            const socialLinks = document.querySelectorAll('.member-social a, #hmhWrapper a[style*="display: inline-block"]');
             socialLinks.forEach(link => {
                 if(isRgb) {
                     link.style.color = '#ff0000';
-                    link.style.borderColor = rgbBorderColor;
-                    link.style.background = rgbBtnColor;
+                    link.style.borderColor = 'rgba(255, 0, 0, 0.3)';
+                    link.style.background = 'rgba(255, 0, 0, 0.15)';
                 } else {
-                    link.style.color = isDefault ? '#ff6b6b' : theme.main;
-                    link.style.borderColor = isDefault ? 'rgba(255,50,100,0.05)' : `rgba(${hexToRgb(theme.main)}, 0.2)`;
-                    link.style.background = isDefault ? 'rgba(255,50,100,0.08)' : `rgba(${hexToRgb(theme.main)}, 0.1)`;
+                    link.style.color = theme.main;
+                    link.style.borderColor = `rgba(${hexToRgb(theme.main)}, 0.3)`;
+                    link.style.background = `rgba(${hexToRgb(theme.main)}, 0.15)`;
                 }
             });
 
-            // 8. Update HMH Buttons
-            const btns = document.querySelectorAll('#hmhWrapper a[style*="display: inline-block"]');
-            btns.forEach(btn => {
-                if(isRgb) {
-                    btn.style.color = '#ff0000';
-                    btn.style.borderColor = 'rgba(255, 0, 0, 0.3)';
-                    btn.style.background = 'rgba(255, 0, 0, 0.15)';
-                } else {
-                    btn.style.color = isDefault ? '#ff6b6b' : theme.main;
-                    btn.style.borderColor = isDefault ? 'rgba(255, 50, 100, 0.2)' : `rgba(${hexToRgb(theme.main)}, 0.3)`;
-                    btn.style.background = isDefault ? 'rgba(255, 50, 100, 0.15)' : `rgba(${hexToRgb(theme.main)}, 0.15)`;
-                }
-            });
-
-            // 9. Update About Tab Colors
-            const aboutBox = document.getElementById('aboutBox');
+            // Update about link
             const aboutLink = document.getElementById('aboutLink');
-            if(isRgb) {
-                aboutBox.style.borderColor = 'rgba(255, 0, 0, 0.15)';
-                aboutBox.style.background = 'rgba(255, 0, 0, 0.05)';
-                aboutLink.style.color = '#ff0000';
-                aboutLink.style.borderBottomColor = 'rgba(255, 0, 0, 0.2)';
-            } else {
-                aboutBox.style.borderColor = isDefault ? 'rgba(255,50,100,0.10)' : `rgba(${hexToRgb(theme.main)}, 0.15)`;
-                aboutBox.style.background = isDefault ? 'rgba(255, 50, 100, 0.04)' : `rgba(${hexToRgb(theme.main)}, 0.05)`;
-                aboutLink.style.color = isDefault ? '#ff6b6b' : theme.main;
-                aboutLink.style.borderBottomColor = isDefault ? 'rgba(255,50,100,0.2)' : `rgba(${hexToRgb(theme.main)}, 0.2)`;
+            if(aboutLink) {
+                if(isRgb) {
+                    aboutLink.style.color = '#ff0000';
+                    aboutLink.style.borderBottomColor = 'rgba(255, 0, 0, 0.2)';
+                } else {
+                    aboutLink.style.color = theme.main;
+                    aboutLink.style.borderBottomColor = `rgba(${hexToRgb(theme.main)}, 0.2)`;
+                }
             }
 
-            // 10. Update Borders
-            document.getElementById('tagline').style.borderColor = isDefault ? 'rgba(255,255,255,0.03)' : `rgba(${hexToRgb(theme.main)}, 0.05)`;
-            document.getElementById('rosterHeader').style.borderColor = isDefault ? 'rgba(255,50,100,0.08)' : `rgba(${hexToRgb(theme.main)}, 0.1)`;
-            document.getElementById('footerNote').style.borderColor = isDefault ? 'rgba(255,50,100,0.04)' : `rgba(${hexToRgb(theme.main)}, 0.05)`;
-            document.getElementById('styleWrapper').style.borderColor = isDefault ? 'rgba(255,50,100,0.04)' : `rgba(${hexToRgb(theme.main)}, 0.05)`;
-            
+            // Update footer highlight
             const highlight = document.getElementById('footerHighlight');
-            if(isRgb) {
-                highlight.style.color = '#ff0000';
-            } else {
-                highlight.style.color = isDefault ? '#ff6b6b' : theme.main;
+            if(highlight) {
+                if(isRgb) {
+                    highlight.style.color = '#ff0000';
+                } else {
+                    highlight.style.color = theme.main;
+                }
             }
         }
 
@@ -896,7 +874,6 @@
         let currentColor = '#ff6b6b';
         let currentLightColor = '#ff6b6b';
         let isRgbMode = false;
-        let rgbOffset = 0;
 
         function init() {
             width = canvas.width = window.innerWidth;
