@@ -267,6 +267,12 @@
         .member-info {
             flex: 1;
         }
+        .member-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
         .member-name h3 {
             font-size: 1.1rem;
             font-weight: 600;
@@ -282,6 +288,33 @@
         .role-group[data-role="co-owner"] .member-name h3 {
             color: #a855f7;
         }
+
+        /* --- LIKES / CROWN FEATURE --- */
+        .like-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: #7a8499;
+            transition: all 0.2s ease;
+            user-select: none;
+            margin-left: 2px;
+        }
+        .like-container:hover {
+            color: #ff3b6f;
+            transform: scale(1.05);
+        }
+        .like-container.liked {
+            color: #ff3b6f;
+        }
+        .crown-icon {
+            color: #fbbf24;
+            margin-left: 4px;
+            font-size: 0.9rem;
+            filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.4));
+        }
+        /* --------------------------------------- */
 
         .member-bio-wrapper {
             display: flex;
@@ -439,6 +472,7 @@
             color: #ffffff;
         }
 
+        /* --- FOOTER & VIEW COUNTER --- */
         .footer-note {
             display: flex;
             justify-content: space-between;
@@ -461,6 +495,15 @@
             color: #ff3b6f;
             transition: color 0.4s ease;
         }
+        .footer-note .view-counter {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .footer-note .view-counter i {
+            opacity: 0.6;
+        }
+        /* --------------------------------------- */
 
         #hmhName {
             font-size: 1.1rem;
@@ -565,6 +608,9 @@
                     <div class="member-info">
                         <div class="member-name">
                             <h3>Lucky</h3>
+                            <span class="like-container" data-id="lucky" onclick="handleLike(this)">
+                                <i class="fas fa-heart"></i> <span class="like-count">0</span>
+                            </span>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -588,6 +634,9 @@
                     <div class="member-info">
                         <div class="member-name">
                             <h3>Vexy</h3>
+                            <span class="like-container" data-id="vexy" onclick="handleLike(this)">
+                                <i class="fas fa-heart"></i> <span class="like-count">0</span>
+                            </span>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -613,6 +662,9 @@
                     <div class="member-info">
                         <div class="member-name">
                             <h3>Catlover</h3>
+                            <span class="like-container" data-id="catlover" onclick="handleLike(this)">
+                                <i class="fas fa-heart"></i> <span class="like-count">0</span>
+                            </span>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -633,6 +685,9 @@
                     <div class="member-info">
                         <div class="member-name">
                             <h3>Zyko</h3>
+                            <span class="like-container" data-id="zyko" onclick="handleLike(this)">
+                                <i class="fas fa-heart"></i> <span class="like-count">0</span>
+                            </span>
                         </div>
                         <div class="member-bio-wrapper">
                             <i class="fas fa-code bio-icon"></i>
@@ -658,12 +713,94 @@
         </div>
 
         <div class="footer-note" id="footerNote">
-            <span><i class="fas fa-shield-alt" id="footerIcon"></i>Dm @apktoolkit.exe to get put on the team (must be a good modder)</span>
+            <span class="view-counter">
+                <i class="fas fa-eye" id="footerIcon"></i> <span id="viewCount">0</span> Views
+            </span>
             <span class="highlight" id="footerHighlight">@HybridModdingHub</span>
         </div>
     </div>
 
     <script>
+        // ==========================================
+        // VIEW COUNTER (Local Storage)
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            let views = localStorage.getItem('hybridRosterViews');
+            if (views === null) {
+                views = 1;
+            } else {
+                views = parseInt(views) + 1;
+            }
+            localStorage.setItem('hybridRosterViews', views);
+            document.getElementById('viewCount').innerText = views;
+        });
+
+        // ==========================================
+        // LIKE SYSTEM (Local Storage)
+        // ==========================================
+        function handleLike(element) {
+            const id = element.getAttribute('data-id');
+            const countSpan = element.querySelector('.like-count');
+            let likes = JSON.parse(localStorage.getItem('hybridRosterLikes')) || {};
+
+            if (!likes[id]) {
+                likes[id] = 0;
+            }
+
+            // Toggle like (increment by 1, simple interaction)
+            likes[id] += 1;
+            localStorage.setItem('hybridRosterLikes', JSON.stringify(likes));
+            
+            // Update UI
+            countSpan.innerText = likes[id];
+            element.classList.add('liked');
+
+            // Update Crowns
+            updateCrowns();
+        }
+
+        function updateCrowns() {
+            const likes = JSON.parse(localStorage.getItem('hybridRosterLikes')) || {};
+            const likeContainers = document.querySelectorAll('.like-container');
+            let maxLikes = 0;
+            let topId = null;
+
+            // Find the highest number
+            likeContainers.forEach(el => {
+                const id = el.getAttribute('data-id');
+                const count = likes[id] || 0;
+                if (count > maxLikes) {
+                    maxLikes = count;
+                    topId = id;
+                }
+            });
+
+            // Remove existing crowns and add to the winner
+            document.querySelectorAll('.crown-icon').forEach(c => c.remove());
+            if (topId && maxLikes > 0) {
+                const winner = document.querySelector(`.like-container[data-id="${topId}"]`);
+                if (winner) {
+                    const crown = document.createElement('span');
+                    crown.className = 'crown-icon';
+                    crown.innerHTML = '👑';
+                    winner.parentElement.appendChild(crown);
+                }
+            }
+        }
+
+        // Initialize likes from storage on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const likes = JSON.parse(localStorage.getItem('hybridRosterLikes')) || {};
+            document.querySelectorAll('.like-container').forEach(el => {
+                const id = el.getAttribute('data-id');
+                if (likes[id]) {
+                    el.querySelector('.like-count').innerText = likes[id];
+                    if (likes[id] > 0) el.classList.add('liked');
+                }
+            });
+            updateCrowns();
+        });
+
         // ==========================================
         // THEME SWITCHING ENGINE 
         // ==========================================
